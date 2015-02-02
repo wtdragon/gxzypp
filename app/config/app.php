@@ -123,6 +123,7 @@ return array(
 		'Illuminate\Workbench\WorkbenchServiceProvider',
 		'Way\Generators\GeneratorsServiceProvider',
 		'Jacopo\Authentication\AuthenticationServiceProvider',
+		'Maatwebsite\Excel\ExcelServiceProvider',
 
 	),
 
