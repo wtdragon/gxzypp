@@ -11,7 +11,23 @@
 |
 */
 
-Route::get('/', function()
-{
-	return View::make('hello');
+Route::get('/', function() {
+  return Redirect::to("colleges");
+});
+
+Route::get('about', function(){
+  return View::make('about')->with('number_of_cats', 9000);
+});
+
+
+Route::get('colleges', function(){
+  $colleges = College::all();
+  return View::make('colleges/index')
+    ->with('colleges', $colleges);
+});
+
+Route::get('colleges/{id}', function($id) {
+	$college = College::find($id);
+  return View::make('colleges.single')
+    ->with('college', $college);
 });

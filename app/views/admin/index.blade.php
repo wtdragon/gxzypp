@@ -1,0 +1,1 @@
+D:\xampp\htdocs\gxzypp\gxzypp\app/views/admin/index.blade.php
