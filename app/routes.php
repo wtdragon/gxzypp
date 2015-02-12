@@ -11,8 +11,27 @@
 |
 */
 
-Route::get('/', function() {
-  return Redirect::to("colleges");
+/*Route::get('/', function() {
+//  return Redirect::to("home");
+//});
+ * 
+ */
+Route::get('/', 'HomeController@showHome');
+/*
+ * 
+
+ Route::get('/', function() {
+  return Redirect::to("home");
+});
+  */
+  
+
+Route::group(array('prefix' => '/', 'before' => 'auth'), function()
+{
+     //return View::make('home');
+});
+Route::get('home', function() {
+  return View::make('home');
 });
 
 Route::get('about', function(){

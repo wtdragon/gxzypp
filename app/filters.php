@@ -54,6 +54,7 @@ Route::filter('auth.basic', function()
 	return Auth::basic();
 });
 
+
 /*
 |--------------------------------------------------------------------------
 | Guest Filter
@@ -69,6 +70,7 @@ Route::filter('guest', function()
 {
 	if (Auth::check()) return Redirect::to('/');
 });
+
 
 /*
 |--------------------------------------------------------------------------

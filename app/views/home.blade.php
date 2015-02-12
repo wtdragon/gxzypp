@@ -1,1 +1,7 @@
-D:\xampp\htdocs\gxzypp\gxzypp\app/views/home.blade.php
+@extends('master')
+@section('header')
+@stop
+@section('content')
+@stop
+@section('bootor')
+@stop
