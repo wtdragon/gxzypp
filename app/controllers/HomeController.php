@@ -18,12 +18,33 @@ class HomeController extends BaseController {
 	public function showHome()
 	{   
 		//$userlogged=array(str_replace(':','=>',App::make('authenticator')->getLoggedUser()));	
-        
-        
-        $userLogged=App::make('authenticator')->getLoggedUser();
+		 $userLogedid = Cookie::get('userid');
+		 $userLogged=App::make('authenticator')->getLoggedUser();
+		 if($userLogged==null){
+		 $userID=0;
+		 }
+		 elseif($userLogedid!=null)
+		 {$userID=$userLogedid;
+		 }
+		 else {
+		 	$userID=$userLogged->id;
+		 }
+		//$session=Session::put('userid',$userID);
+		//Session::push('userid',$userID);
+		$cookie = Cookie::make('userid',$userID);
+		return Response::view('home')->withCookie($cookie);
+        /*
+		 | 使用acl组件得到用户信息
+		 | 
+         ×/
+		 
+       
 		$userID=$userLogged->id;
-		$userPermission=$userLogged->permissions;
-		return $userPermission;
+		//$session=Session::put('userid',$userID);
+		//Session::push('userid',$userID);
+		$cookie = Cookie::make('userid',$userID);
+		return Response::view('home')->withCookie($cookie);
+         //return Response::view('home')->withSession($session);;
 		// $arr=json_decode($userlogged);
 		/*
 		 * 
