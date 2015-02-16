@@ -1,1 +1,8 @@
-D:\xampp\htdocs\gxzypp\gxzypp\app/views/specialties/index.blade.php
+@extends('master')
+@section('header')
+@stop
+@section('content')
+    <p>This is specialities content.</p>
+@stop
+@section('bootor')
+@stop

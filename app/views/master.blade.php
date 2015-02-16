@@ -48,7 +48,7 @@
 @else
    <a href="{{URL::to('login')}}" class="btn btn-default" type="button">注册登录</a> 
 @endif
-				<a href='"{{URL::to('about')}}"' class="btn btn-default" type="button">关于我们</a> {{{ date("Y年m月d") }}} 
+				<a href="/about" class="btn btn-default" type="button">关于我们</a> {{{ date("Y年m月d") }}} 
 		</div>
 	</div>
 	<div class="row clearfix">

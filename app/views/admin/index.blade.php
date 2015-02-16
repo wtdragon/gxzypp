@@ -1,1 +1,8 @@
-D:\xampp\htdocs\gxzypp\gxzypp\app/views/admin/index.blade.php
+@extends('master')
+@section('header')
+@stop
+@section('content')
+    <p>This is admin content.</p>
+@stop
+@section('bootor')
+@stop
