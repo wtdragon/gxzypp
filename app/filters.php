@@ -13,7 +13,9 @@
 
 App::before(function($request)
 {
-	//
+	//get user info use acl 插件 返回userid
+
+	
 });
 
 

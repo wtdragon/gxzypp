@@ -42,7 +42,13 @@
 		</div>
 		<div class="col-md-4 column c1">
 			<div class="bg2">
-				 <a href='/'  class="btn btn-default" type="button">首页</a> <a href='/login' class="btn btn-default" type="button">注册登录</a> <a href='/about' class="btn btn-default" type="button">关于我们</a> {{{ date("Y年m月d") }}} 
+				 <a href="{{URL::to('/')}}"  class="btn btn-default" type="button">首页</a> 
+				@if(App::make('authenticator')->getLoggedUser())
+    <a href="{{URL::to('users')}}" class="btn btn-default" type="button">用户中心</a> 
+@else
+   <a href="{{URL::to('login')}}" class="btn btn-default" type="button">注册登录</a> 
+@endif
+				<a href='"{{URL::to('about')}}"' class="btn btn-default" type="button">关于我们</a> {{{ date("Y年m月d") }}} 
 		</div>
 	</div>
 	<div class="row clearfix">
