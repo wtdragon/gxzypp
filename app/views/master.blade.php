@@ -59,14 +59,14 @@
 		</div>
 		<div class="col-md-4 column">
 			<div class="btn-group btn-group1">
-				 <button class="btn btn-default" type="button">志愿匹配</button> <button class="btn btn-default" type="button">院校搜索</button> <button class="btn btn-default" type="button">专业搜索</button> <button class="btn btn-default" type="button">培训信息</button>
+				<a href="{{URL::to('matches')}}" class="btn btn-default" type="button">志愿匹配</a> <a href="/colleges"  class="btn btn-default" type="button">院校搜索</a> <a href="/specialties "  class="btn btn-default" type="button">专业搜索</a> <a href="/trainings" class="btn btn-default" type="button">培训信息</a>
 			</div>
 		</div>
 		@yield('header')
 	</div>
 
 	<div class="row clearfix">
-			@yield('content')
+		@yield('content')
 	</div>
 
 	<div class="row clearfix b1">
