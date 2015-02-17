@@ -1,0 +1,22 @@
+.header-row {
+margin-top:1px;
+}
+.bg2 {
+    height:20px;
+    float:right;
+}
+.c1 {
+	margin-top:5px;
+}
+.t1 {
+	width:18%;
+	margin: 10px;
+}
+.b1 { 
+	margin: 20px;
+}
+.btn-group1 {
+    background-color: #f49800;
+	width:600px;
+	margin-top:50px;
+}
