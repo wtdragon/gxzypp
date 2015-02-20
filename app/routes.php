@@ -35,7 +35,7 @@ Route::get('home', function() {
 });
 //关于页面
 Route::get('about', function(){
-  return View::make('about')->with('number_of_cats', 9000);
+  return View::make('about');
 });
 //用户中心
 Route::get('users', function(){
@@ -54,12 +54,18 @@ Route::get('specialties ', function(){
   return View::make('specialties/index')->with('userid', $_COOKIE['userid']);
 });
 //院校资讯
+/*
 Route::get('colleges', function(){
   $colleges = College::all();
   return View::make('colleges/index')
     ->with('colleges', $colleges);
 });
-
+*/
+Route::group(array('prefix' => 'colleges'), function()
+{
+Route::any('/', 'App\Controllers\College\ArticlesController@index');
+Route::resource('articles', 'App\Controllers\College\ArticlesController');
+});
 Route::get('colleges/{id}', function($id) {
 	$college = College::find($id);
   return View::make('colleges.single')
@@ -68,4 +74,8 @@ Route::get('colleges/{id}', function($id) {
 //通用搜索
 Route::get('search ', function(){
   return View::make('search/index')->with('userid', $_COOKIE['userid']);
+});
+//管理端
+Route::get('admin ', function(){
+  return View::make('admin/index')->with('userid', $_COOKIE['userid']);
 });

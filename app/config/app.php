@@ -124,6 +124,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Jacopo\Authentication\AuthenticationServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
+		'Krucas\Notification\NotificationServiceProvider',
 
 	),
 
@@ -191,6 +192,7 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
+		'Notification' => 'Krucas\Notification\Facades\Notification'
 
 	),
 
