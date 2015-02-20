@@ -124,7 +124,7 @@ return array(
 		'Way\Generators\GeneratorsServiceProvider',
 		'Jacopo\Authentication\AuthenticationServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
-		'Krucas\Notification\NotificationServiceProvider',
+		'Krucas\Notification\NotificationServiceProvider'
 
 	),
 

@@ -2,6 +2,7 @@
 @section('header')
 @stop
 @section('content')
+{{ Notification::showAll() }}
 <table class="table table-striped">
 <thead>
 <tr>

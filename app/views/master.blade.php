@@ -12,8 +12,8 @@
 	<!--script src="images/js/less-1.3.3.min.js"></script-->
 	<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
 	
-	<link href="images/css/bootstrap.min.css" rel="stylesheet">
-	<link href="images/css/style.css" rel="stylesheet">
+	<link href={{ URL::asset('images/css/bootstrap.min.css') }} rel="stylesheet">
+	<link href={{ URL::asset('images/css/style.css') }} rel="stylesheet">
 
   <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
   <!--[if lt IE 9]>
@@ -27,9 +27,9 @@
   <link rel="apple-touch-icon-precomposed" href="images/img/apple-touch-icon-57-precomposed.png">
   <link rel="shortcut icon" href="images/img/favicon.png">
   
-	<script type="text/javascript" src="images/js/jquery.min.js"></script>
-	<script type="text/javascript" src="images/js/bootstrap.min.js"></script>
-	<script type="text/javascript" src="images/js/scripts.js"></script>
+	<script type="text/javascript" src={{ URL::asset('images/js/jquery.min.js') }}></script>
+	<script type="text/javascript" src={{ URL::asset('images/js/bootstrap.min.js') }}></script>
+	<script type="text/javascript" src={{ URL::asset('images/js/scripts.js') }}></script>
 </head>
 
 <body>
@@ -53,7 +53,7 @@
 	</div>
 	<div class="row clearfix">
 		<div class="col-md-2 column c1">
-			<img alt="200x30" src="images/img/logo.png">
+			<img alt="200x30" src={{ URL::asset('images/img/logo.png') }}>
 		</div>
 		<div class="col-md-6 column">
 		</div>
@@ -75,7 +75,7 @@
 		</div>
 		<div class="col-md-6 column">
 			<div class="btn-group">
-				 <img alt="231x31" src="images/img/share.png">	</div>
+				 <img alt="231x31" src={{ URL::asset('images/img/share.png') }}>	</div>
 		</div>
 	</div>
 	@yield('bootor')
