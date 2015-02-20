@@ -3,6 +3,7 @@
 @stop
 @section('content')
 <h2>编辑页面</h2>
+{{ Notification::showAll() }}
 @if ($errors->any())
 <div class="alert alert-error">
 {{ implode('<br>', $errors->all()) }}

@@ -40,8 +40,7 @@
 		</div>
 		<div class="col-md-6 column">
 		</div>
-		<div class="col-md-4 column c1">
-			<div class="bg2">
+		<div class="col-md-4 column c1 clearfix bg2">
 				 <a href="{{URL::to('/')}}"  class="btn btn-default" type="button">首页</a> 
 				@if(App::make('authenticator')->getLoggedUser())
     <a href="{{URL::to('users')}}" class="btn btn-default" type="button">用户中心</a> 
@@ -51,13 +50,11 @@
 				<a href="/about" class="btn btn-default" type="button">关于我们</a> {{{ date("Y年m月d") }}} 
 		</div>
 	</div>
-	<div class="row clearfix">
-		<div class="col-md-2 column c1">
+	<div class="row clearfix bordor_bgcolor">
+		<div class="col-md-4 column c1">
 			<img alt="200x30" src={{ URL::asset('images/img/logo.png') }}>
 		</div>
-		<div class="col-md-6 column">
-		</div>
-		<div class="col-md-4 column">
+		<div class="col-md-8 clearfix mp0_right">
 			<div class="btn-group btn-group1">
 				<a href="{{URL::to('matches')}}" class="btn btn-default" type="button">志愿匹配</a> <a href="/colleges"  class="btn btn-default" type="button">院校搜索</a> <a href="/specialties "  class="btn btn-default" type="button">专业搜索</a> <a href="/trainings" class="btn btn-default" type="button">培训信息</a>
 			</div>
