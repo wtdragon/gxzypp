@@ -61,16 +61,15 @@ Route::get('colleges', function(){
     ->with('colleges', $colleges);
 });
 */
+
 Route::group(array('prefix' => 'colleges'), function()
 {
 Route::any('/', 'App\Controllers\College\ArticlesController@index');
 Route::resource('articles', 'App\Controllers\College\ArticlesController');
+Route::resource('search', 'App\Controllers\College\SearchController');
 });
-Route::get('colleges/{id}', function($id) {
-	$college = College::find($id);
-  return View::make('colleges.single')
-    ->with('college', $college);
-});
+
+
 //通用搜索
 Route::get('search ', function(){
   return View::make('search/index')->with('userid', $_COOKIE['userid']);

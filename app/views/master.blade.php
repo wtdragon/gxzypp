@@ -55,15 +55,19 @@
 			<img alt="200x30" src={{ URL::asset('images/img/logo.png') }}>
 		</div>
 		<div class="col-md-8 clearfix mp0_right">
-			<div class="btn-group btn-group1">
-				<a href="{{URL::to('matches')}}" class="btn btn-default" type="button">志愿匹配</a> <a href="/colleges"  class="btn btn-default" type="button">院校搜索</a> <a href="/specialties "  class="btn btn-default" type="button">专业搜索</a> <a href="/trainings" class="btn btn-default" type="button">培训信息</a>
-			</div>
+			 
+			 <div class="btn-group btn-group1">
+			 	<a href="{{URL::to('matches')}}" class="btn btn-default" type="button">志愿匹配</a> <a href="{{URL::to('colleges/search')}}"  class="btn btn-default" type="button">院校搜索</a> <a href="/specialties "  class="btn btn-default" type="button">专业搜索</a> <a href="/trainings" class="btn btn-default" type="button">培训信息</a>
+			 </div>
 		</div>
 		@yield('header')
 	</div>
 
 	<div class="row clearfix">
+		
 		@yield('content')
+
+	</div>
 	</div>
 
 	<div class="row clearfix b1">

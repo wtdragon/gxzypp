@@ -42,18 +42,8 @@ class ArticlesController extends \BaseController {
 	public function store()
 	{
 		//
-		$validation = new ArticleValidator;
-            if ($validation->passes())
-            {
-              $article = new Article;
-              $article->title = Input::get('title');
-              $article->body = Input::get('body');
-              $article->user_id = Sentry::getUser()->id;
-              $article->save();
-              Notification::success('新增页面成功！');
-              return Redirect::route('colleges.articles.edit', $article->id);
 	}
-	}
+
 	/**
 	 * Display the specified resource.
 	 * GET /college/articles/{id}
@@ -91,7 +81,6 @@ class ArticlesController extends \BaseController {
 	public function update($id)
 	{
 		//
-		
 	}
 
 	/**

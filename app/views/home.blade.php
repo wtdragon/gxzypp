@@ -53,9 +53,9 @@
 	<div class="row clearfix">
 		<div class="col-md-4 column t1">
 				<img alt="150x150" src="images/img/colleges.jpg">
-			<h2>
-				院校资讯
-			</h2>
+			
+				<a href="{{URL::to('colleges/articles')}}"><h2>院校资讯</h2></a>
+			
 			<p>
 				九子高考志愿匹配网为您提供权威的、全面的职业院校新闻资讯和招生信息。为您对于院校及专业的情况了解进行科学系统的导向。	</p>
 			
