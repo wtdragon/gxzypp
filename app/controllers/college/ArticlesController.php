@@ -5,7 +5,7 @@ namespace App\Controllers\College;
 use Article;
 use Input, Notification, Redirect, Sentry, Str;
 
-use App\Services\Validators\PageValidator;
+use App\Services\Validators\ArticleValidator;
 
 class ArticlesController extends \BaseController {
 

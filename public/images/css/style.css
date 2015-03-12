@@ -14,12 +14,13 @@ margin-top:1px;
 	margin: 10px;
 }
 .b1 { 
-	margin: 20px;
+	margin:0;
+	padding:0;
 }
 .btn-group1 {
     background-color: #f49800;
 	width:600px;
-	margin-top:50px;
+	margin-top:25px;
 	height:80px;
 	float:right;
 }
@@ -39,13 +40,36 @@ margin-top:1px;
 .p-wid{
 	width:150px;
 	text-align: left;
-	margin-left: 20px;
+margin:0;
+	padding:0;
 }
 .bordor_bgcolor{
 	border-bottom:4px solid #0057ae;
-	margin-right:15px;
+	margin:0;
+	padding:0;
 }
 .mp0_right{
-	margin-right:0px;
-	padding-right:0px;
+	margin:0;
+	padding:0;
+}
+.fc_search{ 
+	width:70%;
+}
+.btn1{ 
+	margin-top:32px;
+}
+.img1{ 
+	width:100%;
+	margin:0;
+	padding:0;
+}
+.fbg{
+	background-color:#898989;
+	margin:0;
+	padding:0;
+	
+}
+.pdl0{
+	 padding-left:38px;
+	
 }

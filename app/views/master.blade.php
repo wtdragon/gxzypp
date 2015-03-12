@@ -30,6 +30,7 @@
 	<script type="text/javascript" src={{ URL::asset('images/js/jquery.min.js') }}></script>
 	<script type="text/javascript" src={{ URL::asset('images/js/bootstrap.min.js') }}></script>
 	<script type="text/javascript" src={{ URL::asset('images/js/scripts.js') }}></script>
+     @yield('hdsrc')
 </head>
 
 <body>
@@ -45,7 +46,7 @@
 				@if(App::make('authenticator')->getLoggedUser())
     <a href="{{URL::to('users')}}" class="btn btn-default" type="button">用户中心</a> 
 @else
-   <a href="{{URL::to('login')}}" class="btn btn-default" type="button">注册登录</a> 
+   <a href="{{URL::to('users')}}" class="btn btn-default" type="button">注册登录</a> 
 @endif
 				<a href="/about" class="btn btn-default" type="button">关于我们</a> {{{ date("Y年m月d") }}} 
 		</div>
@@ -56,28 +57,26 @@
 		</div>
 		<div class="col-md-8 clearfix mp0_right">
 			 
-			 <div class="btn-group btn-group1">
-			 	<a href="{{URL::to('matches')}}" class="btn btn-default" type="button">志愿匹配</a> <a href="{{URL::to('colleges/search')}}"  class="btn btn-default" type="button">院校搜索</a> <a href="/specialties "  class="btn btn-default" type="button">专业搜索</a> <a href="/trainings" class="btn btn-default" type="button">培训信息</a>
+			 <div class="btn-group btn-group1 btn-group-lg">
+			 	<a href="{{URL::to('matches')}}" class="btn btn-default btn1" type="button">志愿匹配</a> <a href="{{URL::to('colleges/search')}}"  class="btn btn-default btn1" type="button">院校搜索</a> <a href="/specialties "  class="btn btn-default btn1" type="button">专业搜索</a> <a href="/trainings" class="btn btn-default btn1" type="button">培训信息</a>
 			 </div>
 		</div>
 		@yield('header')
 	</div>
 
-	<div class="row clearfix">
+	<div class="row clearfix b1">
 		
 		@yield('content')
 
 	</div>
-	</div>
 
-	<div class="row clearfix b1">
+	<div class="row clearfix b1 fbg">
 		<div class="col-md-6 column">
 			 <address> <strong>北京九子国际文化传播</strong><br>有限公司<br> 版权所有<br> <abbr title="Phone">京ICP证:</abbr> 1234567890号 </address>
 		</div>
 		<div class="col-md-6 column">
-			<div class="btn-group">
-				 <img alt="231x31" src={{ URL::asset('images/img/share.png') }}>	</div>
-		</div>
+			<p>友情链接 | 加入收藏 | 联系我们</p>
+			 		</div>
 	</div>
 	@yield('bootor')
 </div>

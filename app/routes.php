@@ -38,21 +38,47 @@ Route::get('about', function(){
   return View::make('about');
 });
 //用户中心
-Route::get('users', function(){
-  return View::make('users/index')->with('userid', $_COOKIE['userid']);
-});
+//Route::get('users', 'App\Controllers\Users\UsersController@index');
+
+Route::group(array('prefix' => 'users'), function()
+{
+
+Route::any('/', 'App\Controllers\Users\UsersController@index');
+Route::get('collects', 'App\Controllers\Users\UsersController@collects');
+Route::get('/collects/traing', 'App\Controllers\Users\UsersController@traing');
+Route::get('/collects/colleges', 'App\Controllers\Users\UsersController@colleges');
+Route::get('/collects/others', 'App\Controllers\Users\UsersController@others');
+Route::get('/collects/specialites', 'App\Controllers\Users\UsersController@specialites');
+Route::resource('matches', 'App\Controllers\Users\UsersController@matches');
+Route::resource('specialties', 'App\Controllers\Users\UsersController@specialties');
+Route::resource('ktest', 'App\Controllers\Users\KtestController');
+Route::post('collegesearch',[
+		'as'=>'PostSpecialtiysearch',
+		'uses'=>'App\Controllers\College\SearchController@collegesearch'
+	]);
+});	
+
+ 
 //志愿匹配
-Route::get('matches', function(){
-  return View::make('matches/index')->with('userid', $_COOKIE['userid']);
-});
+Route::get('matches', 'App\Controllers\Matches\MatchesController@index');
+
 //培训信息
 Route::get('trainings', function(){
   return View::make('trainings/index')->with('userid', $_COOKIE['userid']);
 });
 //专业信息
-Route::get('specialties ', function(){
-  return View::make('specialties/index')->with('userid', $_COOKIE['userid']);
-});
+
+Route::group(array('prefix' => 'specialties'), function()
+{
+
+Route::any('/', 'App\Controllers\Specialtiy\SearchController@index');
+Route::resource('search', 'App\Controllers\Specialtiy\SearchController');
+Route::post('collegesearch',[
+		'as'=>'PostSpecialtiysearch',
+		'uses'=>'App\Controllers\College\SearchController@collegesearch'
+	]);
+});	
+
 //院校资讯
 /*
 Route::get('colleges', function(){
@@ -64,17 +90,24 @@ Route::get('colleges', function(){
 
 Route::group(array('prefix' => 'colleges'), function()
 {
+
 Route::any('/', 'App\Controllers\College\ArticlesController@index');
 Route::resource('articles', 'App\Controllers\College\ArticlesController');
 Route::resource('search', 'App\Controllers\College\SearchController');
-});
-
-
+Route::post('collegesearch',[
+		'as'=>'Postcollegesearch',
+		'uses'=>'App\Controllers\College\SearchController@collegesearch'
+	]);
+Route::get('cosearch/{id}',[
+		'as'=>'Getcosearch',
+		'uses'=>'App\Controllers\College\SearchController@showco'
+	]);});	
+ 
 //通用搜索
 Route::get('search ', function(){
   return View::make('search/index')->with('userid', $_COOKIE['userid']);
 });
 //管理端
-Route::get('admin ', function(){
-  return View::make('admin/index')->with('userid', $_COOKIE['userid']);
+Route::get('gxadmin ', function(){
+  return View::make('gxadmin/index')->with('userid', $_COOKIE['userid']);
 });

@@ -2,24 +2,42 @@
 
 namespace App\Controllers\College;
  
-use Article;
+use Area,City,College,School,Province;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
 
-class ArticlesController extends \BaseController {
+class SearchController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
-	 * GET /college/articles
+	 * GET /college/search/provinceid
 	 *
 	 * @return Response
 	 */
+ 
 	public function index()
 	{
 		//
-		return \View::make('colleges.articles.index')->with('articles', Article::all());
-	}
+		//$input = Input::all();
+		//if($provinceID){
+		//$pre_page = 20;//每页显示页数
+		//$colleges = College::whereRaw("provinceID = '$provinceID'")->paginate($pre_page);
+		//$provinces=Province::All();
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+                                                // ->with('provinces',$provinces);
+           //     return    $provinceID;                         
+		//}
+		//else {
+		 	//return "havn't get provicenid";
+		 $pre_page = 20;//每页显示页数
+		 $colleges = College::paginate($pre_page);
+		 $provinces=Province::All();
+		 return \View::make('colleges.search.index')->with('colleges',$colleges)
+                                              ->with('provinces',$provinces);
+		//}
+		
+    }
 
 	/**
 	 * Show the form for creating a new resource.
@@ -43,7 +61,21 @@ class ArticlesController extends \BaseController {
 	{
 		//
 	}
-
+    public function collegesearch()
+	{
+		//
+		//
+		$inputData = Input::get('college'); 
+		$colleges = $inputData;
+		$provinces=Province::All();
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
+        $pre_page = 20;//每页显示页数
+		$colleges = College::search($colleges)->paginate(20);
+		$provinces=Province::All();
+		return \View::make('colleges.search.index')->with('colleges',$colleges)
+                                                   ->with('provinces',$provinces); 
+	}
 	/**
 	 * Display the specified resource.
 	 * GET /college/articles/{id}
@@ -51,26 +83,35 @@ class ArticlesController extends \BaseController {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function show($id)
+	public function show($provinceID)
 	{
 		//
-		$authentication = \App::make('authenticator');
-		return \View::make('colleges.articles.show')->with('article', Article::find($id))->withAuthor($authentication->getUserById(Article::find($id)->user_id)->name);
+		if($provinceID){
+		 $pre_page = 20;//每页显示页数
+		 $colleges = College::whereRaw("provinceID = '$provinceID'")->paginate($pre_page);
+		 $provinces=Province::All();
+		return \View::make('colleges.search.index')->with('colleges',$colleges)
+                                               ->with('provinces',$provinces);
+			}
 	}
-
 	/**
-	 * Show the form for editing the specified resource.
-	 * GET /college/articles/{id}/edit
+	 * Display the specified resource.
+	 * GET /college/articles/{id}
 	 *
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function edit($id)
+	public function showco($coid)
 	{
 		//
-		return \View::make('colleges.articles.edit')->with('article', article::find($id));
+		 //return $coid;
+		  $pre_page = 20;//每页显示页数
+		  $college = College::Find($coid);
+		  $provinces=Province::All();
+		 return \View::make('colleges.search.showco')->with('college',$college)
+                                               ->with('provinces',$provinces);
+			 
 	}
-
 	/**
 	 * Update the specified resource in storage.
 	 * PUT /college/articles/{id}

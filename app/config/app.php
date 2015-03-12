@@ -52,7 +52,7 @@ return array(
 	|
 	*/
 
-	'locale' => 'en',
+	'locale' => 'zh-CN',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'fallback_locale' => 'en',
+	'fallback_locale' => 'zh-CN',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -125,7 +125,6 @@ return array(
 		'Jacopo\Authentication\AuthenticationServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Krucas\Notification\NotificationServiceProvider',
-		'Frozennode\Administrator\AdministratorServiceProvider',
 		'Artdarek\OAuth\OAuthServiceProvider'
 
 	),
@@ -194,8 +193,8 @@ return array(
 		'URL'               => 'Illuminate\Support\Facades\URL',
 		'Validator'         => 'Illuminate\Support\Facades\Validator',
 		'View'              => 'Illuminate\Support\Facades\View',
-		'Notification' => 'Krucas\Notification\Facades\Notification',
-		'OAuth' => 'Artdarek\OAuth\Facade\OAuth',
+		'Notification'      => 'Krucas\Notification\Facades\Notification',
+		'OAuth'             => 'Artdarek\OAuth\Facade\OAuth',
 
 	),
 

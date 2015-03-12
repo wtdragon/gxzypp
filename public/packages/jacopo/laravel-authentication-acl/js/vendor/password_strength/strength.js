@@ -12,23 +12,23 @@ function passwordStrengthCheck(password1, password2, passwordsInfo)
   $(password1).on('keyup', function(e) {
     if(VryStrongPass.test(password1.val()))
     {
-      passwordsInfo.removeClass().addClass('vrystrongpass').html("Very Strong! (Please don't forget your pass now!)");
+      passwordsInfo.removeClass().addClass('vrystrongpass').html("非常安全! (请记住密码)");
     }
     else if(StrongPass.test(password1.val()))
     {
-      passwordsInfo.removeClass().addClass('strongpass').html("Strong! (Enter special chars to make even stronger");
+      passwordsInfo.removeClass().addClass('strongpass').html("安全! (加入特殊字符");
     }
     else if(MediumPass.test(password1.val()))
     {
-      passwordsInfo.removeClass().addClass('goodpass').html("Good! (Enter uppercase letter to make strong)");
+      passwordsInfo.removeClass().addClass('goodpass').html("好! (加入大小写字符)");
     }
     else if(WeakPass.test(password1.val()))
     {
-      passwordsInfo.removeClass().addClass('stillweakpass').html("Still Weak! (Enter digits to make good password)");
+      passwordsInfo.removeClass().addClass('stillweakpass').html("安全度低! (输入数字以增加安全度)");
     }
     else
     {
-      passwordsInfo.removeClass().addClass('weakpass').html("Very Weak! (Must be 6 or more chars)");
+      passwordsInfo.removeClass().addClass('weakpass').html("安全度低(必须超过6个字符)");
     }
   });
 
@@ -36,9 +36,9 @@ function passwordStrengthCheck(password1, password2, passwordsInfo)
 
     if(password1.val() !== password2.val())
     {
-      passwordsInfo.removeClass().addClass('weakpass').html("Passwords do not match!");
+      passwordsInfo.removeClass().addClass('weakpass').html("密码不匹配!");
     }else{
-      passwordsInfo.removeClass().addClass('goodpass').html("Passwords match!");
+      passwordsInfo.removeClass().addClass('goodpass').html("密码匹配!");
     }
 
   });

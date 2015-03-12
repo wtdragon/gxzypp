@@ -12,8 +12,10 @@
 		"fzaninotto/faker": "1.5.*@dev",
 		"maatwebsite/excel": "~1.3.0",
 		"edvinaskrucas/notification": "3.*",
-		"frozennode/administrator": "dev-master",
-		"artdarek/oauth-4-laravel": "dev-master"
+		"artdarek/oauth-4-laravel": "dev-master",
+		"nicolaslopezj/searchable": "1.*",
+		"caouecs/laravel4-lang":"dev-master",
+		 "soapbox/laravel-formatter": "2.x"
 	},
 	"autoload": {
 		"classmap": [
