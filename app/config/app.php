@@ -195,6 +195,7 @@ return array(
 		'View'              => 'Illuminate\Support\Facades\View',
 		'Notification'      => 'Krucas\Notification\Facades\Notification',
 		'OAuth'             => 'Artdarek\OAuth\Facade\OAuth',
+		'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
 
 	),
 

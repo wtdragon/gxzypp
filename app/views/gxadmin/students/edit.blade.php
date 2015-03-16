@@ -29,44 +29,28 @@
 	</div>
 	</div>
 	<div class='col-md-7 text-center'>
-		<h3>管理的班级</h3>
-		<table class="table table-striped">
-<thead>
-<tr>
-<th>学生班级</th>
-<th>学生人数</th>
-</tr>
-</thead>
-<tbody>
-@foreach ($class_tongjis as $class_tongji)
-<tr>
-<td>{{ $class_tongji->classname }}</td>
-<td>{{ $class_tongji->student_count }}</td>
-</tr>
-@endforeach
-</tbody>
-</table>
-		<h3>管理的学生</h3>
-	<table class="table table-striped">
-<thead>
-<tr>
-<th>学生姓名</th>
-<th>学生班级</th>
-<th>学生学号</th>
-<th>邮箱地址</th>
-<th><i class="icon-cog"></i></th>
-</tr>
-</thead>
-<tbody>
-@foreach ($students as $student)
-<tr>
-<td>{{ $student->stuname }}</td>
-<td>{{ $student->classname }}</td>
-<td>{{ $student->stuno }}</td>
-</tr>
-@endforeach
-</tbody>
-</table>
+ <h3>修改学生</h3>
+@if ($errors->any())
+<div class="alert alert-error">
+{{ implode('<br>', $errors->all()) }}
+</div>
+@endif
+ {{ Form::model($students, array('method' => 'put', 'route' => array('gxadmin.students.update', $students->id))) }}
+<div class="control-group">
+{{ Form::label('stuname', '修改学生姓名') }}
+{{ Form::text('stuname') }}
+{{ Form::label('classname', '修改学生班级') }}
+{{ Form::text('classname') }}
+{{ Form::label('stuno', '修改学生学号') }}
+{{ Form::text('stuno') }}
+{{ Form::label('emailaddress', '修改学生邮箱') }}
+{{ Form::text('emailaddress') }}
+</div>
+<div class="form-actions">
+{{ Form::submit('更新', array('class' => 'btn btn-success btn-save btn-large')) }}
+<a href="{{ URL::route('gxadmin.students.index') }}" class="btn btn-large">取消</a>
+</div>
+{{ Form::close() }}
 	</div>
 @stop
 @section('bootor')

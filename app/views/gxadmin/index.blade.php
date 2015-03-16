@@ -63,6 +63,7 @@
 <td>{{ $student->stuname }}</td>
 <td>{{ $student->classname }}</td>
 <td>{{ $student->stuno }}</td>
+<td>{{ $student->emailaddress }}</td>
 </tr>
 @endforeach
 </tbody>

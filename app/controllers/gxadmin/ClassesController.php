@@ -112,9 +112,11 @@ return Redirect::back()->withInput()->withErrors($validation->errors);
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function classedit($id)
+	public function edit($id)
 	{
 		//
+		return \View::make('gxadmin.classes.edit')->with('classes', Sclass::find($id));
+ 
 	}
 
 	/**
@@ -124,9 +126,24 @@ return Redirect::back()->withInput()->withErrors($validation->errors);
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
-	{
+public function update($id)
+{
 		//
+$validation = new AdminValidator;
+if ($validation->passes())
+{
+	$loggeduser=\App::make('authenticator')->getLoggedUser();
+		$loginteacher = array_search('teacher', $loggeduser->permissions);
+        $authentication = \App::make('authenticator');
+		$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
+$sclass =Sclass::find($id);
+$sclass->classname = Input::get('classname');
+$sclass->save();
+//var_dump(Input::get('classname'));
+Notification::success('更新班级成功！');
+return Redirect::route('gxadmin.classes.edit', $sclass->id);
+}
+return Redirect::back()->withInput()->withErrors($validation->errors);
 	}
 
 	/**
@@ -136,7 +153,7 @@ return Redirect::back()->withInput()->withErrors($validation->errors);
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function destroy($id)
+public function destroy($id)
 	{
 		//
 	}

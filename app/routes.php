@@ -71,8 +71,12 @@ Route::post('classestore',[
 		'as'=>'Classestore',
 		'uses'=>'App\Controllers\Gxadmin\ClassesController@store'
 	]);
+Route::post('filestore',[
+		'as'=>'Filestore',
+		'uses'=>'App\Controllers\Gxadmin\StudentsController@excel'
+	]);
 });	
-
+ 
 //后台管理中心
 //Route::get('gxadmin', 'App\Controllers\Gxadmin\GxadminController@index');
 
