@@ -29,7 +29,7 @@
 	</div>
 	</div>
 	<div class='col-md-7 text-center'>
-		<h2>管理的班级</h2>
+		<h3>管理的班级</h3>
 		<table class="table table-striped">
 <thead>
 <tr>
@@ -46,7 +46,7 @@
 @endforeach
 </tbody>
 </table>
-		<h2>管理的学生</h2>
+		<h3>管理的学生</h3>
 	<table class="table table-striped">
 <thead>
 <tr>
