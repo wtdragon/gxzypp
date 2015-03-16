@@ -42,7 +42,7 @@
 <tr>
 <td>{{ $class->classname }}</td>
   <td>
-<a href="{{ URL::route('gxadmin.classes.edit', $class->classname ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
+<a href="{{ URL::route('gxadmin.classes.edit', $class->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 {{ Form::open(array('route' => array('gxadmin.classes.destroy', $class->classname ), 'method' => 'delete', 'data-confirm' => '确定删除？')) }}
 <button type="submit" href="{{ URL::route('gxadmin.classes.destroy', $class->classname) }}" class="btn btn-danger btn-mini">删除</button>
 {{ Form::close() }}
@@ -51,6 +51,22 @@
 @endforeach
 </tbody>
 </table>
+ <h3>新增班级</h3>
+@if ($errors->any())
+<div class="alert alert-error">
+{{ implode('<br>', $errors->all()) }}
+</div>
+@endif
+ {{ Form::open(array('route' => array('Classestore','method' => 'post'))) }}
+<div class="control-group">
+{{ Form::label('classname', '班级名称') }}
+{{ Form::text('classname') }}
+</div>
+<div class="form-actions">
+{{ Form::submit('新增', array('class' => 'btn btn-success btn-save btn-large')) }}
+<a href="{{ URL::route('gxadmin.classes.index') }}" class="btn btn-large">取消</a>
+</div>
+{{ Form::close() }}
 	</div>
 @stop
 @section('bootor')

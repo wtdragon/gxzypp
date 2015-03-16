@@ -65,19 +65,22 @@ Route::post('collegesearch',[
 Route::group(array('prefix' => 'gxadmin'), function()
 {
 Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
-Route::get('classes', 'App\Controllers\Gxadmin\GxadminController@classes');
-Route::get('students', 'App\Controllers\Gxadmin\GxadminController@students');
-
+Route::resource('classes', 'App\Controllers\Gxadmin\ClassesController');
+Route::resource('students', 'App\Controllers\Gxadmin\StudentsController');
+Route::post('classestore',[
+		'as'=>'Classestore',
+		'uses'=>'App\Controllers\Gxadmin\ClassesController@store'
+	]);
 });	
 
 //后台管理中心
 //Route::get('gxadmin', 'App\Controllers\Gxadmin\GxadminController@index');
 
-Route::group(array('prefix' => 'gxadmin'), function()
+Route::group(array('prefix' => 'sadmin'), function()
 {
 Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
-Route::resource('classes', 'App\Controllers\Gxadmin\GxadminController@classes');
-Route::resource('students', 'App\Controllers\Gxadmin\GxadminController@students');
+Route::resource('classes', 'App\Controllers\Gxadmin\GxadminController');
+Route::resource('students', 'App\Controllers\Gxadmin\GxadminController');
 
 });	
 

@@ -6,7 +6,7 @@ use Input, Notification, Redirect, Sentry, Str,DB;
 
 use App\Services\Validators\AdminValidator;
 
-class GxadminController extends \BaseController {
+class StudentsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.
