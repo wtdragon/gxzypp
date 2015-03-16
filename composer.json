@@ -15,7 +15,7 @@
 		"artdarek/oauth-4-laravel": "dev-master",
 		"nicolaslopezj/searchable": "1.*",
 		"caouecs/laravel4-lang":"dev-master",
-		 "soapbox/laravel-formatter": "2.x"
+		"soapbox/laravel-formatter": "2.x"
 	},
 	"autoload": {
 		"classmap": [

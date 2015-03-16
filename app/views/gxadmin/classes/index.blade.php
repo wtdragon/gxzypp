@@ -30,39 +30,23 @@
 	</div>
 	<div class='col-md-7 text-center'>
 		<h3>管理的班级</h3>
-		<table class="table table-striped">
-<thead>
-<tr>
-<th>学生班级</th>
-<th>学生人数</th>
-</tr>
-</thead>
-<tbody>
-@foreach ($class_tongjis as $class_tongji)
-<tr>
-<td>{{ $class_tongji->classname }}</td>
-<td>{{ $class_tongji->student_count }}</td>
-</tr>
-@endforeach
-</tbody>
-</table>
-		<h3>管理的学生</h3>
 	<table class="table table-striped">
 <thead>
 <tr>
-<th>学生姓名</th>
 <th>学生班级</th>
-<th>学生学号</th>
-<th>邮箱地址</th>
 <th><i class="icon-cog"></i></th>
 </tr>
 </thead>
 <tbody>
-@foreach ($students as $student)
+@foreach ($classes as $class)
 <tr>
-<td>{{ $student->stuname }}</td>
-<td>{{ $student->classname }}</td>
-<td>{{ $student->stuno }}</td>
+<td>{{ $class->classname }}</td>
+  <td>
+<a href="{{ URL::route('gxadmin.classes.edit', $class->classname ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
+{{ Form::open(array('route' => array('gxadmin.classes.destroy', $class->classname ), 'method' => 'delete', 'data-confirm' => '确定删除？')) }}
+<button type="submit" href="{{ URL::route('gxadmin.classes.destroy', $class->classname) }}" class="btn btn-danger btn-mini">删除</button>
+{{ Form::close() }}
+</td>
 </tr>
 @endforeach
 </tbody>

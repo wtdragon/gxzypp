@@ -76,8 +76,8 @@ Route::get('students', 'App\Controllers\Gxadmin\GxadminController@students');
 Route::group(array('prefix' => 'gxadmin'), function()
 {
 Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
-Route::get('classes', 'App\Controllers\Gxadmin\GxadminController@classes');
-Route::get('students', 'App\Controllers\Gxadmin\GxadminController@students');
+Route::resource('classes', 'App\Controllers\Gxadmin\GxadminController@classes');
+Route::resource('students', 'App\Controllers\Gxadmin\GxadminController@students');
 
 });	
 

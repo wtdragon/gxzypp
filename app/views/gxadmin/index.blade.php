@@ -41,7 +41,7 @@
 @foreach ($class_tongjis as $class_tongji)
 <tr>
 <td>{{ $class_tongji->classname }}</td>
-<td>{{ $class_tongji->student_count }}</td>
+<td>{{ $class_tongji->stucount }}</td>
 </tr>
 @endforeach
 </tbody>
