@@ -56,17 +56,9 @@
 		  <div class="panel-body">
           <p>根据您做的测试，以下为您的测试结果：</p>
   
- 
 
+<a>{{ $kresult }}</a>
 
-          <p>专业结果：</p>
-          @foreach ($zhuanye as $zhuanye)
-<a>{{ $zhuanye }}</a>
-@endforeach
-    <p>适合职业：</p>
-            @foreach ($zhiye as $zhiye)
-<a>{{ $zhiye }}</a>
-@endforeach
        </div>
             </div>
 <div class='col-md-3'>

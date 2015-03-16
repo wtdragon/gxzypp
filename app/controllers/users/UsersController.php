@@ -20,16 +20,22 @@ class UsersController extends \BaseController {
 {
      $loggeduser=\App::make('authenticator')->getLoggedUser();
      $authentication = \App::make('authenticator');
+	// var_dump($loggeduser->permissions);
+	// var_dump(array_key_exists('_teacher',$loggeduser->permissions));
+	// var_dump(array_key_exists('_student',$loggeduser->permissions));
      if($loggeduser)
       {
-	  $userprofile=UserProfile::find($loggeduser->id);
+      	  
+		  if (array_key_exists('_student',$loggeduser->permissions))
+		  { //var_dump($loginstudent);
+	      $userprofile=UserProfile::find($loggeduser->id);
           $xuehao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 2")->pluck('value');
-	  $xihao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 3")->pluck('value');
+	      $xihao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 3")->pluck('value');
           $userprofile->xuehao=$xuehao;
-	  $userprofile->xihao=$xihao;
-	  $kuserId=Ktest::whereraw("user_id = $loggeduser->id");  
-      if ($kuserId->count())
-	 { 
+	      $userprofile->xihao=$xihao;
+	     $kuserId=Ktest::whereraw("user_id = $loggeduser->id");  
+         if ($kuserId->count())
+	       { 
 	    $kuserId = $kuserId->first()["kuser_id"];
 	    $accountId = 2100;
 	    $accountKey = "XM13lk42jFpyphj4"; 
@@ -46,7 +52,7 @@ class UsersController extends \BaseController {
 	      $ktest_id = $de_json[$i]['id'];
               $ktest_type = $de_json[$i]['type'];
 	      $ktest_userid = $de_json[$i]['user_id'];
-              $result =  json_encode($de_json[$i]['CareerClusters']);
+              $kresult =  json_encode($de_json[$i]['CareerClusters']);
 	      $ktestId=Kresult::whereraw("ktest_id = $ktest_id "); 
 	      if($ktestId->count())
 	         {
@@ -62,20 +68,20 @@ class UsersController extends \BaseController {
                   $kresult->careerclusters=$result;
                    $kresult->save();
 		  }
-		   $formatter = Formatter::make($result, Formatter::JSON);
-		   $jstoarray=new JsonArrayHandle;
-		   $array = $formatter->toArray();
-		   $finalresult=$jstoarray->objectToArray($array); 
-		   $finalresult2=json_decode($result);
-		    $zhuanye=array_keys(get_object_vars($finalresult2));
+		//   $formatter = Formatter::make($result, Formatter::JSON);
+		  // $jstoarray=new JsonArrayHandle;
+		 //  $array = $formatter->toArray();
+		 //  $finalresult=$jstoarray->objectToArray($array); 
+		 //  $finalresult2=json_decode($result);
+		 //   $zhuanye=array_keys(get_object_vars($finalresult2));
 		    
-			foreach($finalresult2 as $mydata)
+		//	foreach($finalresult2 as $mydata)
 
-    {   
-    	$zhiye[]=array_keys(get_object_vars($mydata->Careers)); 
+  //  {   
+    //	$zhiye[]=array_keys(get_object_vars($mydata->Careers)); 
 		//var_dump($zhiye);
         
-    }    
+  //  }    
 			 
 			 }
 			 }   
@@ -94,10 +100,15 @@ class UsersController extends \BaseController {
 		
 		return \View::make('users.index')->with('user',$userprofile)
 		                                 ->with('kurl',$kurl)
-						 ->with('kresult',$result)
-						  ->with('zhuanye',$zhuanye)
-						  ->with('zhiye',array_flatten($zhiye));
-		  
+						                 ->with('kresult',$kresult);
+						                 }
+elseif(array_key_exists('_teacher',$loggeduser->permissions)){
+	return Redirect::to('gxadmin');
+}
+else{
+	return "not have permissions ";
+}
+
 		   }
 		else {
 		 	$logged='not login';

@@ -59,6 +59,29 @@ Route::post('collegesearch',[
 });	
 
  
+//教师管理中心
+//Route::get('gxadmin', 'App\Controllers\Gxadmin\GxadminController@index');
+
+Route::group(array('prefix' => 'gxadmin'), function()
+{
+Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
+Route::get('classes', 'App\Controllers\Gxadmin\GxadminController@classes');
+Route::get('students', 'App\Controllers\Gxadmin\GxadminController@students');
+
+});	
+
+//后台管理中心
+//Route::get('gxadmin', 'App\Controllers\Gxadmin\GxadminController@index');
+
+Route::group(array('prefix' => 'gxadmin'), function()
+{
+Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
+Route::get('classes', 'App\Controllers\Gxadmin\GxadminController@classes');
+Route::get('students', 'App\Controllers\Gxadmin\GxadminController@students');
+
+});	
+
+ 
 //志愿匹配
 Route::get('matches', 'App\Controllers\Matches\MatchesController@index');
 

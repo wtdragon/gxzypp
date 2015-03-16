@@ -1,8 +1,8 @@
 <?php
 namespace App\Controllers\Gxadmin;
  
-use Area,City,College,School,Province,UserProfile,ProfileField;
-use Input, Notification, Redirect, Sentry, Str;
+use Area,City,College,School,Province,UserProfile,ProfileField,Teacher,Student;
+use Input, Notification, Redirect, Sentry, Str,DB;
 
 use App\Services\Validators\AdminValidator;
 
@@ -17,6 +17,29 @@ class GxadminController extends \BaseController {
 	public function index()
 	{
 		//
+		
+		$loggeduser=\App::make('authenticator')->getLoggedUser();
+		$loginteacher = array_search('teacher', $loggeduser->permissions);
+        $authentication = \App::make('authenticator');
+		if (array_key_exists('_teacher',$loggeduser->permissions)){
+			//var_dump($loggeduser->id);
+		$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
+			//var_dump($teacher->teachername);
+			
+		$students=Student::whereRaw("classid = '$teacher->classid'")->get();
+		$class_tongjis =  DB::table('students')
+            ->select((DB::raw('count(*) as student_count, classname')))
+            ->groupBy('classname')
+            ->get();
+		//var_dump($class_tongji);
+		return \View::make('gxadmin.index')->with('students',$students)
+		->with('class_tongjis',$class_tongjis);
+			
+		}
+		else {
+			return "not a teacher";
+		}
+		
 	}
 
 	/**
@@ -28,8 +51,31 @@ class GxadminController extends \BaseController {
 	public function create()
 	{
 		//
+			
 	}
-
+    /**
+	 * Show the form for creating a new resource.
+	 * GET /gxadmin/gxadmin/create
+	 *
+	 * @return Response
+	 */
+	public function classes()
+	{
+		//
+			return "classes";
+	}
+	/**
+	 * Show the form for creating a new resource.
+	 * GET /gxadmin/gxadmin/create
+	 *
+	 * @return Response
+	 */
+	public function students()
+	{
+		//
+		return "students";
+			
+	}
 	/**
 	 * Store a newly created resource in storage.
 	 * POST /gxadmin/gxadmin
