@@ -125,7 +125,8 @@ return array(
 		'Jacopo\Authentication\AuthenticationServiceProvider',
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Krucas\Notification\NotificationServiceProvider',
-		'Artdarek\OAuth\OAuthServiceProvider'
+		'Artdarek\OAuth\OAuthServiceProvider',
+		'Cartalyst\Sentry\SentryServiceProvider',
 
 	),
 
@@ -196,6 +197,7 @@ return array(
 		'Notification'      => 'Krucas\Notification\Facades\Notification',
 		'OAuth'             => 'Artdarek\OAuth\Facade\OAuth',
 		'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
+		'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 
 	),
 
