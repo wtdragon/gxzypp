@@ -127,6 +127,7 @@ return array(
 		'Krucas\Notification\NotificationServiceProvider',
 		'Artdarek\OAuth\OAuthServiceProvider',
 		'Cartalyst\Sentry\SentryServiceProvider',
+		'Mrjuliuss\Syntara\SyntaraServiceProvider',
 
 	),
 
@@ -197,7 +198,7 @@ return array(
 		'Notification'      => 'Krucas\Notification\Facades\Notification',
 		'OAuth'             => 'Artdarek\OAuth\Facade\OAuth',
 		'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
-		'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'Sentry'            => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
 
 	),
 
