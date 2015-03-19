@@ -80,11 +80,56 @@ Route::post('filestore',[
 //后台管理中心
 //Route::get('gxadmin', 'App\Controllers\Gxadmin\GxadminController@index');
 
-Route::group(array('prefix' => 'sadmin'), function()
+Route::group(array('prefix' => 'backend'), function()
 {
-Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
-Route::resource('classes', 'App\Controllers\Gxadmin\GxadminController');
-Route::resource('students', 'App\Controllers\Gxadmin\GxadminController');
+//Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
+//Route::resource('classes', 'App\Controllers\Gxadmin\GxadminController');
+//Route::resource('students', 'App\Controllers\Gxadmin\GxadminController');
+Route::get('/', function()
+{
+	//return View::make('hello');
+	return View::make('backend.dashboard');
+});
+
+Route::get('/dashboard/', function()
+{
+	return View::make('backend.dashboard');
+});
+
+Route::get('/blank-page/', function()
+{
+	return View::make('backend.blank-page');
+});
+
+Route::get('/bootstrap-elements/', function()
+{
+	return View::make('backend.bootstrap-elements');
+});
+
+Route::get('/bootstrap-grid/', function()
+{
+	return View::make('backend.bootstrap-grid');
+});
+
+Route::get('/charts/', function()
+{
+	return View::make('backend.charts');
+});
+
+Route::get('/forms/', function()
+{
+	return View::make('backend.forms');
+});
+
+Route::get('/tables/', function()
+{
+	return View::make('backend.tables');
+});
+Route::get('/teste/', function()
+{
+	return View::make('teste');
+});
+
 
 });	
 

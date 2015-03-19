@@ -126,8 +126,7 @@ return array(
 		'Maatwebsite\Excel\ExcelServiceProvider',
 		'Krucas\Notification\NotificationServiceProvider',
 		'Artdarek\OAuth\OAuthServiceProvider',
-		'Cartalyst\Sentry\SentryServiceProvider',
-		'Mrjuliuss\Syntara\SyntaraServiceProvider',
+		'Cartalyst\Sentry\SentryServiceProvider'
 
 	),
 
