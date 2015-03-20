@@ -156,6 +156,11 @@ return Redirect::back()->withInput()->withErrors($validation->errors);
 public function destroy($id)
 	{
 		//
+		
+		$sclass =Sclass::find($id);
+$sclass->delete();
+Notification::success('删除成功！');
+return Redirect::route('gxadmin.classes.index');
 	}
 
 }

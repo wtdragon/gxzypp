@@ -2,12 +2,12 @@
 
 @section('title')
 @parent
-:: Home
+九子高校匹配后台
 @stop
 
 @section('content')
 
-                <div class="row">
+             <!--    <div class="row">
                     <div class="col-lg-12">
                         <div class="alert alert-info alert-dismissable">
                             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
@@ -26,8 +26,8 @@
                                         <i class="fa fa-comments fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">26</div>
-                                        <div>New Comments!</div>
+                                        <div class="huge">{{ $tongji->cct }}</div>
+                                        <div>学校数量</div>
                                     </div>
                                 </div>
                             </div>
@@ -48,8 +48,8 @@
                                         <i class="fa fa-tasks fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">12</div>
-                                        <div>New Tasks!</div>
+                                        <div class="huge">{{ $tongji->mct }}</div>
+                                        <div>专业数量</div>
                                     </div>
                                 </div>
                             </div>
@@ -70,8 +70,8 @@
                                         <i class="fa fa-shopping-cart fa-5x"></i>
                                     </div>
                                     <div class="col-xs-9 text-right">
-                                        <div class="huge">124</div>
-                                        <div>New Orders!</div>
+                                        <div class="huge">{{ $tongji->kct }}</div>
+                                        <div>K测试数量</div>
                                     </div>
                                 </div>
                             </div>

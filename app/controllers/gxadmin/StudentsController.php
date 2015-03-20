@@ -1,10 +1,12 @@
 <?php
 namespace App\Controllers\Gxadmin;
  
-use Area,City,College,School,Province,UserProfile,ProfileField,Teacher,Student,Sclass;
+use Area,City,College,School,Province,User,UserProfile,ProfileField,Teacher,Student,Sclass,Ktest;
 use Input, Notification, Redirect, Sentry, Str,DB;
 
 use App\Services\Validators\AdminValidator;
+use App\Services\Ktest\Cryptographer;
+use App\Services\Ktest\HesClient;
 
 class StudentsController extends \BaseController {
 
@@ -95,21 +97,54 @@ $student =new Student;
 $student->stuname = Input::get('stuname');
 $student->stuno = Input::get('stuno');
 $classname = Input::get('classname');
-var_dump($classname);
+$student->emailaddress = Input::get('emailaddress');
+
+//var_dump($classname);
 $classid=Student::whereRaw("classname = '$classname'")->firstOrFail();
 //var_dump($classid);
 $student->classname = $classname;
 $student->classid=$classid->id;
+$data = array(
+                "email"     => $student->emailaddress,
+                "password"  => 123456,
+                "activated" => 1,
+                "banned"    =>  0,
+                'permissions' => array("_student" => 1 )
+        );
+//use sentry create a user		
+$user=\Sentry::createUser($data);	
+//var_dump($user);
 //var_dump($student->classid);
-$student->emailaddress = Input::get('emailaddress');
+ $environment = "singapore";
+ $hesClient = new HesClient($environment);
+ $accountId = 1000001;
+ $accountKey = "deI%2BKwrnkhenLX"; 
+ $accountPassword = "d1SLnDVAbxKxOid5"; 
+ $arr = array("user_type_id"=> 1,
+                 "first_name"=> "$student->stuname",
+                 "last_name"=> "$student->stuname",
+                 "email_address"=> "$student->emailaddress",
+                 "username"=> "$student->emailaddress",
+                 "gender"=> "F",
+                 "under_13"=> 0);
+//$arr=json_encode($arr);				 
+$nonce=$hesClient->handshake($accountId,$accountPassword,$accountKey);
+$kuser=$hesClient->createUser($accountId,$nonce,$arr);  
+	 $de_json = json_decode($kuser,true);
+	    $count_json = count($de_json);
+           for ($i = 0; $i < $count_json; $i++)
+             {      
+	      $ktest_id = $de_json[$i]['id'];
+	      }
+	$student->user_id=$user->id;
+$student->kuser_id=$ktest_id;
 $student->save();
-var_dump(Input::get('classname'));
+//var_dump(Input::get('classname'));
 Notification::success('新增学生成功！');
 return Redirect::route('gxadmin.students.edit', $student->id);
 }
 return Redirect::back()->withInput()->withErrors($validation->errors);
-	}
-
+}
 	/**
 	 * Display the specified resource.
 	 * GET /gxadmin/gxadmin/{id}
@@ -217,7 +252,11 @@ return Redirect::back()->withInput()->withErrors($validation->errors);
 	 */
 	public function destroy($id)
 	{
-		//
+		
+		$student =Student::find($id);
+$student->delete();
+Notification::success('删除成功！');
+return Redirect::route('gxadmin.students.index');
 	}
 
 }

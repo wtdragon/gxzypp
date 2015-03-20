@@ -46,7 +46,16 @@ return [
   |
   */
   "user_login_redirect_url" => "/",
-
+  
+   /*
+  |--------------------------------------------------------------------------
+  | Backend Login redirection url --modified by gavin
+  |--------------------------------------------------------------------------
+  |
+  | The user/login redirection url
+  |
+  */
+  "backend_login_redirect_url" => "/backend",
   /*
   |--------------------------------------------------------------------------
   | User per page

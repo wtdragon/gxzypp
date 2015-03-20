@@ -50,9 +50,9 @@
 		</h2>
 		<p>会员信息：</p>
 		姓名：
-		学号：<p>{{$user->xuehao}}</p> 
+		学号：<p>{{$user->stuname}}</p> 
 		所在地：
-		偏好：  <p>{{$user->xihao}}</p> 
+		偏好：  <p>{{$user->stuno}}</p> 
 		  <div class="panel-body">
           <p>根据您做的测试，以下为您的测试结果：</p>
   

@@ -20,22 +20,26 @@ class KtestController extends \BaseController {
 	public function index()
 	{
 		//
-		$accountId = 2100;
+		$accountId = 1000001;
 		$accountId = $_GET['accountId'];
         $userId = $_GET['userId'];
         $configId = $_GET['configId'];
 
-        $accountKey = "XM13lk42jFpyphj4"; 
-        $accountPassword = "WmUv%2BPqTanQjtg"; 
+        $accountKey = "deI%2BKwrnkhenLX"; 
+        $accountPassword = "d1SLnDVAbxKxOid5"; 
 
-        $environment = "staging";
+        $environment = "singapore";
 
         $hesClient = new HesClient($environment);
         $nonce = $hesClient->handshake($accountId, $accountPassword, $accountKey);
+		if($userId){
         $userId = $hesClient->encryptMe($userId, $accountKey);
-
-         $fullLoginUrl = $hesClient->getLoginUrl($accountId, $configId, $userId, $nonce);
-		 
+        $fullLoginUrl = $hesClient->getLoginUrl($accountId, $configId, $userId, $nonce);
+		}
+		else {
+		$loggeduser=\App::make('authenticator')->getLoggedUser();
+			
+		}
 		$loggeduser=\App::make('authenticator')->getLoggedUser();
 		$authentication = \App::make('authenticator');
 		if($loggeduser)

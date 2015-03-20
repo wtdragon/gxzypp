@@ -198,6 +198,7 @@ return array(
 		'OAuth'             => 'Artdarek\OAuth\Facade\OAuth',
 		'Excel'             => 'Maatwebsite\Excel\Facades\Excel',
 		'Sentry'            => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+		'Juser'             => 'Jacopo\authentication\src\Jacopo\Authentication\Models\User'
 
 	),
 

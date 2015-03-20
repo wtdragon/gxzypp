@@ -85,16 +85,12 @@ Route::group(array('prefix' => 'backend'), function()
 //Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
 //Route::resource('classes', 'App\Controllers\Gxadmin\GxadminController');
 //Route::resource('students', 'App\Controllers\Gxadmin\GxadminController');
-Route::get('/', function()
-{
-	//return View::make('hello');
-	return View::make('backend.dashboard');
-});
+Route::get('/', 'App\Controllers\Backend\BackendController@index');
 
-Route::get('/dashboard/', function()
-{
-	return View::make('backend.dashboard');
-});
+Route::get('/dashboard/','App\Controllers\Backend\BackendController@index');
+//{
+	//return View::make('backend.dashboard');
+//});
 
 Route::get('/blank-page/', function()
 {
@@ -111,10 +107,10 @@ Route::get('/bootstrap-grid/', function()
 	return View::make('backend.bootstrap-grid');
 });
 
-Route::get('/charts/', function()
-{
-	return View::make('backend.charts');
-});
+Route::get('/charts/','App\Controllers\Backend\BackendController@charts');
+//{
+	//return View::make('backend.charts');
+//});//
 
 Route::get('/forms/', function()
 {

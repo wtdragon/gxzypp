@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Users;
  
-use Area,City,College,School,Province,UserProfile,ProfileField,Ktest,Kresult;
+use Area,City,College,School,Province,UserProfile,ProfileField,Ktest,Kresult,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -28,11 +28,14 @@ class UsersController extends \BaseController {
       	  
 		  if (array_key_exists('_student',$loggeduser->permissions))
 		  { //var_dump($loginstudent);
-	      $userprofile=UserProfile::find($loggeduser->id);
-          $xuehao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 2")->pluck('value');
-	      $xihao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 3")->pluck('value');
-          $userprofile->xuehao=$xuehao;
-	      $userprofile->xihao=$xihao;
+	      $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+          //$xuehao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 2")->pluck('value');
+	      //$xihao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 3")->pluck('value');
+          //$xuehao=$student->stuno;
+		  //$name=$student->stuname;
+          //$userprofile->xuehao=$xuehao;
+	     // $userprofile->xihao=$xihao;
+	     //var_dump($student);
 	     $kuserId=Ktest::whereraw("user_id = $loggeduser->id");  
          if ($kuserId->count())
 	       { 
@@ -40,7 +43,7 @@ class UsersController extends \BaseController {
 	    $accountId = 2100;
 	    $accountKey = "XM13lk42jFpyphj4"; 
             $accountPassword = "WmUv%2BPqTanQjtg"; 
-            $environment = "staging";
+            $environment = "singapore";
             $hesClient = new HesClient($environment);
 	    $filters = array ('type'=>"asPortDWYAResult",'dwya_career_mode'=>8);
             $nonce=$hesClient->handshake($accountId,$accountPassword,$accountKey); 
@@ -98,7 +101,7 @@ class UsersController extends \BaseController {
         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
 		
 		
-		return \View::make('users.index')->with('user',$userprofile)
+		return \View::make('users.index')->with('user',$student)
 		                                 ->with('kurl',$kurl)
 						                 ->with('kresult',$kresult);
 						                 }

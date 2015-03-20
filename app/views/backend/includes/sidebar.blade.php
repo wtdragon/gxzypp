@@ -2,7 +2,7 @@
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
                     <li class="active">
-                        <a href="{{ URL::to('/backend') }}"><i class="fa fa-fw fa-dashboard"></i> Dashboard</a>
+                        <a href="{{ URL::to('/backend') }}"><i class="fa fa-fw fa-dashboard"></i> 系统统计</a>
                     </li>
                     <li>
                         <a href="{{ URL::to('/backend/charts') }}"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>

@@ -13,9 +13,9 @@ var $listDWYAResultsUrl;
 var $listResultsUrl;
 public function __construct($environment)
 {
-if($environment === 'staging'){
-$apiRootUrl = 'https://api.staging.humanesources.com/';
-$extRootUrl = 'https://api.staging.humanesources.com/ext_staging.php/';
+if($environment === 'singapore'){
+$apiRootUrl = 'https://api.cn.keystosucceed.com/';
+$extRootUrl = 'https://api.cn.keystosucceed.com/ext_singapore.php/';
 }
 if(!isset($apiRootUrl)) {
 echo 'HesClient __construct received an invalid environment:' . $environment;
