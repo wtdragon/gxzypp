@@ -6,16 +6,10 @@ class College extends \Eloquent {
 	protected $primaryKey = 'coid';
 	protected $table = 'college';  
 	public function schools(){
-    return $this->hasMany('School');
+    return $this->hasMany('School','coid');
 	}
 	public function province(){
-    return $this->belongsTo('Province');
-    }
-	public function city(){
-    return $this->belongsTo('City');
-    }
-    public function area(){
-    return $this->belongsTo('Area');
+    return $this->belongsTo('Province','provinceID');
     }
 	protected $searchable = [
         'columns' => [

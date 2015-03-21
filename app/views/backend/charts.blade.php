@@ -4,7 +4,9 @@
 @parent
 :: Home
 @stop
-
+@section('headtitle')
+charts
+@stop
 @section('content')
 
                 <!-- Flot Charts -->

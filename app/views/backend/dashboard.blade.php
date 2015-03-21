@@ -4,7 +4,9 @@
 @parent
 九子高校匹配后台
 @stop
-
+@section('headtitle')
+系统统计
+@stop
 @section('content')
 
              <!--    <div class="row">
@@ -31,9 +33,9 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="{{ URL::to('/backend/colleges') }}">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-left">查看详情</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
@@ -55,7 +57,7 @@
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-left">查看详情</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
@@ -77,7 +79,7 @@
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-left">查看详情</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
@@ -99,7 +101,7 @@
                             </div>
                             <a href="#">
                                 <div class="panel-footer">
-                                    <span class="pull-left">View Details</span>
+                                    <span class="pull-left">查看详情</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
                                     <div class="clearfix"></div>
                                 </div>
@@ -132,7 +134,7 @@
                             <div class="panel-body">
                                 <div id="morris-donut-chart"></div>
                                 <div class="text-right">
-                                    <a href="#">View Details <i class="fa fa-arrow-circle-right"></i></a>
+                                    <a href="#">查看详情 <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
                         </div>

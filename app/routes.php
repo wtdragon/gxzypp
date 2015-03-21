@@ -111,7 +111,9 @@ Route::get('/charts/','App\Controllers\Backend\BackendController@charts');
 //{
 	//return View::make('backend.charts');
 //});//
-
+Route::resource('colleges','App\Controllers\Backend\CollegesController@index');
+Route::get('/carticles/','App\Controllers\Backend\BackendController@carticles');
+Route::resource('specialties','App\Controllers\Backend\SpecialtiesController@index');
 Route::get('/forms/', function()
 {
 	return View::make('backend.forms');

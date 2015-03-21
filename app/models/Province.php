@@ -3,11 +3,11 @@
 class Province extends \Eloquent {
 	protected $fillable = [];
 	protected $table = 'province';  
-	protected $primaryKey = 'cityID';
+	protected $primaryKey = 'provinceID';
 	public function cities(){
-    return $this->hasMany('City');
+    return $this->hasMany('City','provinceID');
 	}
 	public function colleges(){
-    return $this->hasMany('College');
+    return $this->hasMany('College','provinceID');
 	}
 }

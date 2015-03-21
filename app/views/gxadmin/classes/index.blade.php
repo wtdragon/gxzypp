@@ -41,7 +41,7 @@
 @foreach ($classes as $class)
 <tr>
 <td>{{ $class->classname }}</td>
-  <td>
+<td>
 <a href="{{ URL::route('gxadmin.classes.edit', $class->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 {{ Form::open(array('route' => array('gxadmin.classes.destroy', $class->id ), 'method' => 'delete', 'data-confirm' => '确定删除？')) }}
 <button type="submit" href="{{ URL::route('gxadmin.classes.destroy', $class->id) }}" class="btn btn-danger btn-mini">删除</button>

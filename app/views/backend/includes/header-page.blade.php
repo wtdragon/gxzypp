@@ -1,9 +1,9 @@
               <!-- Page Heading -->
                 <div class="row">
                     <div class="col-lg-12">
-                        <h2 class="page-header">
-                            系统后台 
-                        </h2>
+                        <h3 class="page-header">
+                           @yield('headtitle')
+                        </h3>
  
                     </div>
                 </div>

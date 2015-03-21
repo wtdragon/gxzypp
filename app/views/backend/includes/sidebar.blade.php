@@ -1,17 +1,23 @@
             <!-- Sidebar Menu Items - These collapse to the responsive navigation menu on small screens -->
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav side-nav">
-                    <li class="active">
+                    <li>
                         <a href="{{ URL::to('/backend') }}"><i class="fa fa-fw fa-dashboard"></i> 系统统计</a>
+                    </li>
+                    <li>
+                        <a href="{{ URL::to('/backend/colleges') }}"><i class="fa fa-fw fa-edit"></i>学校管理</a>
+                    </li>
+                    <li>
+                        <a href="{{ URL::to('/backend/carticles') }}"><i class="fa fa-fw fa-edit"></i>学校资讯管理</a>
+                    </li>
+                     <li>
+                        <a href="{{ URL::to('/backend/specialties ') }}"><i class="fa fa-fw fa-table"></i>专业管理</a>
                     </li>
                     <li>
                         <a href="{{ URL::to('/backend/charts') }}"><i class="fa fa-fw fa-bar-chart-o"></i> Charts</a>
                     </li>
                     <li>
                         <a href="{{ URL::to('/backend/tables') }}"><i class="fa fa-fw fa-table"></i> Tables</a>
-                    </li>
-                    <li>
-                        <a href="{{ URL::to('/backend/forms') }}"><i class="fa fa-fw fa-edit"></i> Forms</a>
                     </li>
                     <li>
                         <a href="{{ URL::to('/backend/bootstrap-elements') }}"><i class="fa fa-fw fa-desktop"></i> Bootstrap Elements</a>
