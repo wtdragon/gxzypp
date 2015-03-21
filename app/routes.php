@@ -91,42 +91,11 @@ Route::get('/dashboard/','App\Controllers\Backend\BackendController@index');
 //{
 	//return View::make('backend.dashboard');
 //});
-
-Route::get('/blank-page/', function()
-{
-	return View::make('backend.blank-page');
-});
-
-Route::get('/bootstrap-elements/', function()
-{
-	return View::make('backend.bootstrap-elements');
-});
-
-Route::get('/bootstrap-grid/', function()
-{
-	return View::make('backend.bootstrap-grid');
-});
-
-Route::get('/charts/','App\Controllers\Backend\BackendController@charts');
-//{
-	//return View::make('backend.charts');
-//});//
 Route::resource('colleges','App\Controllers\Backend\CollegesController@index');
-Route::get('/carticles/','App\Controllers\Backend\BackendController@carticles');
+Route::resource('carticles/','App\Controllers\Backend\BackendController@carticles');
 Route::resource('specialties','App\Controllers\Backend\SpecialtiesController@index');
-Route::get('/forms/', function()
-{
-	return View::make('backend.forms');
-});
-
-Route::get('/tables/', function()
-{
-	return View::make('backend.tables');
-});
-Route::get('/teste/', function()
-{
-	return View::make('teste');
-});
+Route::resource('mschooles','App\Controllers\Backend\MschoolesController@index');
+Route::resource('ktests','App\Controllers\Backend\KtestsController@index');
 
 
 });	
