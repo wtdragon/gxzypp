@@ -22,7 +22,7 @@
 </tr>
 </thead>
 <tbody>
-@foreach ($mschooles as $mschool)
+@foreach ($mschools as $mschool)
 <tr>
 <td>{{ $mschool->name }}</td>
 <td>{{ $mschool->paiming }}</td>
@@ -36,7 +36,7 @@
 @endforeach
 </tbody>
 </table>
-{{ $colleges->links() }} 
+{{ $mschools->links() }} 
                     <div class="col-lg-6">
 
                         <form role="form">

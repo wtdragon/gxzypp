@@ -14,10 +14,10 @@
                         <a href="{{ URL::to('/backend/specialties ') }}"><i class="fa fa-fw fa-table"></i>专业管理</a>
                     </li>
                     <li>
-                        <a href="{{ URL::to('/backend/mschooles') }}"><i class="fa fa-fw fa-bar-chart-o"></i>用户学校管理</a>
+                        <a href="{{ URL::to('/backend/mschools') }}"><i class="fa fa-fw fa-bar-chart-o"></i>用户学校管理</a>
                     </li>
                     <li>
-                        <a href="{{ URL::to('/backend/ktest') }}"><i class="fa fa-fw fa-table"></i>K测试管理</a>
+                        <a href="{{ URL::to('/backend/ktests') }}"><i class="fa fa-fw fa-table"></i>K测试管理</a>
                     </li>
               
                 </ul>

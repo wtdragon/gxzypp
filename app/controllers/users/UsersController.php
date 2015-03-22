@@ -36,17 +36,18 @@ class UsersController extends \BaseController {
           //$userprofile->xuehao=$xuehao;
 	     // $userprofile->xihao=$xihao;
 	     //var_dump($student);
-	     $kuserId=Ktest::whereraw("user_id = $loggeduser->id");  
-         if ($kuserId->count())
+	     //$kuserId=Ktest::whereraw("user_id = $loggeduser->id");  
+		 $ktest=Ktest::where('kuser_id','=',$student->kuser_id);  
+         if ($ktest->count())
 	       { 
-	    $kuserId = $kuserId->first()["kuser_id"];
-	    $accountId = 2100;
-	    $accountKey = "XM13lk42jFpyphj4"; 
-            $accountPassword = "WmUv%2BPqTanQjtg"; 
-            $environment = "singapore";
-            $hesClient = new HesClient($environment);
+	    $kuserId = $student->kuser_id;
+	    $accountId = 1000001;
+	     $accountKey = "deI%2BKwrnkhenLX"; 
+        $accountPassword = "d1SLnDVAbxKxOid5"; 
+        $environment = "singapore";
+        $hesClient = new HesClient($environment);
 	    $filters = array ('type'=>"asPortDWYAResult",'dwya_career_mode'=>8);
-            $nonce=$hesClient->handshake($accountId,$accountPassword,$accountKey); 
+        $nonce=$hesClient->handshake($accountId,$accountPassword,$accountKey); 
 	    $kresult=$hesClient->listResults($accountId, $kuserId, $nonce, $filters);
 	    $de_json = json_decode($kresult,true);
 	    $count_json = count($de_json);
@@ -59,7 +60,7 @@ class UsersController extends \BaseController {
 	      $ktestId=Kresult::whereraw("ktest_id = $ktest_id "); 
 	      if($ktestId->count())
 	         {
-                 // $result="你还没做过测试";
+                 $result="你还没做过测试";
 		  }
 		  else
 		  {
@@ -93,7 +94,7 @@ class UsersController extends \BaseController {
 		  //change this to the humanesources userId you have created with the api
 		}
         $configId = 104;  //lsi
-        $accountId = 2100;
+        $accountId = 1000001;
         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
         $bounceUrl = "https://center.staging.humanesources.com/setCookieAndBounce.php?returnUrl=$yourDomain";
         $kuserId=Ktest::whereraw("user_id = $loggeduser->id"); 

@@ -31,10 +31,10 @@ class MschoolesController extends \BaseController {
 		     $userinfo=\App::make('authenticator')->getUserById($loggeduser->id);
 		     $userprofile=UserProfile::find($loggeduser->id);
 			 $pre_page = 20;//每页显示页数
-		     $mschooles = Mschool::paginate($pre_page);
+		     $mschools = Mschool::paginate($pre_page);
 			 
-		     return \View::make('backend.colleges')->with('user',$userprofile)
-			                                       ->with('mschooles',$mschooles);
+		     return \View::make('backend.mschools')->with('user',$userprofile)
+			                                       ->with('mschools',$mschools);
 			}
 			else{
 		 	$logged='not login';

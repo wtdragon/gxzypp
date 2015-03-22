@@ -94,7 +94,7 @@ Route::get('/dashboard/','App\Controllers\Backend\BackendController@index');
 Route::resource('colleges','App\Controllers\Backend\CollegesController@index');
 Route::resource('carticles/','App\Controllers\Backend\BackendController@carticles');
 Route::resource('specialties','App\Controllers\Backend\SpecialtiesController@index');
-Route::resource('mschooles','App\Controllers\Backend\MschoolesController@index');
+Route::resource('mschools','App\Controllers\Backend\MschoolesController@index');
 Route::resource('ktests','App\Controllers\Backend\KtestsController@index');
 
 

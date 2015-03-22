@@ -10,7 +10,7 @@ use App\Services\Ktest\HesClient;
 use App\Services\Sclass\JsonArrayHandle;
 use SoapBox\Formatter\Formatter;
 
-class MschoolesController extends \BaseController {
+class KtestsController extends \BaseController {
 
 	
 	/**

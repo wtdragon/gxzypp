@@ -36,7 +36,13 @@
 @endforeach
 </tbody>
 </table>
-{{ $colleges->links() }} 
+{{ $ktests->links() }} 
+<form class="form-inline">
+  <div class="form-group">
+    <label for="exampleInputEmail2">同步用户测试数据</label>
+  </div>
+  <button type="submit" class="btn btn-default">同步</button>
+</form>
                     <div class="col-lg-6">
 
                         <form role="form">
