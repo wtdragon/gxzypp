@@ -55,7 +55,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="{{ URL::to('/backend/specialties') }}">
                                 <div class="panel-footer">
                                     <span class="pull-left">查看详情</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -77,7 +77,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="{{ URL::to('/backend/ktests') }}">
                                 <div class="panel-footer">
                                     <span class="pull-left">查看详情</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -95,11 +95,11 @@
                                     </div>
                                     <div class="col-xs-9 text-right">
                                         <div class="huge">13</div>
-                                        <div>Support Tickets!</div>
+                                        <div>受管学校管理</div>
                                     </div>
                                 </div>
                             </div>
-                            <a href="#">
+                            <a href="{{ URL::to('/backend/mschools') }}">
                                 <div class="panel-footer">
                                     <span class="pull-left">查看详情</span>
                                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

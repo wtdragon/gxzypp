@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Users;
  
-use Area,City,College,School,Province,UserProfile,ProfileField,Ktest;
+use Area,City,College,School,Province,UserProfile,ProfileField,Ktest,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -45,19 +45,19 @@ class KtestController extends \BaseController {
 		if($loggeduser)
 		   {
              
-		   	 $userprofile=UserProfile::find($loggeduser->id);
+		   	  $student=Student::whereraw("user_id = $loggeduser->id")->first();
 			 
-			  $xuehao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 2")->pluck('value');
+			  //$xuehao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 2")->pluck('value');
 			// $arr1 = json_decode(json_encode($xuehao),TRUE);
 			// $userprofile->xuehao=$arr1["value"];
 			
-		     $xihao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 3")->pluck('value');
+		    // $xihao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 3")->pluck('value');
 			 // $arr2 = json_decode(json_encode($xihao),TRUE);
 			 // $userprofile->xihao=$arr2["value"];
 			
-			 $userprofile->xuehao=$xuehao;
-			 $userprofile->xihao=$xihao;
-		return \View::make('users.ktest.index')->with('user',$userprofile)
+			// $userprofile->xuehao=$xuehao;
+			// $userprofile->xihao=$xihao;
+		return \View::make('users.ktest.index')->with('user',$student)
 		                                 ->with('fullLoginUrl',$fullLoginUrl)
 		                            ;
 		  

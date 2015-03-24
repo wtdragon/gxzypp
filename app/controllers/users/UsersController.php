@@ -37,41 +37,18 @@ class UsersController extends \BaseController {
 	     // $userprofile->xihao=$xihao;
 	     //var_dump($student);
 	     //$kuserId=Ktest::whereraw("user_id = $loggeduser->id");  
-		 $ktest=Ktest::where('kuser_id','=',$student->kuser_id);  
+		 $ktest=Ktest::where('kuser_id','=',$student->kuser_id); 
+		 $configId = 104;  //lsi
+         $accountId = 1000001;
+         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
+         $bounceUrl = "https://api.cn.keystosucceed.com/setCookieAndBounce.php?returnUrl=$yourDomain";
+         $kuserId=$student->kuser_id;
+         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+		 
          if ($ktest->count())
 	       { 
-	    $kuserId = $student->kuser_id;
-	    $accountId = 1000001;
-	     $accountKey = "deI%2BKwrnkhenLX"; 
-        $accountPassword = "d1SLnDVAbxKxOid5"; 
-        $environment = "singapore";
-        $hesClient = new HesClient($environment);
-	    $filters = array ('type'=>"asPortDWYAResult",'dwya_career_mode'=>8);
-        $nonce=$hesClient->handshake($accountId,$accountPassword,$accountKey); 
-	    $kresult=$hesClient->listResults($accountId, $kuserId, $nonce, $filters);
-	    $de_json = json_decode($kresult,true);
-	    $count_json = count($de_json);
-           for ($i = 0; $i < $count_json; $i++)
-             {      
-	      $ktest_id = $de_json[$i]['id'];
-              $ktest_type = $de_json[$i]['type'];
-	      $ktest_userid = $de_json[$i]['user_id'];
-              $kresult =  json_encode($de_json[$i]['CareerClusters']);
-	      $ktestId=Kresult::whereraw("ktest_id = $ktest_id "); 
-	      if($ktestId->count())
-	         {
-                 $result="你还没做过测试";
-		  }
-		  else
-		  {
-		  $kresult = new Kresult;
-                  $kresult->user_id = $loggeduser->id;
-                   $kresult->kuser_id=$kuserId;
-                  $kresult->ktest_id=$ktest_id;
-                  $kresult->type=$ktest_type;
-                  $kresult->careerclusters=$result;
-                   $kresult->save();
-		  }
+	    $ch = curl_init($kurl);
+        $kresult=curl_exec($ch);
 		//   $formatter = Formatter::make($result, Formatter::JSON);
 		  // $jstoarray=new JsonArrayHandle;
 		 //  $array = $formatter->toArray();
@@ -87,21 +64,13 @@ class UsersController extends \BaseController {
         
   //  }    
 			 
-			 }
+			
 			 }   
 		else {
 			$kresult="你还没做过测试";
 		  //change this to the humanesources userId you have created with the api
 		}
-        $configId = 104;  //lsi
-        $accountId = 1000001;
-        $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
-        $bounceUrl = "https://center.staging.humanesources.com/setCookieAndBounce.php?returnUrl=$yourDomain";
-        $kuserId=Ktest::whereraw("user_id = $loggeduser->id"); 
-        $kuserId = $kuserId->first()["kuser_id"];
-        $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
-		
-		
+       	
 		return \View::make('users.index')->with('user',$student)
 		                                 ->with('kurl',$kurl)
 						                 ->with('kresult',$kresult);
