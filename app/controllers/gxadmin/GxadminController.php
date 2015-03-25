@@ -19,8 +19,10 @@ class GxadminController extends \BaseController {
 		//
 		
 		$loggeduser=\App::make('authenticator')->getLoggedUser();
-		$loginteacher = array_search('teacher', $loggeduser->permissions);
-        $authentication = \App::make('authenticator');
+		 $authentication = \App::make('authenticator');
+		  if($loggeduser)
+      {
+      	  
 		if (array_key_exists('_teacher',$loggeduser->permissions)){
 			//var_dump($loggeduser->id);
 		$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
@@ -45,7 +47,11 @@ class GxadminController extends \BaseController {
 		else {
 			return "not a teacher";
 		}
-		
+		}
+		  else {
+		  		$logged='not login';
+		   	return \View::make('users.login');
+		  }
 	}
 
 	/**

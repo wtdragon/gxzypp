@@ -96,7 +96,10 @@ Route::resource('carticles/','App\Controllers\Backend\BackendController@carticle
 Route::resource('specialties','App\Controllers\Backend\SpecialtiesController@index');
 Route::resource('mschools','App\Controllers\Backend\MschoolesController@index');
 Route::resource('ktests','App\Controllers\Backend\KtestsController@index');
-
+Route::post('syncktest',[
+		'as'=>'Syncktest',
+		'uses'=>'App\Controllers\Backend\KtestsController@syncktest'
+	]);
 
 });	
 

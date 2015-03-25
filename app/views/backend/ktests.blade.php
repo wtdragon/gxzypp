@@ -8,7 +8,7 @@
 登录学校管理
 @stop
 @section('content')
-
+{{ Notification::showAll() }}
                 <div class="row">
                 	<table class="table table-bordered">
 <thead>
@@ -37,12 +37,13 @@
 </tbody>
 </table>
 {{ $ktests->links() }} 
-<form class="form-inline">
-  <div class="form-group">
-    <label for="exampleInputEmail2">同步用户测试数据</label>
-  </div>
-  <button type="submit" class="btn btn-default">同步</button>
-</form>
+       	   
+  	  {{ Form::open(array('route' => array('Syncktest','method' => 'post'))) }}
+      	     <div class="col-xs-2">
+      	     	 <label for="exampleInputEmail2">同步用户测试数据</label>
+        <button type="submit" class="btn btn-default" type="button">同步</button>
+        </div>
+           {{ Form::close() }}
                     <div class="col-lg-6">
 
                         <form role="form">
