@@ -96,6 +96,10 @@ Route::post('syncktest',[
 		'as'=>'Syncktest',
 		'uses'=>'App\Controllers\Backend\KtestsController@syncktest'
 	]);
+	Route::post('getzylb',[
+		'as'=>'SyncCoinfo',
+		'uses'=>'App\Controllers\Backend\KtestsController@getzylb'
+	]);
 
 });	
 

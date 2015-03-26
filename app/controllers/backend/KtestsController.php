@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Backend;
  
-use Area,City,College,Mschool,Province,UserProfile,ProfileField,Ktest,Kresult,Teacher,Student;
+use Area,City,College,Mschool,Province,UserProfile,Zylb,Specialty,ProfileField,Ktest,Kresult,Teacher,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -103,43 +103,55 @@ class KtestsController extends \BaseController {
 			
 			  //$text = mb_convert_encoding($result, 'UTF-8', "auto");
 			//$text=  current(json_decode(urldecode(json_encode([urlencode($result)]))));
-			    $finalresult2=json_decode($result);
-                $czhuanye=array_keys(get_object_vars($finalresult2));
-			     foreach($finalresult2 as $mydata)
-  {   
- $zhiye[]=array_keys(get_object_vars($mydata->Careers)); 
- foreach($mydata as $key => $majors){
- 	$jstoarray=new JsonArrayHandle;
- 	$finalresult=$jstoarray->objectToArray($majors);
-	foreach($finalresult as $key => $value){
-		$mayjors[]=$value['Majors'];
-	}
+              $finalresult2=json_decode($result);
+              $czhuanye=array_keys(get_object_vars($finalresult2));
+               foreach($finalresult2 as $mydata)
+                {   
+                  $zhiye[]=array_keys(get_object_vars($mydata->Careers)); 
+                   foreach($mydata as $key => $majors){
+ 	               $jstoarray=new JsonArrayHandle;
+ 	               $finalresult=$jstoarray->objectToArray($majors);
+	                foreach($finalresult as $key => $value){
+		                    $mayjors[]=json_encode($value['Majors']);
+	                                                       }
 	//$mayjors[] = $finalresult["Majors"];
  	//$mayjors[]=$finalresult['Majors'];
 	 
- }
+                                                       }
 
-  }            
+                 }            
                $czy=$hesClient-> unicode_decode(json_encode($czhuanye), 'UTF-8', true, '\u', '');
 			   $ccn=$hesClient-> unicode_decode(json_encode($zhiye), 'UTF-8', true, '\u', '');
 			   $mmn=$hesClient-> unicode_decode(json_encode($mayjors), 'UTF-8', true, '\u', '');
-			   
-			    $kresult = new Kresult;
+               
+              
+			 
+			      $kresult = new Kresult;
                   $kresult->user_id = $userId;
-                   $kresult->kuser_id=$kuserId;
+                  $kresult->kuser_id=$kuserId;
                   $kresult->ktest_id=$ktest_id;
                   $kresult->type=$ktest_type;
                   $kresult->careerclusters=$str2;
 				  $kresult->clustername=$czy;
 				  $kresult->careername=$ccn;
-				  $kresult->majorsname=json_encode($mayjors);
-                   $kresult->save();
+				  $kresult->majorsname=$mmn;
+				  $kresult->save();
+			  
+				  //foreach($mayjors as $mayjor)
+				 // {
+				  //	$mayjor=$hesClient-> unicode_decode($mayjor, 'UTF-8', true, '\u', '');
+					//$specialties = Zylb::search($mayjor)->get();
+				  //}
+				 // var_dump($mayjors);
+				 // var_dump($mayjor);
+				 // var_dump($specialties);
+                 // $kresult->save();
 			 }	   
 				   
 		 }
-		
-	   Notification::success('成功！');
-		 $loggeduser=\App::make('authenticator')->getLoggedUser();
+	 
+	        Notification::success('成功！');
+		    $loggeduser=\App::make('authenticator')->getLoggedUser();
 		    $userinfo=\App::make('authenticator')->getUserById($loggeduser->id);
 		     $userprofile=UserProfile::find($loggeduser->id);
 			 $pre_page = 20;//每页显示页数
@@ -147,6 +159,8 @@ class KtestsController extends \BaseController {
 			 
 		     return \View::make('backend.ktests')->with('user',$userprofile)
 			                                       ->with('ktests',$ktests);
+		 
+	  
 			 
         
 	}
@@ -185,7 +199,58 @@ class KtestsController extends \BaseController {
 		//
 		
 	}
-
+    /**
+	 * Show the form for creating a new resource.
+	 * GET /backend/backend/create
+	 *
+	 * @return Response
+	 */
+	public function getzylb()
+	{
+		//
+		       $zylbs=Zylb::All();
+		 
+			   $ktest=\DB::table('ktests')->distinct()->lists('kuser_id');
+			   
+			   $kresults=Kresult::whereNotIn('kuser_id',$ktest)->get();
+			   foreach($kresults as $kresult)
+			   {
+			    foreach($zylbs as $zylb)
+			     {
+			     	$mc1=str_replace("类","",$zylb->zymingcheng);
+				//$mc2=str_replace("类","",$mc1);     
+                    $value = str_contains($kresult->majorsname, $zylb->zymingcheng);
+			   //$gresult= new \stdClass;
+			       if($value)
+			        { 
+				     $ktests=new Ktest;
+                     $ktests->kuser_id=$kresult->kuser_id;
+				     $ktests->co_id=$zylb->coid;
+                      $ktests->zymc=$zylb->zymingcheng;
+				     $zycount=Ktest::where('zymc','=',$ktests->zymc)->count(); 
+				     if(!$zycount){
+				      $ktests->save();
+				      }
+			    
+			         }
+			       else {
+			         $coid="no result";
+			        }
+			//   var_dump($gresult);
+			   }
+			   }
+			    Notification::success('成功！');
+				 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		    $userinfo=\App::make('authenticator')->getUserById($loggeduser->id);
+		     $userprofile=UserProfile::find($loggeduser->id);
+			 $pre_page = 20;//每页显示页数
+		     $ktests = Ktest::paginate($pre_page);
+			 
+		     return \View::make('backend.ktests')->with('user',$userprofile)
+			                                       ->with('ktests',$ktests);
+		 
+		
+	}
 	/**
 	 * Store a newly created resource in storage.
 	 * POST /backend/backend

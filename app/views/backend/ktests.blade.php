@@ -13,19 +13,16 @@
                 	<table class="table table-bordered">
 <thead>
 <tr>
-<th>院校名称</th>
-<th>院校排名</th>
-<th>院校举办</th>
-<th>办学类型</th>
-<th>院校科类</th>
+<th>院校代码</th>
+<th>专业名称</th>
 <th><i class="icon-cog"></i></th>
 </tr>
 </thead>
 <tbody>
 @foreach ($ktests as $ktest)
 <tr>
-<td>{{ $ktest->name }}</td>
-<td>{{ $ktest->paiming }}</td>
+<td>{{ $ktest->co_id }}</td>
+<td>{{ $ktest->zymc }}</td>
 <td>
 <a href="{{ URL::route('backend.ktests.edit', $ktest->coid ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 {{ Form::open(array('route' => array('backend.ktests.destroy', $ktest->id ), 'method' => 'delete', 'data-confirm' => '确定删除？')) }}
@@ -41,6 +38,12 @@
   	  {{ Form::open(array('route' => array('Syncktest','method' => 'post'))) }}
       	     <div class="col-xs-2">
       	     	 <label for="exampleInputEmail2">同步用户测试数据</label>
+        <button type="submit" class="btn btn-default" type="button">同步</button>
+        </div>
+           {{ Form::close() }}
+           {{ Form::open(array('route' => array('SyncCoinfo','method' => 'post'))) }}
+      	     <div class="col-xs-2">
+      	     	 <label for="exampleInputEmail2">同步专业数据</label>
         <button type="submit" class="btn btn-default" type="button">同步</button>
         </div>
            {{ Form::close() }}
