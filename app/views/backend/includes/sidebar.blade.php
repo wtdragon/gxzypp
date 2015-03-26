@@ -19,6 +19,9 @@
                     <li>
                         <a href="{{ URL::to('/backend/ktests') }}"><i class="fa fa-fw fa-table"></i>K测试管理</a>
                     </li>
+                     <li>
+                        <a href="{{ URL::to('/admin/users/dashboard') }}"><i class="fa fa-fw fa-table"></i>用户管理</a>
+                    </li>
               
                 </ul>
             </div>
