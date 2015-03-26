@@ -234,6 +234,62 @@ $this->log($e.getMessage());
 throw e;
 }
 }
+public static  function unicode2utf8($str){
+        if(!$str) return $str;
+        $decode = json_decode($str);
+        if($decode) return $decode;
+        $str = '["' . $str . '"]';
+        $decode = json_decode($str);
+        if(count($decode) == 1){
+                return $decode[0];
+        }
+        return $str;
+}
+function unicode_conv($originalString) {
+  // The four \\\\ in the pattern here are necessary to match \u in the original string
+  $replacedString = preg_replace("/\\\\u(\w{4})/", "&#$1;", $originalString);
+  $unicodeString = mb_convert_encoding($replacedString, 'GBK', 'HTML-ENTITIES');
+  return $unicodeString;
+}
+/**
+ * 汉字转Unicode编码
+ * @param string $str 原始汉字的字符串
+ * @param string $encoding 原始汉字的编码
+ * @param boot $ishex 是否为十六进制表示（支持十六进制和十进制）
+ * @param string $prefix 编码后的前缀
+ * @param string $postfix 编码后的后缀
+ */
+function unicode_encode($str, $encoding = 'UTF-8', $ishex = false, $prefix = '&#', $postfix = ';') {
+    $str = iconv($encoding, 'UCS-2', $str);
+    $arrstr = str_split($str, 2);
+    $unistr = '';
+    for($i = 0, $len = count($arrstr); $i < $len; $i++) {
+        $dec = $ishex ? bin2hex($arrstr[$i]) : hexdec(bin2hex($arrstr[$i]));
+        $unistr .= $prefix . $dec . $postfix;
+    }
+    return $unistr;
+}
+ 
+/**
+ * Unicode编码转汉字
+ * @param string $str Unicode编码的字符串
+ * @param string $decoding 原始汉字的编码
+ * @param boot $ishex 是否为十六进制表示（支持十六进制和十进制）
+ * @param string $prefix 编码后的前缀
+ * @param string $postfix 编码后的后缀
+ */
+function unicode_decode($unistr, $encoding = 'UTF-8', $ishex = false, $prefix = '&#', $postfix = ';') {
+    $arruni = explode($prefix, $unistr);
+    $unistr = '';
+    for($i = 1, $len = count($arruni); $i < $len; $i++) {
+        if (strlen($postfix) > 0) {
+            $arruni[$i] = substr($arruni[$i], 0, strlen($arruni[$i]) - strlen($postfix));
+        }
+        $temp = $ishex ? hexdec($arruni[$i]) : intval($arruni[$i]);
+        $unistr .= ($temp < 256) ? chr(0) . chr($temp) : chr($temp / 256) . chr($temp % 256);
+    }
+    return iconv('UCS-2', $encoding, $unistr);
+}
 protected function sendPUT($urlString, $parameters)
 {
 try {

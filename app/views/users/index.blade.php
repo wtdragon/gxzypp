@@ -54,10 +54,19 @@
 		所在地：
 		偏好：  <p>{{$user->stuno}}</p> 
 		  <div class="panel-body">
-          <p>根据您做的测试，以下为您的测试结果：</p>
-  
-
-<a>{{ $kresult }}</a>
+          
+        
+@if ($kresult === "你还没做过测试" )
+    <p> {{ $kresult }}</p>
+@else
+   <p>根据您做的测试，以下为您的测试结果：</p>
+  <iframe style="width: 800px; height: 600px;"
+            src="<?php echo $kresult ?>"
+            frameBorder="0">
+            
+          </iframe>
+@endif
+ 
 
        </div>
             </div>

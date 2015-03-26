@@ -81,7 +81,7 @@ class KtestsController extends \BaseController {
 		 foreach($students  as $student)
 		 {
 		 $hesClient = new HesClient($environment);
-	     $filters = array ('type'=>"asPortDWYAResult",'dwya_career_mode'=>8);
+	     $filters = array ('type'=>"asPortDWYAResult",'dwya_career_mode'=>8,'culture'=>'zh_CN');
          $nonce=$hesClient->handshake($accountId,$accountPassword,$accountKey);
 		 $kuserId = $student->kuser_id;
 		 $userId= $student->user_id;
@@ -94,12 +94,45 @@ class KtestsController extends \BaseController {
               $ktest_type = $de_json[$i]['type'];
 	          $ktest_userid = $de_json[$i]['user_id'];
               $result =  json_encode($de_json[$i]['CareerClusters']);
-			   $kresult = new Kresult;
+			  $str2 = $hesClient-> unicode_decode($result, 'UTF-8', true, '\u', '');
+//$str2 = iconv('GBK', 'UTF-8', $str2);
+//var_dump($str2); 
+			  //$text  = $hesClient->unicode_decode($result);
+			 //$text=htmlspecialchars($result, ENT_NOQUOTES, "UTF-8");
+			// $text=json_encode($text);
+			
+			  //$text = mb_convert_encoding($result, 'UTF-8', "auto");
+			//$text=  current(json_decode(urldecode(json_encode([urlencode($result)]))));
+			    $finalresult2=json_decode($result);
+                $czhuanye=array_keys(get_object_vars($finalresult2));
+			     foreach($finalresult2 as $mydata)
+  {   
+ $zhiye[]=array_keys(get_object_vars($mydata->Careers)); 
+ foreach($mydata as $key => $majors){
+ 	$jstoarray=new JsonArrayHandle;
+ 	$finalresult=$jstoarray->objectToArray($majors);
+	foreach($finalresult as $key => $value){
+		$mayjors[]=$value['Majors'];
+	}
+	//$mayjors[] = $finalresult["Majors"];
+ 	//$mayjors[]=$finalresult['Majors'];
+	 
+ }
+
+  }            
+               $czy=$hesClient-> unicode_decode(json_encode($czhuanye), 'UTF-8', true, '\u', '');
+			   $ccn=$hesClient-> unicode_decode(json_encode($zhiye), 'UTF-8', true, '\u', '');
+			   $mmn=$hesClient-> unicode_decode(json_encode($mayjors), 'UTF-8', true, '\u', '');
+			   
+			    $kresult = new Kresult;
                   $kresult->user_id = $userId;
                    $kresult->kuser_id=$kuserId;
                   $kresult->ktest_id=$ktest_id;
                   $kresult->type=$ktest_type;
-                  $kresult->careerclusters=$result;
+                  $kresult->careerclusters=$str2;
+				  $kresult->clustername=$czy;
+				  $kresult->careername=$ccn;
+				  $kresult->majorsname=json_encode($mayjors);
                    $kresult->save();
 			 }	   
 				   

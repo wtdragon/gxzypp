@@ -18,14 +18,14 @@ class UsersController extends \BaseController {
 
 	public function index()
 {
-     $loggeduser=\App::make('authenticator')->getLoggedUser();
-     $authentication = \App::make('authenticator');
+    // $loggeduser=\App::make('authenticator')->getLoggedUser();
+    // $authentication = \App::make('authenticator');
 	// var_dump($loggeduser->permissions);
 	// var_dump(array_key_exists('_teacher',$loggeduser->permissions));
 	// var_dump(array_key_exists('_student',$loggeduser->permissions));
-     if($loggeduser)
-      {
-      	  
+   //  if($loggeduser)
+   //   {
+      	  $loggeduser=\App::make('authenticator')->getLoggedUser();
 		  if (array_key_exists('_student',$loggeduser->permissions))
 		  { //var_dump($loginstudent);
 	      $student=Student::whereraw("user_id = $loggeduser->id")->first();  
@@ -37,7 +37,7 @@ class UsersController extends \BaseController {
 	     // $userprofile->xihao=$xihao;
 	     //var_dump($student);
 	     //$kuserId=Ktest::whereraw("user_id = $loggeduser->id");  
-		 $ktest=Ktest::where('kuser_id','=',$student->kuser_id); 
+		 $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
 		 $configId = 104;  //lsi
          $accountId = 1000001;
          $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
@@ -46,9 +46,33 @@ class UsersController extends \BaseController {
          $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
 		 
          if ($ktest->count())
-	       { 
-	    $ch = curl_init($kurl);
-        $kresult=curl_exec($ch);
+	       {
+	       	
+			$accountId = 1000001;
+	//	$accountId = $_GET['accountId'];
+        $userId = $student->kuser_id;
+         $configId = 104;  //lsi
+
+        $accountKey = "deI%2BKwrnkhenLX"; 
+        $accountPassword = "d1SLnDVAbxKxOid5"; 
+
+        $environment = "singapore";
+
+        $hesClient = new HesClient($environment);
+        $nonce = $hesClient->handshake($accountId, $accountPassword, $accountKey);
+ 
+        $userId = $hesClient->encryptMe($userId, $accountKey);
+        //$fullLoginUrl = $hesClient->getLoginUrl($accountId, $configId, $userId, $nonce);
+        $kresult = $hesClient->getLoginUrl($accountId, $configId, $userId, $nonce); 
+ 
+		//$ch = curl_init();
+//$timeout = 5;
+//curl_setopt ($ch, CURLOPT_URL, $kurl);
+//curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
+//curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
+//$file_contents = curl_exec($ch); 
+		// $kresult=$file_contents; 
+        //$kresult=$kurl;
 		//   $formatter = Formatter::make($result, Formatter::JSON);
 		  // $jstoarray=new JsonArrayHandle;
 		 //  $array = $formatter->toArray();
@@ -82,11 +106,11 @@ else{
 	return "not have permissions ";
 }
 
-		   }
-		else {
-		 	$logged='not login';
-		   	return \View::make('users.login');
-		}
+		 //  }
+	//	else {
+		 //	$logged='not login';
+		   //	return \View::make('users.login');
+		//}//
 		
 	}
  

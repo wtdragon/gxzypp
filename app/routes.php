@@ -26,10 +26,6 @@ Route::get('/', 'HomeController@showHome');
   */
   
 
-Route::group(array('prefix' => '/', 'before' => 'auth'), function()
-{
-//return View::make('home');
-});
 Route::get('home', function() {
   return View::make('home');
 });
@@ -38,9 +34,9 @@ Route::get('about', function(){
   return View::make('about');
 });
 //用户中心
-//Route::get('users', 'App\Controllers\Users\UsersController@index');
 
-Route::group(array('prefix' => 'users'), function()
+//Route::get('users', 'App\Controllers\Users\UsersController@index');
+Route::group(array('prefix' => 'users','before' => 'logged'), function ()
 {
 
 Route::any('/', 'App\Controllers\Users\UsersController@index');
