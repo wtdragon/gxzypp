@@ -58,7 +58,7 @@
 		<div class="col-md-8 clearfix mp0_right">
 			 
 			 <div class="btn-group btn-group1 btn-group-lg">
-			 	<a href="{{URL::to('matches')}}" class="btn btn-default btn1" type="button">志愿匹配</a> <a href="{{URL::to('colleges/search')}}"  class="btn btn-default btn1" type="button">院校搜索</a> <a href="/specialties "  class="btn btn-default btn1" type="button">专业搜索</a> <a href="/" class="btn btn-default btn1" type="button">培训信息</a>
+			 	<a href="{{URL::to('matches')}}" class="btn btn-default btn1" type="button">志愿匹配</a> <a href="{{URL::to('colleges/search')}}"  class="btn btn-default btn1" type="button">院校搜索</a> <a href="/specialties "  class="btn btn-default btn1" type="button">专业搜索</a> <a class="btn btn-default btn1" type="button">培训信息</a>
 			 </div>
 		</div>
 		@yield('header')

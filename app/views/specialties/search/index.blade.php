@@ -26,9 +26,8 @@
            {{ Form::close() }}
 </div>
 	<div class='col-md-7'>
-@foreach ($provinces as $province)
-<a>{{ $province->pname }}</a>
-@endforeach
+<h4>基本专业</h4>
+<h4>特设专业</h4>
 </div>
 	<div class='col-md-7'>
 <table class="table table-striped">

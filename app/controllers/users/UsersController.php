@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Users;
  
-use Area,City,College,School,Province,UserProfile,ProfileField,Ktest,Kresult,Student;
+use Area,City,College,Specialty,Province,UserProfile,ProfileField,Ktest,Kresult,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -134,7 +134,7 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $pre_page = 20;//每页显示页数
-		$schools = School::search($specialty)->paginate(20);
+		$schools = Specialty::search($specialty)->paginate(20);
 		$provinces=Province::All();
 		return \View::make('users.collects.index');
 	}
@@ -148,7 +148,7 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $pre_page = 20;//每页显示页数
-		$schools = School::search($specialty)->paginate(20);
+		$schools = Specialty::search($specialty)->paginate(20);
 		$provinces=Province::All();
 		return \View::make('users.collects.colleges');
 	}
@@ -162,7 +162,7 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $pre_page = 20;//每页显示页数
-		$schools = School::search($specialty)->paginate(20);
+		$schools = Specialty::search($specialty)->paginate(20);
 		$provinces=Province::All();
 		return \View::make('users.collects.others');
 	}
@@ -176,7 +176,7 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $pre_page = 20;//每页显示页数
-		$schools = School::search($specialty)->paginate(20);
+		$schools = Specialty::search($specialty)->paginate(20);
 		$provinces=Province::All();
 		return \View::make('users.collects.specialites');
 	}
@@ -190,7 +190,7 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $pre_page = 20;//每页显示页数
-		$schools = School::search($specialty)->paginate(20);
+		$schools = Specialty::search($specialty)->paginate(20);
 		$provinces=Province::All();
 		return \View::make('users.collects.training');
 	}
@@ -204,7 +204,7 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $pre_page = 20;//每页显示页数
-		$schools = School::search($specialty)->paginate(20);
+		$schools = Specialty::search($specialty)->paginate(20);
 		$provinces=Province::All();
 		return \View::make('users.matches.index');
 	}
@@ -218,7 +218,7 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $pre_page = 20;//每页显示页数
-		$schools = School::search($specialty)->paginate(20);
+		$schools = Specialty::search($specialty)->paginate(20);
 		$provinces=Province::All();
 		return \View::make('users.specialties.index');
 	}
