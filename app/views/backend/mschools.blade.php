@@ -13,11 +13,9 @@
                 	<table class="table table-bordered">
 <thead>
 <tr>
-<th>院校名称</th>
-<th>院校排名</th>
-<th>院校举办</th>
-<th>办学类型</th>
-<th>院校科类</th>
+<th>学校名称</th>
+<th>班级</th>
+<th>班主任</th>
 <th><i class="icon-cog"></i></th>
 </tr>
 </thead>
@@ -25,11 +23,12 @@
 @foreach ($mschools as $mschool)
 <tr>
 <td>{{ $mschool->name }}</td>
-<td>{{ $mschool->paiming }}</td>
+<td>{{ $mschool->banji }}</td>
+<td>{{ $mschool->bzr }}</td>
 <td>
-<a href="{{ URL::route('backend.mschooles.edit', $mschool->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
-{{ Form::open(array('route' => array('backend.mschooles.destroy', $mschool->id ), 'method' => 'delete', 'data-confirm' => '确定删除？')) }}
-<button type="submit" href="{{ URL::route('backend.mschooles.destroy', $mschool->id) }}" class="btn btn-danger btn-mini">删除</button>
+<a href="{{ URL::route('backend.mschools.edit', $mschool->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
+{{ Form::open(array('route' => array('backend.mschools.destroy', $mschool->id ), 'method' => 'delete', 'data-confirm' => '确定删除？')) }}
+<button type="submit" href="{{ URL::route('backend.mschools.destroy', $mschool->id) }}" class="btn btn-danger btn-mini">删除</button>
 {{ Form::close() }}
 </td>
 </tr>

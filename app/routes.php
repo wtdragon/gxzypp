@@ -87,11 +87,11 @@ Route::get('/dashboard/','App\Controllers\Backend\BackendController@index');
 //{
 	//return View::make('backend.dashboard');
 //});
-Route::resource('colleges','App\Controllers\Backend\CollegesController@index');
+Route::resource('colleges','App\Controllers\Backend\CollegesController');
 Route::resource('carticles/','App\Controllers\Backend\BackendController@carticles');
-Route::resource('specialties','App\Controllers\Backend\SpecialtiesController@index');
-Route::resource('mschools','App\Controllers\Backend\MschoolesController@index');
-Route::resource('ktests','App\Controllers\Backend\KtestsController@index');
+Route::resource('specialties','App\Controllers\Backend\SpecialtiesController');
+Route::resource('mschools','App\Controllers\Backend\MschoolesController');
+Route::resource('ktests','App\Controllers\Backend\KtestsController');
 Route::post('syncktest',[
 		'as'=>'Syncktest',
 		'uses'=>'App\Controllers\Backend\KtestsController@syncktest'

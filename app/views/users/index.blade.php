@@ -10,7 +10,7 @@
 @stop
 @section('content')
 {{ Notification::showAll() }}
-	<div class='col-md-2 text-center  slidbar_bg'>
+<div class='col-md-2 text-center  slidbar_bg'>
 		<div class="sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
                     <ul class="nav" id="side-menu">
@@ -38,13 +38,11 @@
       </ul>
 	</div>
 	</div>
-	</div>
+</div>
 	<div class='col-md-7'>
 		<h2>
 			会员中心
 		</h2>
-    </div>
-    <div class='col-md-7'>
 		<h2>
 			会员名称：
 		</h2>

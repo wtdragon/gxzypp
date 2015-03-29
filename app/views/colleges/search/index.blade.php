@@ -25,13 +25,16 @@
       </div>
     </div><!-- /input-group -->
            {{ Form::close() }}
-</div>
-	<div class='col-md-7'>
 @foreach ($provinces as $province)
 <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">{{ $province->pname }}</a>
 @endforeach
-</div>
-	<div class='col-md-7'>
+
+	 <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">教育部直属</a>
+	  <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">211院校</a>
+      <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">985院校</a>
+      <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">全部</a>
+ 
+
 <table class="table table-striped">
 <thead>
 <tr>

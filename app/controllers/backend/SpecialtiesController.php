@@ -193,6 +193,13 @@ class SpecialtiesController extends \BaseController {
 	public function edit($id)
 	{
 		//
+		$loggeduser=\App::make('authenticator')->getLoggedUser();
+		$userinfo=\App::make('authenticator')->getUserById($loggeduser->id);
+		$userprofile=UserProfile::find($loggeduser->id);
+		$college=null;	 
+		return \View::make('backend.edit')->with('user',$userprofile)
+		                                  ->with('college',null)
+		                                  ->with('specialty', Specialty::find($id));
 	}
 
 	/**

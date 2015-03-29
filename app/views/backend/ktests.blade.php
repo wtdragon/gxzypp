@@ -24,7 +24,7 @@
 <td>{{ $ktest->co_id }}</td>
 <td>{{ $ktest->zymc }}</td>
 <td>
-<a href="{{ URL::route('backend.ktests.edit', $ktest->coid ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
+<a href="{{ URL::route('backend.ktests.edit', $ktest->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 {{ Form::open(array('route' => array('backend.ktests.destroy', $ktest->id ), 'method' => 'delete', 'data-confirm' => '确定删除？')) }}
 <button type="submit" href="{{ URL::route('backend.ktests.destroy', $ktest->id) }}" class="btn btn-danger btn-mini">删除</button>
 {{ Form::close() }}
