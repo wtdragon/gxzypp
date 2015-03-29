@@ -73,3 +73,16 @@ margin:0;
 	 padding-left:38px;
 	
 }
+.top{
+	 margin-bottom: 10px;
+	
+}
+.bottom{
+	 margin-top: 10px;
+	
+}
+.bottom-border{
+	border-top-style:solid;
+	border-top-color:#dcdcdc;
+	
+}

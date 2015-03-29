@@ -210,9 +210,9 @@ class KtestsController extends \BaseController {
 		//
 		       $zylbs=Zylb::All();
 		 
-			   $ktest=\DB::table('ktests')->distinct()->lists('kuser_id');
+			   $ktest=\DB::table('ktests')->distinct()->lists('ktest_id');
 			   
-			   $kresults=Kresult::whereNotIn('kuser_id',$ktest)->get();
+			   $kresults=Kresult::whereNotIn('ktest_id',$ktest)->get();
 			   foreach($kresults as $kresult)
 			   {
 			    foreach($zylbs as $zylb)
@@ -225,8 +225,10 @@ class KtestsController extends \BaseController {
 			        { 
 				     $ktests=new Ktest;
                      $ktests->kuser_id=$kresult->kuser_id;
+					 $ktests->kresult_id=$kresult->id;
+					 $ktests->ktest_id=$kresult->ktest_id;
 				     $ktests->co_id=$zylb->coid;
-                      $ktests->zymc=$zylb->zymingcheng;
+                     $ktests->zymc=$zylb->zymingcheng;
 				     $zycount=Ktest::where('zymc','=',$ktests->zymc)->count(); 
 				     if(!$zycount){
 				      $ktests->save();

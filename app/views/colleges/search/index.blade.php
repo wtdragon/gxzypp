@@ -11,9 +11,8 @@
 </p>
 			
 	</div>
-	<div class='col-md-7'>
+	<div class='col-md-7 bottom top'>
      <div class="input-group">
- 
       <span class="input-group-btn">
       	    {{ Form::open(array('route' => array('Postcollegesearch','method' => 'post'))) }}
       	     <div class="col-xs-2">
@@ -25,16 +24,18 @@
       </div>
     </div><!-- /input-group -->
            {{ Form::close() }}
+<div class="row top bottom">
 @foreach ($provinces as $province)
 <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">{{ $province->pname }}</a>
 @endforeach
-
+</div>
+ <div class="row top bottom bottom-border">
 	 <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">教育部直属</a>
 	  <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">211院校</a>
       <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">985院校</a>
       <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">全部</a>
  
-
+</div>
 <table class="table table-striped">
 <thead>
 <tr>
