@@ -57,12 +57,12 @@
 		</div>
 		<div class="col-md-8 clearfix mp0_right">
 			 
-			<nav class="collapse navbar-collapse bs-navbar-collapse btn-group1 navbar-inverse">
+		<nav class="navbar navbar-default btn-group1" role="navigation">
 		 <ul class="nav navbar-nav">
-		 <li><a href="{{URL::to('users')}}">志愿匹配</a></li> 
-		 <li><a href="{{URL::to('colleges/search')}}">院校搜索</a></li>
-		 <li><a href="/specialties ">专业搜索</a></li>
-		<li><a>培训信息</a></li>
+		 <li><a href="{{URL::to('users')}}" class="headera">志愿匹配</a></li> 
+		 <li><a href="{{URL::to('colleges/search')}}" class="headera">院校搜索</a></li>
+		 <li><a href="/specialties " class="headera">专业搜索</a></li>
+		<li><a class='headera'>培训信息</a></li>
 		</ul>
 		</nav>
 		</div>

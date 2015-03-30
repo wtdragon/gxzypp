@@ -23,7 +23,7 @@ return [
                  * but still want to handle permission with the 'can_see' filter
                  * just leave this field empty.
                  */
-                "name"        => "Users",
+                "name"        => "用户",
                 /* the route name associated to the link: used to set
                  * the 'active' flag and to validate permissions of all
                  * the subroutes associated(users.* will be validated for _superadmin and _group-editor permission)
@@ -50,13 +50,13 @@ return [
                 "skip_permissions" => ["users.selfprofile.edit", "users.profile.edit"]
             ],
             [
-                    "name"        => "Groups",
+                    "name"        => "用户组",
                     "route"       => "groups",
                     "link"        => URL::route('groups.list'),
                     "permissions" => ["_superadmin", "_group-editor"]
             ],
             [
-                    "name"        => "Permission",
+                    "name"        => "用户权限",
                     "route"       => "permission",
                     "link"        => URL::route('permission.list'),
                     "permissions" => ["_superadmin", "_permission-editor"]
