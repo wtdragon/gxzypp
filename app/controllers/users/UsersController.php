@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,ProfileField,Ktest,Kresult,Student;
+use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Ktest,Kresult,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -168,17 +168,8 @@ else{
 	}
 	 public function specialites()
 	{
-		//
-		//
-		$inputData = Input::get('specialty'); 
-		$specialty = $inputData;
-		$provinces=Province::All();
-		//return \View::make('colleges.search.index')->with('colleges',$colleges)
-         //                                        ->with('provinces',$provinces);
-        $pre_page = 20;//每页显示页数
-		$schools = Specialty::search($specialty)->paginate(20);
-		$provinces=Province::All();
-		return \View::make('users.collects.specialites');
+		
+		
 	}
 	 public function training()
 	{
@@ -198,29 +189,35 @@ else{
 	{
 		//
 		//
-		$inputData = Input::get('specialty'); 
-		$specialty = $inputData;
-		$provinces=Province::All();
+		 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
-        $pre_page = 20;//每页显示页数
-		$schools = Specialty::search($specialty)->paginate(20);
-		$provinces=Province::All();
-		return \View::make('users.matches.index');
+        $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
+		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+		$collegename=Zylb::where('coid','=',$ktest1st->coid)->distinct()->first();
+        $zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
+        
+		return \View::make('users.matches.index')->with('ktests',$ktests)
+		                                             ->with('ktest1st',$ktest1st)
+		                                             ->with('zylbs',$zylbs);
 	}
 	  public function specialties()
 	{
 		//
 		//
-		$inputData = Input::get('specialty'); 
-		$specialty = $inputData;
-		$provinces=Province::All();
+		 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
-        $pre_page = 20;//每页显示页数
-		$schools = Specialty::search($specialty)->paginate(20);
-		$provinces=Province::All();
-		return \View::make('users.specialties.index');
+        $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
+		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+        $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(6);
+        
+		return \View::make('users.specialties.index')->with('ktests',$ktests)
+		                                               ->with('ktest1st',$ktest1st)
+		                                             ->with('colleges',$colleges);
+		 
 	}
 	/**
 	 * Display the specified resource.

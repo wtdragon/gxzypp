@@ -52,7 +52,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 		<p class='p-wid'>九子高考志愿匹配网为您提供全面的专业数据库搜索功能，以便于您可以根据搜索结果，查询所需要的专业信息。</p>
 			
 	</div>
-	<div class='col-md-7'>
+	<div class='col-md-7 bottom top'>
      <div class="input-group">
        <span class="input-group-btn">
 {{ Form::open(array('route' => array('PostSpecialtiysearch','method' => 'post'))) }}
@@ -65,6 +65,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
       </div>
     </div><!-- /input-group -->
 {{ Form::close() }}
+<div class='row top bottom'>
 <h4>基本专业</h4>
 <div id="mylist1">
 <ul>
@@ -74,10 +75,12 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 </a>
 @endforeach
 </ul>
+</div>
 <div class="showmore1">
 	<a href='#'><span>全部专业</span></a>
 </div>
 </div>
+<div class='row top bottom'>
 <h4>特设专业</h4>
 <div id="mylist">
 <ul>
@@ -90,6 +93,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 </ul>
 <div class="showmore">
 <a><span>全部专业</span></a>
+</div>
 </div>
 </div>
 <table class="table table-striped">
@@ -116,7 +120,9 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 {{ $schools->links() }}  
 </div>
 <div class='col-md-3'>
+	<div class='row top bottom'>
 		@include('ads')
+	</div>
 	</div>
 @stop
 @section('bootor')

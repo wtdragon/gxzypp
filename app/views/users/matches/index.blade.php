@@ -43,13 +43,45 @@
 		<h2>
 			会员中心
 		</h2>
-		<h2>
+		<h4>
 			会员名称：
-		</h2>
+		</h4>
 		<p>会员信息：</p>
 		
 		 
-        <p>根据您筛选的院校或专业，我们可以为您做出比对和匹配：</p>
+        <p>根据您的测评结果，我们为您推荐以下院校：</p>
+      @foreach ($ktests as $ktest)
+         <a href="#">
+         {{ $ktest->colleges->yxmc }}
+         </a>
+         @endforeach
+         <div class='row top bottom bottom-border'>
+        <h4>
+		  {{ $ktest1st->colleges->yxmc }}
+		</h4> 
+		</div>
+<table class="table table-striped">
+<thead>
+<tr>
+<th>专业名称</th>
+<th>科类</th>
+<th>招生批次</th>
+<th>学制</th>
+<th>收藏</th>
+</tr>
+</thead>
+<tbody>
+@foreach ($zylbs as $zylb)
+<tr>
+<td>{{ $zylb->zymingcheng }}</td>
+<td>{{ $zylb->kelei }}</td>
+<td>{{ $zylb->pici }}</td>
+<td>{{ $zylb->xuezhi }}</td>
+<td><a href="{{ URL::route('specialties.search.show', $zylb->id) }}">添加</a></td>
+</tr>
+@endforeach
+</tbody>
+</table>
             </div>
 <div class='col-md-3'>
 		@include('ads')

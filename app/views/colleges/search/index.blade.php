@@ -60,7 +60,9 @@
 {{ $colleges->links() }}  
 </div>
 <div class='col-md-3'>
+	<div class='row top bottom'>
 		@include('ads')
+	</div>
 	</div>
 @stop
 @section('bootor')

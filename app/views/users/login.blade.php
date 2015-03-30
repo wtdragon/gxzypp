@@ -46,7 +46,7 @@
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-12 margin-top-10">
         {{link_to_action('Jacopo\Authentication\Controllers\AuthController@getReminder','忘记密码')}}
-        or <a href="{{URL::action('Jacopo\Authentication\Controllers\UserController@signup')}}"><i class="fa fa-sign-in"></i> 注册</a>
+        or <a href="{{URL::action('Jacopo\Authentication\Controllers\UserController@signup')}}" class="btn  disabled" role="button"><i class="fa fa-sign-in"></i> 注册</a>
             </div>
         </div>
             </div>

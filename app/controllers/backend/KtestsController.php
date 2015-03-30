@@ -227,6 +227,7 @@ class KtestsController extends \BaseController {
                      $ktests->kuser_id=$kresult->kuser_id;
 					 $ktests->kresult_id=$kresult->id;
 					 $ktests->ktest_id=$kresult->ktest_id;
+					 $ktests->user_id=$kresult->user_id;
 				     $ktests->co_id=$zylb->coid;
                      $ktests->zymc=$zylb->zymingcheng;
 				     $zycount=Ktest::where('zymc','=',$ktests->zymc)->count(); 
