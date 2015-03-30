@@ -36,21 +36,20 @@
 <body>
 <div class="container">
 	
-	<div class="row clearfix header-row">
-		<div class="col-md-1 column c1">
-		</div>
-		<div class="col-md-6 column">
-		</div>
-		<div class="col-md-5 column c1 clearfix bg2">
-				 <a href="{{URL::to('/')}}"  class="btn btn-default" type="button">首页</a> 
+		<div class="row clearfix header-row">
+	<nav class="collapse navbar-collapse bs-navbar-collapse">
+	 <ul class="nav navbar-nav navbar-right">
+	 <li><a href="{{URL::to('/')}}">首页</a></li> 
 				@if(App::make('authenticator')->getLoggedUser())
-    <a href="{{URL::to('users')}}" class="btn btn-default" type="button">用户中心</a> 
-    <a href="{{URL::to('user/logout')}}" class="btn btn-default" type="button">登出</a> 
+         <li><a href="{{URL::to('users')}}">用户中心</a></li>  
+         <li><a href="{{URL::to('user/logout')}}">登出</a></li> 
 @else
-   <a href="{{URL::to('users')}}" class="btn btn-default" type="button">注册登录</a> 
+         <li><a href="{{URL::to('users')}}">注册登录</a></li>
 @endif
-				<a href="/about" class="btn btn-default" type="button">关于我们</a> {{{ date("Y年m月d") }}} 
-		</div>
+	 <li><a href="/about">关于我们</a></li> 
+	 <li><p class="navbar-text">{{{ date("Y年m月d") }}}</p></li>  
+		</ul>
+	</nav>
 	</div>
 	<div class="row clearfix bordor_bgcolor">
 		<div class="col-md-4 column c1">
@@ -58,9 +57,14 @@
 		</div>
 		<div class="col-md-8 clearfix mp0_right">
 			 
-			 <div class="btn-group btn-group1 btn-group-lg">
-			 	<a href="{{URL::to('matches')}}" class="btn btn-default btn1" type="button">志愿匹配</a> <a href="{{URL::to('colleges/search')}}"  class="btn btn-default btn1" type="button">院校搜索</a> <a href="/specialties "  class="btn btn-default btn1" type="button">专业搜索</a> <a class="btn btn-default btn1" type="button">培训信息</a>
-			 </div>
+			<nav class="collapse navbar-collapse bs-navbar-collapse btn-group1 navbar-inverse">
+		 <ul class="nav navbar-nav">
+		 <li><a href="{{URL::to('users')}}">志愿匹配</a></li> 
+		 <li><a href="{{URL::to('colleges/search')}}">院校搜索</a></li>
+		 <li><a href="/specialties ">专业搜索</a></li>
+		<li><a>培训信息</a></li>
+		</ul>
+		</nav>
 		</div>
 		@yield('header')
 	</div>

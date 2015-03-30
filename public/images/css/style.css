@@ -14,7 +14,6 @@ margin-top:1px;
 	margin: 10px;
 }
 .b1 { 
-	margin:0;
 	padding:0;
 }
 .btn-group1 {
@@ -23,6 +22,7 @@ margin-top:1px;
 	margin-top:25px;
 	height:80px;
 	float:right;
+	color: #ffffff;
 }
 .center {
   width: auto;
@@ -45,8 +45,7 @@ margin:0;
 }
 .bordor_bgcolor{
 	border-bottom:4px solid #0057ae;
-	margin:0;
-	padding:0;
+
 }
 .mp0_right{
 	margin:0;
