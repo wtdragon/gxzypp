@@ -37,14 +37,15 @@
 <div class="container">
 	
 	<div class="row clearfix header-row">
-		<div class="col-md-2 column c1">
+		<div class="col-md-1 column c1">
 		</div>
 		<div class="col-md-6 column">
 		</div>
-		<div class="col-md-4 column c1 clearfix bg2">
+		<div class="col-md-5 column c1 clearfix bg2">
 				 <a href="{{URL::to('/')}}"  class="btn btn-default" type="button">首页</a> 
 				@if(App::make('authenticator')->getLoggedUser())
     <a href="{{URL::to('users')}}" class="btn btn-default" type="button">用户中心</a> 
+    <a href="{{URL::to('user/logout')}}" class="btn btn-default" type="button">登出</a> 
 @else
    <a href="{{URL::to('users')}}" class="btn btn-default" type="button">注册登录</a> 
 @endif
