@@ -65,7 +65,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
       </div>
     </div><!-- /input-group -->
 {{ Form::close() }}
-<div class='row top bottom'>
+<div class='row top bottom marginlr'>
 <h4>基本专业</h4>
 <div id="mylist1">
 <ul>
@@ -80,7 +80,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 	<a href='#'><span>全部专业</span></a>
 </div>
 </div>
-<div class='row top bottom'>
+<div class='row top bottom marginlr'>
 <h4>特设专业</h4>
 <div id="mylist">
 <ul>

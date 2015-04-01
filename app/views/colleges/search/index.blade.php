@@ -24,12 +24,12 @@
       </div>
     </div><!-- /input-group -->
            {{ Form::close() }}
-<div class="row top bottom">
+<div class="row top bottom marginlr">
 @foreach ($provinces as $province)
 <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">{{ $province->pname }}</a>
 @endforeach
 </div>
- <div class="row top bottom bottom-border">
+ <div class="row top bottom bottom-border marginlr">
 	 <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">教育部直属</a>
 	  <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">211院校</a>
       <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">985院校</a>
