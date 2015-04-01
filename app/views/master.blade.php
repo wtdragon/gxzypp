@@ -41,7 +41,7 @@
 	 <ul class="nav navbar-nav navbar-right">
 	 <li><a href="{{URL::to('/')}}">首页</a></li> 
 				@if(App::make('authenticator')->getLoggedUser())
-         <li><a href="{{URL::to('users')}}">用户中心</a></li>  
+         <li><a href="{{URL::to('users')}}">会员中心</a></li>  
          <li><a href="{{URL::to('user/logout')}}">登出</a></li> 
 @else
          <li><a href="{{URL::to('users')}}">注册登录</a></li>
@@ -77,7 +77,7 @@
 
 	<div class="row clearfix b1 fbg">
 		<div class="col-md-6 column">
-			 <address> <strong>北京九子国际文化传播</strong><br>有限公司<br> 版权所有<br> <abbr title="Phone">京ICP证:</abbr> 1234567890号 </address>
+			 <address> <strong>北京九子国际文化传播</strong><br>有限公司<br> 版权所有<br> <abbr title="Phone">京ICP证:</abbr>  </address>
 		</div>
 		<div class="col-md-6 column">
 			<p>友情链接 | 加入收藏 | 联系我们</p>

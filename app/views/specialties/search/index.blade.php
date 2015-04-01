@@ -46,10 +46,10 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 @section('content')
 {{ Notification::showAll() }}
 	<div class='col-md-2 text-center  slidbar_bg'>
-		<h2>
+		<h3 class="acolor">
 			专业搜索
-		</h2>
-		<p class='p-wid'>九子高考志愿匹配网为您提供全面的专业数据库搜索功能，以便于您可以根据搜索结果，查询所需要的专业信息。</p>
+		</h3>
+		<p class='t1'>九子高考志愿匹配网为您提供全面的专业数据库搜索功能，以便于您可以根据搜索结果，查询所需要的专业信息。</p>
 			
 	</div>
 	<div class='col-md-7 bottom top'>

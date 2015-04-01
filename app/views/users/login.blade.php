@@ -4,10 +4,10 @@
 @section('content')
 {{ Notification::showAll() }}
 	<div class='col-md-2 text-center  slidbar_bg'>
-		<h2>
+		<h3 class="acolor">
 			志愿匹配
-		</h2>
-		<p class='p-wid'>注册登录之后，您可以进行我们给您提供的一套权威的职业测评，为您推荐职业匹配，以便于您进行职业筛选和专业比较，对合适的选择可以收藏并记录。</p>
+		</h3>
+		<p class='t1'>注册登录之后，您可以进行我们给您提供的一套权威的职业测评，为您推荐职业匹配，以便于您进行职业筛选和专业比较，对合适的选择可以收藏并记录。</p>
 			
 	</div>
 	<div class='col-md-7'>

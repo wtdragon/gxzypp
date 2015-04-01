@@ -10,11 +10,19 @@ margin-top:1px;
 	margin-top:5px;
 }
 .t1 {
-	width:18%;
-	margin: 10px;
+	 margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+    width: 70%;
+	
 }
 .b1 { 
 	padding:0;
+}
+.acolor { 
+	text-align: center;
+	color:#FFFFFF;
+	 font-weight:bold;
 }
 .btn-group1 {
     background-color: #f49800;
@@ -29,6 +37,18 @@ margin-top:1px;
   display: table;
   margin-left: auto;
   margin-right: auto;
+}
+.dcenter{
+	  float: none;  
+    display: block;  
+    margin-left: auto;  
+    margin-right: auto;  
+}
+.acenter{
+	margin-left:5px;
+}
+.imgcenter{
+	margin-left:5px;
 }
 .text-center {
   text-align: center;
@@ -64,8 +84,6 @@ margin:0;
 }
 .fbg{
 	background-color:#898989;
-	margin:0;
-	padding:0;
 	
 }
 .pdl0{
@@ -142,6 +160,48 @@ margin:0;
 }
 .navbar-default .navbar-link:hover {
   color: #e3dada;
+}
+.col-xs-5ths,
+.col-sm-5ths,
+.col-md-5ths,
+.col-lg-5ths {
+    position: relative;
+    min-height: 1px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+.col-xs-5ths {
+    width: 20%;
+    float: left;
+   
+}
+.vcenter {
+    display: inline-block;
+    vertical-align: middle;
+    float: none;
+}
+@media (min-width: 768px) {
+    .col-sm-5ths {
+        width: 20%;
+        float: left;
+    }
+}
+
+@media (min-width: 992px) {
+    .col-md-5ths {
+        width: 20%;
+        float: left;
+         margin-top: 5px;
+         
+    }
+}
+
+@media (min-width: 1200px) {
+    .col-lg-5ths {
+        width: 20%;
+        float: left;
+    }
 }
 
 @media (max-width: 767px) {

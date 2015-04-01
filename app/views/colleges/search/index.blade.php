@@ -4,10 +4,10 @@
 @section('content')
 {{ Notification::showAll() }}
 	<div class='col-md-2 text-center  slidbar_bg'>
-		<h2>
+		<h3 class="acolor">
 			院校搜索
-		</h2>
-		<p class='p-wid'>九子高考志愿匹配网为您提供权威的、全面的职业院校新闻资讯和招生信息。为您对于院校及专业的情况了解进行科学系统的导向。
+		</h3>
+		<p class='t1'>九子高考志愿匹配网为您提供权威的、全面的职业院校新闻资讯和招生信息。为您对于院校及专业的情况了解进行科学系统的导向。
 </p>
 			
 	</div>
