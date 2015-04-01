@@ -17,9 +17,8 @@
         <li><a href="{{URL::to('users')}}" class="btn btn-default btn1" type="button">我的测评</a></li>
         <li><a href="{{URL::to('users/specialties')}}" class="btn btn-default btn1" type="button">专业列表</a></li>
         <li><a href="{{URL::to('users/matches')}}" class="btn btn-default btn1" type="button">院校列表</a></li>
-	       <li>
-                <a href="{{URL::to('users/collects')}}" class="btn btn-default btn1" type="button">我的收藏</a>
-               <ul class="nav nav-second-level">
+	    <li><a href="{{URL::to('users/collects')}}" class="btn btn-default btn1" type="button">我的收藏</a>
+        <ul class="nav nav-second-level">
                                 <li>
                                     <a href="{{URL::to('users/collects/colleges')}}" >院校收藏</a>
                                 </li>
@@ -27,12 +26,12 @@
                                     <a href="{{URL::to('users/collects/specialites')}}">专业收藏</a>
                                 </li>
                                 <li>
-                                   <a>课程收藏</a>
+                                 <a课程收藏</a>
                                 </li>
                                 <li>
                                    <a href="{{URL::to('users/collects/others')}}" >其他收藏</a>
                                 </li>
-                            </ul>
+         </ul>
                             <!-- /.nav-second-level -->
                         </li>
       </ul>
@@ -40,6 +39,7 @@
 	</div>
 	</div>
 	<div class='col-md-7'>
+		<div class="row top bottom marginlr">
 		<h2>
 			会员中心
 		</h2>
@@ -53,7 +53,8 @@
          {{ $ktest->zymc }}
          </a>
          @endforeach
-         <div class='row top bottom bottom-border'>
+        </div>
+         <div class='row top bottom bottom-border marginlr'>
         <h4>
 		  {{ $ktest1st->zymc }}
 		</h4> 

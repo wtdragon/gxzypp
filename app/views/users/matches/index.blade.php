@@ -40,6 +40,7 @@
 	</div>
 	</div>
 	<div class='col-md-7'>
+		<div class="row top bottom marginlr">
 		<h2>
 			会员中心
 		</h2>
@@ -55,7 +56,8 @@
          {{ $ktest->colleges->yxmc }}
          </a>
          @endforeach
-         <div class='row top bottom bottom-border'>
+        </div>
+         <div class='row top bottom bottom-border marginlr'>
         <h4>
 		  {{ $ktest1st->colleges->yxmc }}
 		</h4> 
