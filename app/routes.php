@@ -118,9 +118,13 @@ Route::group(array('prefix' => 'specialties'), function()
 
 Route::any('/', 'App\Controllers\Specialtiy\SearchController@index');
 Route::resource('search', 'App\Controllers\Specialtiy\SearchController');
-Route::post('collegesearch',[
+Route::post('specseach',[
 		'as'=>'PostSpecialtiysearch',
-		'uses'=>'App\Controllers\College\SearchController@collegesearch'
+		'uses'=>'App\Controllers\Specialtiy\SearchController@specsearch'
+	]);
+Route::get('showsspec/{specname}',[
+		'as'=>'Showsspec',
+		'uses'=>'App\Controllers\Specialtiy\SearchController@showsspec'
 	]);
 });	
 
@@ -139,6 +143,10 @@ Route::group(array('prefix' => 'colleges'), function()
 Route::any('/', 'App\Controllers\College\ArticlesController@index');
 Route::resource('articles', 'App\Controllers\College\ArticlesController');
 Route::resource('search', 'App\Controllers\College\SearchController');
+Route::get('cofilter/{filter}',[
+		'as'=>'Cofilter',
+		'uses'=>'App\Controllers\College\SearchController@cofilter'
+	]);
 Route::post('collegesearch',[
 		'as'=>'Postcollegesearch',
 		'uses'=>'App\Controllers\College\SearchController@collegesearch'
@@ -147,7 +155,7 @@ Route::get('cosearch/{id}',[
 		'as'=>'Getcosearch',
 		'uses'=>'App\Controllers\College\SearchController@showco'
 	]);});	
- 
+
 //通用搜索
 Route::get('search ', function(){
   return View::make('search/index')->with('userid', $_COOKIE['userid']);

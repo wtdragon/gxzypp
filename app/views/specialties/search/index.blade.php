@@ -70,7 +70,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 <div id="mylist1">
 <ul>
 @foreach ($ptzys as $ptzy)
-<a href="#">
+<a href="{{ URL::route('Showsspec',$ptzy->mkml) }}">
 {{ $ptzy->mkml }}
 </a>
 @endforeach
@@ -86,7 +86,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 <ul>
 	
 @foreach ($tszys as $tszy)
-<a href="#">
+<a href="{{ URL::route('Showsspec',$tszy->mkml) }}">
 {{ $tszy->mkml }}
 </a>
 @endforeach
@@ -100,6 +100,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 <thead>
 <tr>
 <th>专业名称</th>
+<th>院校</th>
 <th>科类</th>
 <th>层次</th>
 <th>详情</th>
@@ -110,6 +111,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 @foreach ($schools as $school)
 <tr>
 <td>{{ $school->zymingcheng }}</td>
+<td>{{ $school->yxmc }}</td>
 <td>{{ $school->kelei }}</td>
 <td>{{ $school->cengci }}</td>
 <td><a href="{{ URL::route('specialties.search.show', $school->scid) }}">查看</a></td>

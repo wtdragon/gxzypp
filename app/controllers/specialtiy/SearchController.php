@@ -25,12 +25,31 @@ class SearchController extends \BaseController {
 		
 		$provinces=Province::All();
 		return \View::make('specialties.search.index')->with('schools',$schools)
-                                                   ->with('provinces',$provinces)
-												    ->with('ptzys',$ptzys)
-												   ->with('tszys',$tszys);
+                                                      ->with('provinces',$provinces)
+												      ->with('ptzys',$ptzys)
+												      ->with('tszys',$tszys);
 		
 	}
-
+    
+	
+	//search  specialty by zhuanyemingcheng
+	
+	public function showsspec($specname)
+	{
+		//
+		 //return $coid;
+		  $pre_page = 20;//每页显示页数
+		  $schools = Zylb::search($specname)->paginate(20);
+		  $ptzys= Tzy::distinct()->select('mkml','id')->where('tszy', '=', 0)->groupBy('mkml')->get();
+		  $tszys= Tzy::distinct()->select('mkml','id')->where('tszy', '=', 1)->groupBy('mkml')->get();
+		
+		  $provinces= Province::All();
+		  return \View::make('specialties.search.index')->with('schools',$schools)
+                                                        ->with('provinces',$provinces)
+												        ->with('ptzys',$ptzys)
+												        ->with('tszys',$tszys);
+			 
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /college/articles/create
@@ -53,20 +72,25 @@ class SearchController extends \BaseController {
 	{
 		//
 	}
-    public function specialtysearch()
+	//specialies use name to search
+	
+    public function specsearch()
 	{
 		//
 		//
 		$inputData = Input::get('specialty'); 
 		$specialty = $inputData;
-		$provinces=Province::All();
+		 $schools = Zylb::search($specialty)->paginate(20);
+		  $ptzys= Tzy::distinct()->select('mkml','id')->where('tszy', '=', 0)->groupBy('mkml')->get();
+		  $tszys= Tzy::distinct()->select('mkml','id')->where('tszy', '=', 1)->groupBy('mkml')->get();
+	
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
-        $pre_page = 20;//每页显示页数
-		$schools = School::search($specialty)->paginate(20);
-		$provinces=Province::All();
-		return \View::make('specialties.search.index')->with('schoolss',$schools)
-                                                   ->with('provinces',$provinces);
+          $provinces= Province::All();
+   return \View::make('specialties.search.index')->with('schools',$schools)
+                                                        ->with('provinces',$provinces)
+												        ->with('ptzys',$ptzys)
+												        ->with('tszys',$tszys);
 	}
 	/**
 	 * Display the specified resource.
@@ -79,7 +103,7 @@ class SearchController extends \BaseController {
 	{
 		//
 		$authentication = \App::make('authenticator');
-		return \View::make('colleges.articles.show')->with('article', Article::find($id))->withAuthor($authentication->getUserById(Article::find($id)->user_id)->name);
+		return \View::make('specialties.search.show')->with('article', Article::find($id))->withAuthor($authentication->getUserById(Article::find($id)->user_id)->name);
 	}
 
 	/**

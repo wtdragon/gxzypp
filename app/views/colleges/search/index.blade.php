@@ -30,10 +30,10 @@
 @endforeach
 </div>
  <div class="row top bottom bottom-border marginlr">
-	 <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">教育部直属</a>
-	  <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">211院校</a>
-      <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">985院校</a>
-      <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">全部</a>
+	 <a href="{{ URL::route('Cofilter','jyb') }}">教育部直属</a>
+	  <a href="{{ URL::route('Cofilter','211') }}">211院校</a>
+      <a href="{{ URL::route('Cofilter','985') }}">985院校</a>
+      <a href="{{ URL::route('Cofilter','all') }}">全部</a>
  
 </div>
 <table class="table table-striped">

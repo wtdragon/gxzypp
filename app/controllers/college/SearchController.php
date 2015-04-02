@@ -61,6 +61,7 @@ class SearchController extends \BaseController {
 	{
 		//
 	}
+	// college search use province
     public function collegesearch()
 	{
 		//
@@ -75,6 +76,43 @@ class SearchController extends \BaseController {
 		$provinces=Province::All();
 		return \View::make('colleges.search.index')->with('colleges',$colleges)
                                                    ->with('provinces',$provinces); 
+	}
+// college search use filter 
+    public function cofilter($filter)
+	{
+		//
+		//
+		if($filter=='985'){
+		 $pre_page = 20;//每页显示页数
+		 $colleges = College::whereRaw("is985 = 1")->paginate($pre_page);
+		 $provinces=Province::All();
+		return \View::make('colleges.search.index')->with('colleges',$colleges)
+                                               ->with('provinces',$provinces);
+			}
+		elseif($filter=='211')
+		{
+			$pre_page = 20;//每页显示页数
+		 $colleges = College::whereRaw("is211 = 1")->paginate($pre_page);
+		 $provinces=Province::All();
+		return \View::make('colleges.search.index')->with('colleges',$colleges)
+                                               ->with('provinces',$provinces);
+		}
+		elseif($filter=='jyb')
+		{
+		 $pre_page = 20;//每页显示页数
+		 $colleges = College::whereRaw("lishu = '教育部'")->paginate($pre_page);
+		 $provinces=Province::All();
+		return \View::make('colleges.search.index')->with('colleges',$colleges)
+                                               ->with('provinces',$provinces);
+		}
+		else {
+			$pre_page = 20;//每页显示页数
+		 $colleges =College::paginate($pre_page);
+		 $provinces=Province::All();
+		return \View::make('colleges.search.index')->with('colleges',$colleges)
+                                               ->with('provinces',$provinces);
+		}
+		 
 	}
 	/**
 	 * Display the specified resource.
