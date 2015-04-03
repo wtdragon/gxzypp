@@ -76,12 +76,12 @@
 	</div>
 
 	<div class="row clearfix b1 fbg">
-		<div class="col-md-6 column">
-			 <address> <strong>北京九子国际文化传播</strong><br>有限公司<br> 版权所有<br> <abbr title="Phone">京ICP证:</abbr>  </address>
-		</div>
-		<div class="col-md-6 column">
+		<div class="center">
+			<p> <strong>北京九子国际文化传播有限公司</strong></p>
+			<p class='center'>版权所有</p>
 			<p>友情链接 | 加入收藏 | 联系我们</p>
-			 		</div>
+			
+		</div>
 	</div>
 	@yield('bootor')
 </div>
