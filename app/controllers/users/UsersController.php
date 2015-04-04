@@ -235,6 +235,23 @@ else{
 
 	/**
 	 * Show the form for editing the specified resource.
+	 * GET  userid to do profileedit
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function editprofile()
+	{
+		//
+		$size=1000;
+		 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		 $user_profile=$loggeduser->user_profile()->first();
+		 $use_gravatar=$loggeduser->user_profile()->first()->presenter()->avatar($size);
+		 return \View::make('users.editprofile')->with('user_profile',$user_profile)
+		                                       ->with('use_gravatar','$use_gravatar');
+	}
+     	/**
+	 * Show the form for editing the specified resource.
 	 * GET /college/articles/{id}/edit
 	 *
 	 * @param  int  $id
@@ -245,7 +262,7 @@ else{
 		//
 		return \View::make('colleges.articles.edit')->with('article', article::find($id));
 	}
-
+  
 	/**
 	 * Update the specified resource in storage.
 	 * PUT /college/articles/{id}

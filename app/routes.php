@@ -41,6 +41,7 @@ Route::group(array('prefix' => 'users','before' => 'logged'), function ()
 
 Route::any('/', 'App\Controllers\Users\UsersController@index');
 Route::get('collects', 'App\Controllers\Users\UsersController@collects');
+Route::get('editprofile', 'App\Controllers\Users\UsersController@editprofile');
 Route::get('/collects/traing', 'App\Controllers\Users\UsersController@traing');
 Route::get('/collects/colleges', 'App\Controllers\Users\UsersController@colleges');
 Route::get('/collects/others', 'App\Controllers\Users\UsersController@others');
