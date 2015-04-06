@@ -14,8 +14,8 @@ var $listResultsUrl;
 public function __construct($environment)
 {
 if($environment === 'singapore'){
-$apiRootUrl = 'https://api.cn.keystosucceed.com/';
-$extRootUrl = 'https://api.cn.keystosucceed.com/ext_singapore.php/';
+$apiRootUrl = 'https://api.keystosucceed.cn/';
+$extRootUrl = 'https://api.keystosucceed.cn/ext_singapore.php/';
 }
 if(!isset($apiRootUrl)) {
 echo 'HesClient __construct received an invalid environment:' . $environment;
@@ -286,8 +286,8 @@ function unicode_decode($unistr, $encoding = 'UTF-8', $ishex = false, $prefix = 
             $arruni[$i] = substr($arruni[$i], 0, strlen($arruni[$i]) - strlen($postfix));
         }
         $temp = $ishex ? hexdec($arruni[$i]) : intval($arruni[$i]);
-        $unistr .= ($temp < 256) ? chr(0) . chr($temp) : chr($temp / 256) . chr($temp % 256);
-    }
+       // $unistr .= ($temp < 256) ? chr(0) . chr($temp) : chr($temp / 256) . chr($temp % 256);
+     $unistr .= implode(",", preg_split("/[\s]+/", ($temp < 256) ? chr(0) . chr($temp) : chr($temp / 256) . chr($temp % 256)));	}
     return iconv('UCS-2', $encoding, $unistr);
 }
 protected function sendPUT($urlString, $parameters)

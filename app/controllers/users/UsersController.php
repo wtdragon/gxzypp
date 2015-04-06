@@ -41,7 +41,7 @@ class UsersController extends \BaseController {
 		 $configId = 104;  //lsi
          $accountId = 1000001;
          $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
-         $bounceUrl = "https://api.cn.keystosucceed.com/setCookieAndBounce.php?returnUrl=$yourDomain";
+         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
          $kuserId=$student->kuser_id;
          $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
 		 
@@ -193,8 +193,30 @@ else{
 		
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
+   		$student=Student::whereraw("user_id = $loggeduser->id")->first();  
+         
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
         $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
 		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+	    $configId = 104;  //lsi
+        $accountId = 1000001;
+        $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
+        $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
+        $kuserId=$student->kuser_id;
+        $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+	
+			if(!$ktest1st)
+		{
+			$kresult="你还没做过测试";
+				return \View::make('users.index')->with('user',$student)
+		                                 ->with('kurl',$kurl)
+						                 ->with('kresult',$kresult);
+						                 } 
+else{
+		
+		
+		
 		$collegename=Zylb::where('coid','=',$ktest1st->coid)->distinct()->first();
         $zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
         
@@ -202,22 +224,39 @@ else{
 		                                             ->with('ktest1st',$ktest1st)
 		                                             ->with('zylbs',$zylbs);
 	}
+	}
 	  public function specialties()
 	{
 		//
 		//
 		 $loggeduser=\App::make('authenticator')->getLoggedUser();
-		
+		 $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+         
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
 		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+	     $configId = 104;  //lsi
+         $accountId = 1000001;
+         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
+         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
+         $kuserId=$student->kuser_id;
+         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+		
+		if(!$ktest1st)
+		{
+			$kresult="你还没做过测试";
+				return \View::make('users.index')->with('user',$student)
+		                                 ->with('kurl',$kurl)
+						                 ->with('kresult',$kresult);
+						                 } 
+else{
         $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(6);
         
 		return \View::make('users.specialties.index')->with('ktests',$ktests)
 		                                               ->with('ktest1st',$ktest1st)
-		                                             ->with('colleges',$colleges);
-		 
+                                            ->with('colleges',$colleges);
+	} 
 	}
 	/**
 	 * Display the specified resource.
