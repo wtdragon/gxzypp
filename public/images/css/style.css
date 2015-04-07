@@ -186,6 +186,10 @@ margin:0;
     vertical-align: middle;
     float: none;
 }
+.border{
+  border-bottom:1px solid #ddd;
+  padding-bottom:20px
+  }
 @media (min-width: 768px) {
     .col-sm-5ths {
         width: 20%;

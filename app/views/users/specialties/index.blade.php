@@ -49,7 +49,7 @@
 		<p>会员信息：</p>
 		<p>根据您的测评结果，我们为您推荐以下专业：</p>
 		@foreach ($ktests as $ktest)
-         <a href="#">
+         <a href="{{ URL::route('Colfilter',$ktest->zymc) }}">
          {{ $ktest->zymc }}
          </a>
          @endforeach
@@ -66,8 +66,7 @@
 <th>科类</th>
 <th>招生批次</th>
 <th>学制</th>
-<th>平均分</th>
-<th>详情</th>
+<th>收藏</th>
 </tr>
 </thead>
 <tbody>
@@ -77,12 +76,12 @@
 <td>{{ $college->kelei }}</td>
 <td>{{ $college->pici }}</td>
 <td>{{ $college->xuezhi }}</td>
-<td>{{ $college->kelei }}</td>
-<td><a href="{{ URL::route('specialties.search.show', $college->id) }}">查看</a></td>
+<td><a href="#"></a>添加</td>
 </tr>
 @endforeach
 </tbody>
 </table>
+{{ $colleges->links() }}  
             </div>
 <div class='col-md-3'>
 		@include('ads')

@@ -185,6 +185,7 @@ else{
 		$provinces=Province::All();
 		return \View::make('users.collects.training');
 	}
+    // for colleges use ktest
 	  public function matches()
 	{
 		//
@@ -225,7 +226,52 @@ else{
 		                                             ->with('zylbs',$zylbs);
 	}
 	}
-	  public function specialties()
+
+   // college search use spec name for filter
+      public function specfilter($filter)
+	{
+		//
+		//
+			 
+		 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
+   		$student=Student::whereraw("user_id = $loggeduser->id")->first();  
+         
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
+        $ktests=Ktest::where('user_id','=',$loggeduser->id)->distinct()->get();
+		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+	    $configId = 104;  //lsi
+        $accountId = 1000001;
+        $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
+        $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
+        $kuserId=$student->kuser_id;
+        $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+	
+			if(!$ktest1st)
+		{
+			$kresult="你还没做过测试";
+				return \View::make('users.index')->with('user',$student)
+		                                 ->with('kurl',$kurl)
+						                 ->with('kresult',$kresult);
+						                 } 
+else{
+		
+		
+		
+		$collegename=$filter;
+	    $ktest1st->colleges->yxmc =$collegename;
+        $zylbs =Zylb::where('yxmc','=',$collegename)->distinct()->paginate(10);
+        
+		return \View::make('users.matches.index')->with('ktests',$ktests)
+		                                             ->with('ktest1st',$ktest1st)
+		                                             ->with('zylbs',$zylbs);
+	}
+	}
+   // get spec use ktest
+	  public function colfilter($filter)
 	{
 		//
 		//
@@ -251,7 +297,42 @@ else{
 						                 ->with('kresult',$kresult);
 						                 } 
 else{
-        $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(6);
+	    $ktest1st->zymc=$filter;  
+        $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(10);
+        
+		return \View::make('users.specialties.index')->with('ktests',$ktests)
+		                                               ->with('ktest1st',$ktest1st)
+                                            ->with('colleges',$colleges);
+	} 
+	}
+// use filter to get the colleges
+    public function specialties()
+	{
+		//
+		//
+		 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		 $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+         
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
+        $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
+		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+	     $configId = 104;  //lsi
+         $accountId = 1000001;
+         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
+         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
+         $kuserId=$student->kuser_id;
+         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+		
+		if(!$ktest1st)
+		{
+			$kresult="你还没做过测试";
+				return \View::make('users.index')->with('user',$student)
+		                                 ->with('kurl',$kurl)
+						                 ->with('kresult',$kresult);
+						                 } 
+else{
+        $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(10);
         
 		return \View::make('users.specialties.index')->with('ktests',$ktests)
 		                                               ->with('ktest1st',$ktest1st)

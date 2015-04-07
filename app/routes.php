@@ -53,6 +53,14 @@ Route::post('collegesearch',[
 		'as'=>'PostSpecialtiysearch',
 		'uses'=>'App\Controllers\College\SearchController@collegesearch'
 	]);
+Route::get('spefilter/{filter}',[
+		'as'=>'Specfilter',
+		'uses'=>'App\Controllers\Users\UsersController@specfilter'
+	]);
+Route::get('colfilter/{filter}',[
+		'as'=>'Colfilter',
+		'uses'=>'App\Controllers\Users\UsersController@colfilter'
+	]);
 });	
 
  

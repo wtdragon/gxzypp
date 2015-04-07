@@ -52,7 +52,7 @@
 		 
         <p>根据您的测评结果，我们为您推荐以下院校：</p>
       @foreach ($ktests as $ktest)
-         <a href="#">
+        <a href="{{ URL::route('Specfilter',$ktest->colleges->yxmc) }}">
          {{ $ktest->colleges->yxmc }}
          </a>
          @endforeach
@@ -79,11 +79,12 @@
 <td>{{ $zylb->kelei }}</td>
 <td>{{ $zylb->pici }}</td>
 <td>{{ $zylb->xuezhi }}</td>
-<td><a href="{{ URL::route('specialties.search.show', $zylb->id) }}">添加</a></td>
+<td><a href="#">添加</a></td>
 </tr>
 @endforeach
 </tbody>
 </table>
+{{ $zylbs->links() }}  
             </div>
 <div class='col-md-3'>
 		@include('ads')

@@ -28,9 +28,9 @@
 	</div>
 	</div>
 	</div>
-	<div class='col-md-7 text-center'>
+<div class='col-md-7 text-center'>
 		<h3>管理的学生</h3>
-	<table class="table table-striped">
+	<table class="table table-striped border">
 <thead>
 <tr>
 <th>学生姓名</th>
@@ -63,7 +63,7 @@
 {{ implode('<br>', $errors->all()) }}
 </div>
 @endif
- {{ Form::open(array('route' => 'gxadmin.students.store')) }}
+ {{ Form::open(array('route' => 'gxadmin.students.store','class'=>'border')) }}
 <div class="control-group">
 {{ Form::label('classname', '班级名称') }}
 {{ Form::text('classname') }}
@@ -79,14 +79,15 @@
 <a href="{{ URL::route('gxadmin.students.index') }}" class="btn btn-large">取消</a>
 </div>
 {{ Form::close() }}
-</div>
 {{ Form::open(array('action' => 'Filestore','files'=>true)) }}
+<h3>批量上传学生数据</h3>
 <div class="form-actions dropzone">
 {{ Form::file('file') }}
 {{ Form::submit('新增', array('class' => 'btn btn-success btn-save btn-large')) }}
 <a href="{{ URL::route('gxadmin.students.index') }}" class="btn btn-large">取消</a>
 </div>
 {{ Form::close() }}
+</div>
 </div>
 @stop
 @section('bootor')
