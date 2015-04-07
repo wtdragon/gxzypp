@@ -92,7 +92,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 @endforeach
 </ul>
 <div class="showmore">
-<a><span>全部专业</span></a>
+<a href='#'><span>全部专业</span></a>
 </div>
 </div>
 </div>
@@ -114,7 +114,7 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 <td>{{ $school->yxmc }}</td>
 <td>{{ $school->kelei }}</td>
 <td>{{ $school->cengci }}</td>
-<td><a href="{{ URL::route('specialties.search.show', $school->scid) }}">查看</a></td>
+<td><a href="#">查看</a></td>
 </tr>
 @endforeach
 </tbody>

@@ -52,7 +52,7 @@
 <td>{{ $college->name }}</td>
 <td>{{ $college->kelei }}</td>
 <td>{{ $college->pici }}</td>
-<td><a href="{{ URL::route('Getcosearch',$college->coid) }}">查看</td>
+<td><a href="#">查看</td>
 </tr>
 @endforeach
 </tbody>
