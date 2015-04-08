@@ -69,7 +69,6 @@
 <th>科类</th>
 <th>招生批次</th>
 <th>学制</th>
-<th>收藏</th>
 </tr>
 </thead>
 <tbody>
@@ -79,7 +78,6 @@
 <td>{{ $zylb->kelei }}</td>
 <td>{{ $zylb->pici }}</td>
 <td>{{ $zylb->xuezhi }}</td>
-<td><a href="#">添加</a></td>
 </tr>
 @endforeach
 </tbody>

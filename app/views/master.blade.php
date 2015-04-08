@@ -46,7 +46,7 @@
 @else
          <li><a href="{{URL::to('users')}}">注册登录</a></li>
 @endif
-	 <li><a herf="http://jiuziguoji.smzds.cn/index.html">返回九子国际</a></li> 
+	 <li><a href="http://jiuziguoji.smzds.cn/index.html">返回九子国际</a></li> 
 	 <li><p class="navbar-text">{{{ date("Y年m月d") }}}</p></li>  
 		</ul>
 	</nav>

@@ -66,7 +66,6 @@
 <th>科类</th>
 <th>招生批次</th>
 <th>学制</th>
-<th>收藏</th>
 </tr>
 </thead>
 <tbody>
@@ -76,7 +75,6 @@
 <td>{{ $college->kelei }}</td>
 <td>{{ $college->pici }}</td>
 <td>{{ $college->xuezhi }}</td>
-<td><a href="#"></a>添加</td>
 </tr>
 @endforeach
 </tbody>

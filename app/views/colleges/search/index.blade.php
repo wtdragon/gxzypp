@@ -42,7 +42,7 @@
 <th>院校名称</th>
 <th>科类</th>
 <th>批次</th>
-<th>详情</th>
+<th>隶属</th>
 <th><i class="icon-cog"></i></th>
 </tr>
 </thead>
@@ -52,7 +52,7 @@
 <td>{{ $college->name }}</td>
 <td>{{ $college->kelei }}</td>
 <td>{{ $college->pici }}</td>
-<td><a href="#">查看</td>
+<td>{{ $college->lishu }}</td>
 </tr>
 @endforeach
 </tbody>

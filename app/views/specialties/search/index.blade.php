@@ -103,7 +103,6 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 <th>院校</th>
 <th>科类</th>
 <th>层次</th>
-<th>详情</th>
 <th><i class="icon-cog"></i></th>
 </tr>
 </thead>
@@ -114,7 +113,6 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 <td>{{ $school->yxmc }}</td>
 <td>{{ $school->kelei }}</td>
 <td>{{ $school->cengci }}</td>
-<td><a href="#">查看</a></td>
 </tr>
 @endforeach
 </tbody>

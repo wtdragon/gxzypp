@@ -168,7 +168,15 @@ else{
 	}
 	 public function specialites()
 	{
-		
+		$inputData = Input::get('specialty'); 
+		$specialty = $inputData;
+		$provinces=Province::All();
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
+        $pre_page = 20;//每页显示页数
+		$schools = Specialty::search($specialty)->paginate(20);
+		$provinces=Province::All();
+		return \View::make('users.collects.specialites');
 		
 	}
 	 public function training()
