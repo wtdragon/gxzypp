@@ -100,10 +100,10 @@ $classname = Input::get('classname');
 $student->emailaddress = Input::get('emailaddress');
 
 //var_dump($classname);
-$classid=Student::whereRaw("classname = '$classname'")->firstOrFail();
+$asclass=Sclass::where('classname','=',$classname)->firstOrFail();
 //var_dump($classid);
 $student->classname = $classname;
-$student->classid=$classid->id;
+$student->classid=$asclass->id;
 $data = array(
                 "email"     => $student->emailaddress,
                 "password"  => 123456,
