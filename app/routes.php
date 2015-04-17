@@ -64,7 +64,7 @@ Route::get('colfilter/{filter}',[
 });	
 
  
-//教师管理中心
+//受管学校管理中心
 //Route::get('gxadmin', 'App\Controllers\Gxadmin\GxadminController@index');
 
 Route::group(array('prefix' => 'gxadmin'), function()
@@ -81,6 +81,25 @@ Route::post('filestore',[
 		'uses'=>'App\Controllers\Gxadmin\StudentsController@excel'
 	]);
 });	
+ 
+//教师管理中心
+//Route::get('gxadmin', 'App\Controllers\Gxadmin\GxadminController@index');
+
+Route::group(array('prefix' => 'tcadmin'), function()
+{
+Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
+Route::resource('classes', 'App\Controllers\Gxadmin\ClassesController');
+Route::resource('students', 'App\Controllers\Gxadmin\StudentsController');
+Route::post('classestore',[
+		'as'=>'Classestore',
+		'uses'=>'App\Controllers\Gxadmin\ClassesController@store'
+	]);
+Route::post('filestore',[
+		'as'=>'Filestore',
+		'uses'=>'App\Controllers\Gxadmin\StudentsController@excel'
+	]);
+});	
+  
  
 //后台管理中心
 //Route::get('gxadmin', 'App\Controllers\Gxadmin\GxadminController@index');
