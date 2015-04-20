@@ -39,7 +39,7 @@ class GxadminController extends \BaseController {
 	   $classid=$sclasses->toArray();
 	   
 	   //var_dump(array_fetch($classid, 'id'));
-		$students=Student::wherein('classid',array_fetch($classid, 'id'))->get();
+		$students=Student::wherein('sclassid',array_fetch($classid, 'id'))->get();
 		return \View::make('gxadmin.index')->with('students',$students)
 		->with('class_tongjis',$sclasses);
 			

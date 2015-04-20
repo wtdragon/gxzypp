@@ -1,4 +1,3 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -35,8 +34,7 @@
 
 <body>
 <div class="container">
-	
-		<div class="row clearfix header-row">
+	<div class="row clearfix header-row">
 	<nav class="collapse navbar-collapse bs-navbar-collapse">
 	 <ul class="nav navbar-nav navbar-right">
 	 <li><a href="{{URL::to('/')}}">首页</a></li> 
@@ -55,8 +53,9 @@
 		<div class="col-md-4 column c1">
 			<img alt="200x30" src={{ URL::asset('images/img/logo.png') }}>
 		</div>
+		
 		<div class="col-md-8 clearfix mp0_right">
-			 
+		@section('header.nav')	 
 		<nav class="navbar navbar-default btn-group1" role="navigation">
 		 <ul class="nav navbar-nav">
 		 <li><a href="{{URL::to('users')}}" class="headera">志愿匹配</a></li> 
@@ -65,10 +64,9 @@
 		<li><a class='headera'>培训信息</a></li>
 		</ul>
 		</nav>
+		@show
 		</div>
-		@yield('header')
 	</div>
-
 	<div class="row clearfix b1">
 		
 		@yield('content')

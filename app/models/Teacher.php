@@ -3,9 +3,9 @@
 class Teacher extends \Eloquent {
 	protected $fillable = [];
 	public function sclass(){
-    return $this->belongsTo('Sclass','classid');
+    return $this->belongsTo('Sclass','sclassid');
     }
 	public function school(){
-    return $this->belongsTo('Mschool','schoolid');
+    return $this->belongsTo('Mschool','mschoolid');
     }
 }

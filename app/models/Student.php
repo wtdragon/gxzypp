@@ -3,15 +3,15 @@
 class Student extends \Eloquent {
 	protected $fillable = [];
 	public function sclass(){
-    return $this->belongsTo('Sclass','classid');
+    return $this->belongsTo('Sclass','sclassid');
     }
 	public function school(){
-    return $this->belongsTo('Mschool','schoolid');
+    return $this->belongsTo('Mschool','mschoolid');
     }
 	public function teachers(){
-    return $this->hasMany('Teacher','tid');
+    return $this->hasMany('Teacher');
 	}
 	public function ktest(){
-    return $this->hasMany('Ktest','tid');
+    return $this->hasMany('Ktest');
 	}
 }

@@ -6,7 +6,13 @@ class Sclass extends \Eloquent {
 	public function teachers(){
     return $this->hasMany('Teacher','tid');
 	}
+	public function students(){
+    return $this->hasMany('Student');
+	}
 	public function school(){
     return $this->belongsTo('Mschool','schoolid');
+    }
+	public function grade(){
+    return $this->belongsTo('Grade','gradeid');
     }
 }
