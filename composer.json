@@ -16,7 +16,8 @@
 		"nicolaslopezj/searchable": "1.*",
 		"caouecs/laravel4-lang":"dev-master",
 		"soapbox/laravel-formatter": "2.x",
-		"cartalyst/sentry": "2.1.*" 
+		"cartalyst/sentry": "2.1.*",
+		"nekman/laravel-model-logger": "1.*" 
 	},
 	"autoload": {
 		"classmap": [

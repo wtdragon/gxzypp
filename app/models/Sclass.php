@@ -3,8 +3,8 @@
 class Sclass extends \Eloquent {
 	protected $table = 'sclasses';  
 	protected $fillable = [];
-	public function teachers(){
-    return $this->hasMany('Teacher','tid');
+	public function teacher(){
+    return $this->belongsTo('Teacher','tid');
 	}
 	public function students(){
     return $this->hasMany('Student');

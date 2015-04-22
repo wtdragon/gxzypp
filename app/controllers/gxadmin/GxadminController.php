@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Gxadmin;
  
-use Area,City,College,School,Province,UserProfile,ProfileField,Teacher,Student,Sclass;
+use Area,City,College,School,Province,UserProfile,ProfileField,Grade,Teacher,Student,Sclass;
 use Input, Notification, Redirect, Sentry, Str,DB;
 
 use App\Services\Validators\AdminValidator;
@@ -23,29 +23,23 @@ class GxadminController extends \BaseController {
 		  if($loggeduser)
       {
       	  
-		if (array_key_exists('_teacher',$loggeduser->permissions)){
+		if (array_key_exists('_mschool',$loggeduser->permissions)){
 			//var_dump($loggeduser->id);
 		$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
-			//var_dump($teacher->teachername);
-		//var_dump($teacher->id);	
-		//$class_tongjis =  DB::table('students')
-         //   ->select((DB::raw('count(*) as student_count, classname')))
-          //  ->groupBy('classname')
-          //  ->get();
-		//var_dump($class_tongji);
-		//var_dump($teacher->teachername);
-		$sclasses=Sclass::where('tid', '=',$teacher->id)->get();
+		$sclasses=Sclass::where('mschoolid','=',$teacher->mschoolid)->get();
 	   // var_dump($sclasses->classname);
-	   $classid=$sclasses->toArray();
+	    $classid=$sclasses->toArray();
+		$grades=Grade::where('tid', '=',$teacher->id)->get();
 	   
 	   //var_dump(array_fetch($classid, 'id'));
-		$students=Student::wherein('sclassid',array_fetch($classid, 'id'))->get();
-		return \View::make('gxadmin.index')->with('students',$students)
-		->with('class_tongjis',$sclasses);
+		$teachers=Teacher::where('mschoolid','=',$teacher->mschoolid)->get();
+		return \View::make('gxadmin.index')->with('teachers',$teachers)
+		                                   ->with('sclasses',$sclasses)
+		                                   ->with('grades',$grades);
 			
 		}
 		else {
-			return "not a teacher";
+			return "您没有权限，请询问管理员";
 		}
 		}
 		  else {

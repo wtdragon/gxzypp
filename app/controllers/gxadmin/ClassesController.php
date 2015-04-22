@@ -39,14 +39,10 @@ class ClassesController extends \BaseController {
 		$loggeduser=\App::make('authenticator')->getLoggedUser();
 		$loginteacher = array_search('teacher', $loggeduser->permissions);
         $authentication = \App::make('authenticator');
-		if (array_key_exists('_teacher',$loggeduser->permissions))
+		if (array_key_exists('_mschool',$loggeduser->permissions))
 		{
-			//var_dump($loggeduser->id);
 		$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
-			//var_dump($teacher->teachername);
-		$sclasses=Sclass::where('tid', '=',$teacher->id)->get();
-	   // var_dump($sclasses->classname);
-	   //$classes=$sclasses->toArray();
+		$sclasses=Sclass::where('mschoolid','=',$teacher->mschoolid)->get();
 		 return \View::make('gxadmin.classes.index')->with('classes', $sclasses);
 	}
 		else {
@@ -81,9 +77,10 @@ if ($validation->passes())
 	$loggeduser=\App::make('authenticator')->getLoggedUser();
 		$loginteacher = array_search('teacher', $loggeduser->permissions);
         $authentication = \App::make('authenticator');
-		$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
+		$teacher=Teacher::where('teachername','=',Input::get('teachername'))->first();
 $sclass = new Sclass;
 $sclass->classname = Input::get('classname');
+$sclass->other = Input::get('other');
 $sclass->tid = $teacher->id;
 $sclass->save();
 var_dump(Input::get('classname'));

@@ -51,18 +51,9 @@
 	</div>
 @section('content')
 {{ Notification::showAll() }}
-<div class='col-md-2 text-center  slidbar_bg'>
-  <div class="sidebar" role="navigation">
-    <ul class="nav nav-pills nav-stacked">
-    	 <li><a href="">管理中心首页</a></li>
-     <li><a href="">年级管理</a></li>
-    
-     <li><a href="{{URL::to('gxadmin/classes')}}" >班级管理</a></li>
-       <li> <a href="{{URL::to('gxadmin/students')}}">教师管理</a></li>
-       <li> <a href="{{URL::to('gxadmin/students')}}">历史记录</a>  </li>   
-     </ul>
-  </div>
-	</div>
+ <div class='col-md-2 text-center  slidbar_bg'>
+ 	@include('gxadmin.slidbar')
+</div>
 <div class='col-md-7 text-center'>
  <h3>管理中心</h3>
 		<h4>年级列表</h4>
@@ -75,10 +66,10 @@
 </tr>
 </thead>
 <tbody>
-@foreach ($class_tongjis as $class_tongji)
+@foreach ($grades as $grade)
 <tr>
-<td>{{ $class_tongji->classname }}</td>
-<td>{{ $class_tongji->stucount }}</td>
+<td>{{ $grade->gradename }}</td>
+<td>{{ $grade->stucount }}</td>
 <td></td>
 </tr>
 @endforeach
@@ -95,10 +86,10 @@
 </tr>
 </thead>
 <tbody>
-@foreach ($students as $student)
+@foreach ($sclasses as $sclass)
 <tr>
-<td>{{ $student->stuname }}</td>
-<td>{{ $student->stuno }}</td>
+<td>{{ $sclass->classname }}</td>
+<td>{{ $sclass->stuno }}</td>
 <td></td>
 </tr>
 @endforeach
@@ -116,10 +107,10 @@
 </tr>
 </thead>
 <tbody>
-@foreach ($students as $student)
+@foreach ($teachers as $teacher)
 <tr>
-<td>{{ $student->stuname }}</td>
-<td>{{ $student->stuno }}</td>
+<td>{{ $teacher->teachername }}</td>
+<td>{{ $teacher->emailaddress }}</td>
 <td></td>
 </tr>
 @endforeach

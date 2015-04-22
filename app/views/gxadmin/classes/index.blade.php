@@ -11,36 +11,28 @@
 @section('content')
 {{ Notification::showAll() }}
 <div class='col-md-2 text-center  slidbar_bg'>
-  <div class="sidebar" role="navigation">
-      <div class="sidebar-nav navbar-collapse">
-         <ul class="nav" id="side-menu">
-          <li>
-            <a href="{{URL::to('users/collects')}}" class="btn btn-default btn1" type="button">学生班级管理</a>
-            <ul class="nav nav-second-level">
-              <li> <a href="{{URL::to('gxadmin/classes')}}" >班级管理</a>
-                </li>
-                <li>
-                 <a href="{{URL::to('gxadmin/students')}}">学生管理</a>
-                  </li>
-              </ul>
-               </li>
-      </ul>
-	</div>
-	</div>
-	</div>
+ 	@include('gxadmin.slidbar')
+</div>
 	<div class='col-md-7 text-center'>
-		<h3>管理的班级</h3>
+		<h3>管理中心</h3>
+		<h4>班级列表</h4>
 	<table class="table table-striped">
 <thead>
 <tr>
-<th>学生班级</th>
-<th><i class="icon-cog"></i></th>
+<th>班级</th>
+<th>人数</th>
+<th>负责老师</th>
+<th>备注</th>
+<th><i class="icon-cog">管理</i></th>
 </tr>
 </thead>
 <tbody>
 @foreach ($classes as $class)
 <tr>
 <td>{{ $class->classname }}</td>
+<td>{{ $class->stucount }}</td>
+<td>{{ $class->teacher->teachername }}</td>
+<td>{{ $class->other }}</td>
 <td>
 <a href="{{ URL::route('gxadmin.classes.edit', $class->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 {{ Form::open(array('route' => array('gxadmin.classes.destroy', $class->id ), 'method' => 'delete', 'data-confirm' => '确定删除？')) }}
@@ -61,6 +53,8 @@
 <div class="control-group">
 {{ Form::label('classname', '班级名称') }}
 {{ Form::text('classname') }}
+{{ Form::label('other', '班级备注') }}
+{{ Form::text('other') }}
 </div>
 <div class="form-actions">
 {{ Form::submit('新增', array('class' => 'btn btn-success btn-save btn-large')) }}

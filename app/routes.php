@@ -71,10 +71,11 @@ Route::group(array('prefix' => 'gxadmin'), function()
 {
 Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
 Route::resource('classes', 'App\Controllers\Gxadmin\ClassesController');
-Route::resource('students', 'App\Controllers\Gxadmin\StudentsController');
-Route::post('classestore',[
-		'as'=>'Classestore',
-		'uses'=>'App\Controllers\Gxadmin\ClassesController@store'
+Route::resource('teachers', 'App\Controllers\Gxadmin\TeachersController');
+Route::resource('grades', 'App\Controllers\Gxadmin\GradesController');
+Route::post('gradestore',[
+		'as'=>'Gradestore',
+		'uses'=>'App\Controllers\Gxadmin\GradesController@store'
 	]);
 Route::post('filestore',[
 		'as'=>'Filestore',
