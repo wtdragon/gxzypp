@@ -44,22 +44,38 @@
 		<h2>
 			会员中心
 		</h2>
-		<h4>
-			会员名称：
-		</h4>
+		<p>
+			用户名：
+		</p>
 		<p>会员信息：</p>
 		
 		 
-        <p>根据您的测评结果，我们为您推荐以下院校：</p>
+        <h4>根据您的测评结果，我们为您推荐以下院校：</h4>
+        	<div class="row top bottom  marginlr">
+        <a>本科院校</a>   <a>专科院校</a>  <a>全部</a> 
+        </div>
+        <div class='row top bottom bottom-border marginlr'>
       @foreach ($ktests as $ktest)
-        <a href="{{ URL::route('Specfilter',$ktest->colleges->yxmc) }}">
-         {{ $ktest->colleges->yxmc }}
+        <a href="{{ URL::route('Specfilter',$ktest->co_id) }}">
+         {{ $ktest->colleges->name }}
          </a>
          @endforeach
         </div>
+          </div>
          <div class='row top bottom bottom-border marginlr'>
         <h4>
-		  {{ $ktest1st->colleges->yxmc }}
+		  {{ $ktest1st->colleges->name }}
+		  <div class='row top bottom  marginlr'>
+		  	<div class='col-md-4'>
+		  	<h5>所属地区:{{ $ktest1st->colleges->province->pname }}</h5>
+		  	</div>
+		  	<div class='col-md-4'>
+		  	<h5>所属科类:{{ $ktest1st->colleges->kelei}}</h5>
+		  	</div>
+		  	<div class='col-md-4'>
+		  	<h5><a>添加收藏</a></h5>
+		  	</div>
+		  </div>
 		</h4> 
 		</div>
 <table class="table table-striped">

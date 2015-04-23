@@ -37,16 +37,8 @@
 <script type="text/javascript" src={{ URL::asset('images/js/sb-admin-2.js') }}></script>
 </head>
 		
-		@section('header.nav')	 
-		<nav class="navbar navbar-default btn-group1" role="navigation">
-		 <ul class="nav navbar-nav">
-		 <li><a href="" class="hb">年级管理</a></li> 
-		 <li><a href="" class="hb">班级管理</a></li>
-		 <li><a href="" class="hb">教师管理</a></li>
-		<li><a class='hb'>历史记录</a></li>
-		<li><a class='hb'>回到首页</a></li>
-		</ul>
-		</nav>
+			@section('header.nav')	 
+		@include('gxadmin.headnav')
 		@overwrite
 	</div>
 @section('content')

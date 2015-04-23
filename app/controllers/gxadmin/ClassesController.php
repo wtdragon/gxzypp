@@ -77,15 +77,25 @@ if ($validation->passes())
 	$loggeduser=\App::make('authenticator')->getLoggedUser();
 		$loginteacher = array_search('teacher', $loggeduser->permissions);
         $authentication = \App::make('authenticator');
-		$teacher=Teacher::where('teachername','=',Input::get('teachername'))->first();
-$sclass = new Sclass;
+		$inputtname=Input::get('teachername');
+		$mteacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
+		$teacher=Teacher::where('teachername','=',$inputtname)->first();
+		var_dump($teacher);
+		if($teacher){$sclass = new Sclass;
 $sclass->classname = Input::get('classname');
+$sclass->stucount = Input::get('stucount');
 $sclass->other = Input::get('other');
+	var_dump($teacher);
 $sclass->tid = $teacher->id;
+$sclass->mschoolid = $mteacher->mschoolid;
 $sclass->save();
-var_dump(Input::get('classname'));
 Notification::success('新增班级成功！');
-return Redirect::route('gxadmin.classes.edit', $sclass->id);
+return Redirect::route('gxadmin.classes.index');
+		}
+		else{
+			Notification::success('教师不存在，请先添加教师！');
+return Redirect::route('gxadmin.classes.index');
+		}
 }
 return Redirect::back()->withInput()->withErrors($validation->errors);
 	}

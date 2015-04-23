@@ -39,38 +39,9 @@
 	</div>
 	</div>
 </div>
-	<div class='col-md-7'>
-		<h2>
-			会员中心
-		</h2>
-		<h2>
-			会员名称：
-		</h2>
-		<p>会员信息：</p>
-		姓名：
-		学号：<p>{{$user->stuname}}</p> 
-		所在地：
-		偏好：  <p>{{$user->stuno}}</p> 
-		  <div class="panel-body">
-          
-        
-@if ($kresult === "你还没做过测试" )
-    <p> {{ $kresult }}</p>
-@else
-   <p>根据您做的测试，以下为您的测试结果：</p>
-  <iframe style="width: 800px; height: 600px;"
-            src="<?php echo $kresult ?>"
-            frameBorder="0">
-            
-          </iframe>
-@endif
- 
 
-       </div>
-            </div>
-<div class='col-md-3'>
-	 <a href="{{ $kurl }}" class="btn btn-default btn1" type="button">职业测试</a> 
-	</div>
+		@include('users.userinfo')	
+
 @stop
 @section('bootor')
 @stop

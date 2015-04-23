@@ -77,6 +77,10 @@ Route::post('gradestore',[
 		'as'=>'Gradestore',
 		'uses'=>'App\Controllers\Gxadmin\GradesController@store'
 	]);
+Route::post('classestore',[
+		'as'=>'Classestore',
+		'uses'=>'App\Controllers\Gxadmin\ClassesController@store'
+	]);	
 Route::post('filestore',[
 		'as'=>'Filestore',
 		'uses'=>'App\Controllers\Gxadmin\StudentsController@excel'
@@ -92,10 +96,7 @@ Route::group(array('prefix' => 'tcadmin'), function()
 Route::any('/', 'App\Controllers\Tcadmin\TcadminController@index');
 Route::resource('classes', 'App\Controllers\Tcadmin\ClassesController');
 Route::resource('students', 'App\Controllers\Tcadmin\StudentsController');
-Route::post('classestore',[
-		'as'=>'Classestore',
-		'uses'=>'App\Controllers\Tcadmin\ClassesController@store'
-	]);
+
 Route::post('filestore',[
 		'as'=>'Filestore',
 		'uses'=>'App\Controllers\Tcadmin\StudentsController@excel'

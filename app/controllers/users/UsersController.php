@@ -242,7 +242,7 @@ else{
 		//
 			 
 		 $loggeduser=\App::make('authenticator')->getLoggedUser();
-		
+			$collegename=$filter;
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
    		$student=Student::whereraw("user_id = $loggeduser->id")->first();  
@@ -250,12 +250,12 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $ktests=Ktest::where('user_id','=',$loggeduser->id)->distinct()->get();
-		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
 	    $configId = 104;  //lsi
         $accountId = 1000001;
         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
         $kuserId=$student->kuser_id;
+		  $ktest1st=Ktest::where('co_id','=',$collegename)->first();
         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
 	
 			if(!$ktest1st)
@@ -269,9 +269,9 @@ else{
 		
 		
 		
-		$collegename=$filter;
-	    $ktest1st->colleges->yxmc =$collegename;
-        $zylbs =Zylb::where('yxmc','=',$collegename)->distinct()->paginate(10);
+	
+	  
+        $zylbs =Zylb::where('coid','=',$collegename)->distinct()->paginate(10);
         
 		return \View::make('users.matches.index')->with('ktests',$ktests)
 		                                             ->with('ktest1st',$ktest1st)
