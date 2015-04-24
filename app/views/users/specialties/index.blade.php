@@ -40,12 +40,12 @@
 	</div>
 	<div class='col-md-7'>
 		<div class="row top bottom marginlr">
-		<h2>
+			<h2>
 			会员中心
 		</h2>
-		<h4>
-			会员名称：
-		</h4>
+		<p>
+			用户名：
+		</p>
 		<p>会员信息：</p>
 		<p>根据您的测评结果，我们为您推荐以下专业：</p>
 		@foreach ($ktests as $ktest)
