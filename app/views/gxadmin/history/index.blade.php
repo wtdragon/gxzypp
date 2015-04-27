@@ -46,35 +46,53 @@
  <div class='col-md-2 text-center  slidbar_bg'>
  	@include('gxadmin.slidbar')
 </div>
-	<div class='col-md-7 text-center'>
- <h3>修改教师</h3>
-@if ($errors->any())
-<div class="alert alert-error">
-{{ implode('<br>', $errors->all()) }}
+<div class='col-md-7 text-center'>
+	<div class="row">
+ <h3>管理中心</h3>
+<div class="col-md-4 text-left">
+<h3>年度选择:</h3>
+{{ Form::select( 'niandu',$niandu,'1' )}}
 </div>
-@endif
- {{ Form::model($teachers, array('method' => 'put', 'route' => array('gxadmin.teachers.update', $teachers->id),'class'=>'form-inline')) }}
-<div class="form-group">
-{{ Form::label('teachername', '教师姓名', array('class' => 'col-sm-2 control-label')) }}
-<div class="col-md-4"> 
-{{ Form::text('teachername') }}
+
+<div class="col-md-4 text-left">
+<h3>班级选择:</h3>
+{{ Form::select( 'banji',$banji,'1' )}}
 </div>
-{{ Form::label('emailaddress', '邮箱地址', array('class' => 'col-sm-2 control-label')) }}
-<div class="col-md-4"> 
-{{ Form::text('emailaddress') }}
+ </div>
+<div class="row">
+<div class='col-md-4 text-left'>	
+<h3>学生列表</h3>
 </div>
-{{ Form::label('phone', '联系方式', array('class' => 'col-sm-2 control-label')) }}
-<div class="col-md-4"> 
-{{ Form::text('phone') }}
+
+<div class='input-append input-prepend'>	
+<input type="text" class="span2 search-query">
+        <button type="submit" class="btn">搜索</button>
 </div>
+
 </div>
-<div class="control-group bottom">
-<div class="form-actions">
-{{ Form::submit('更新', array('class' => 'btn btn-success btn-save btn-large')) }}
-<a href="{{ URL::route('gxadmin.teachers.index') }}" class="btn btn-large">取消</a>
-</div>
-</div>
-{{ Form::close() }}
+<table class="table table-striped">
+<thead>
+<tr>
+<th>学生姓名</th>
+<th>学号</th>
+<th>邮箱地址</th>
+<th>联系方式</th>
+</tr>
+</thead>
+<tbody>
+@foreach ($students as $student)
+<tr>
+<td>{{ $student->stuname }}</td>
+<td>{{ $student->stuno }}</td>
+<td>{{ $student->emailaddress }}</td>
+<td>{{ $student->phone }}</td>
+<td></td>
+</tr>
+@endforeach
+</tbody>
+</table>
+
+
 	</div>
 @stop
 @section('bootor')

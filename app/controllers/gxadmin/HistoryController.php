@@ -1,14 +1,14 @@
 <?php
 namespace App\Controllers\Gxadmin;
  
-use Area,City,College,School,Province,Grade,User,UserProfile,ProfileField,Teacher,Student,Sclass,Ktest;
+use Area,City,College,School,Province,User,UserProfile,ProfileField,Teacher,Student,Sclass,Ktest,Grade;
 use Input, Notification, Redirect, Sentry, Str,DB;
 
-use App\Services\Validators\GradeValidator;
+use App\Services\Validators\HistoryValidator;
 use App\Services\Ktest\Cryptographer;
 use App\Services\Ktest\HesClient;
 
-class GradesController extends \BaseController {
+class HistoryController extends \BaseController {
 
 	/**
 	 * Show the form for creating a new resource.
@@ -31,26 +31,24 @@ class GradesController extends \BaseController {
 	{
 		//
 		$loggeduser=\App::make('authenticator')->getLoggedUser();
-		$authentication = \App::make('authenticator');
-		  if($loggeduser)
-      {
-      	  
-		if (array_key_exists('_mschool',$loggeduser->permissions)){
-			
-		$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
-		$grades=Grade::where('tid', '=',$teacher->id)->get();
-		$teachers=Teacher::where('mschoolid','=',$teacher->mschoolid)->get();
-		return \View::make('gxadmin.grades.index')->with('grades',$grades);
-			
-		}
+		$loginteacher = array_search('teacher', $loggeduser->permissions);
+        $authentication = \App::make('authenticator');
+		if (array_key_exists('_teacher',$loggeduser->permissions)){
+		$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();	
+		$niandu=Grade::distinct()->lists('niandu');
+		$banji=Sclass::distinct()->lists('classname');
+		$sclasses=Sclass::where('tid', '=',$teacher->id)->get();
+	    $classid=$sclasses->toArray();
+		$students=Student::wherein('sclassid',array_fetch($classid, 'id'))->get();
+		return \View::make('gxadmin.history.index')->with('students',$students)
+		                                           ->with('banji',$banji)
+		                                           ->with('niandu',$niandu);
+	}
 		else {
-			return "您没有权限，请询问管理员";
+			{
+				return "not a teacher";
+			}
 		}
-		}
-		  else {
-		  		$logged='not login';
-		   	return \View::make('users.login');
-		  }
 	}
 	/**
 	 * Show the form for creating a new resource.
@@ -79,22 +77,31 @@ class GradesController extends \BaseController {
 	public function store()
 	{
 		//
-		
-$validation = new GradeValidator;
+			$loggeduser=\App::make('authenticator')->getLoggedUser();
+		$loginteacher = array_search('teacher', $loggeduser->permissions);
+		$mteacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
+$validation = new TeacherValidator;
 if ($validation->passes())
 {
-$loggeduser=\App::make('authenticator')->getLoggedUser();
-$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
-$grade =new Grade;
-$grade->gradename = Input::get('gradename');
-$grade->tid=$teacher->id;
-$grade->stucount = Input::get('stucount');
-$grade->niandu = Input::get('niandu');
-$grade->save();
-	
-//var_dump(Input::get('classname'));
-Notification::success('新增年级成功！');
-return Redirect::route('gxadmin.grades.index');
+$teacher =new Teacher;
+$teacher->teachername = Input::get('teachername');
+$teacher->phone = Input::get('phone');
+$teacher->emailaddress = Input::get('emailaddress');
+$teacher->mschoolid = $mteacher->mschoolid;
+
+$data = array(
+                "email"     => $teacher->emailaddress,
+                "password"  => 123456,
+                "activated" => 1,
+                "banned"    =>  0,
+                'permissions' => array("_teacher" => 1 )
+        );
+//use sentry create a user		
+$user=\Sentry::createUser($data);	
+$teacher->user_id=$user->id;
+$teacher->save();
+Notification::success('新增教师成功！');
+return Redirect::route('gxadmin.teachers.index');
 }
 return Redirect::back()->withInput()->withErrors($validation->errors);
 }
@@ -120,7 +127,7 @@ return Redirect::back()->withInput()->withErrors($validation->errors);
 		public function edit($id)
 	{
 		//
-		return \View::make('gxadmin.grades.edit')->with('grades', Grade::find($id));
+		return \View::make('gxadmin.students.edit')->with('students', Student::find($id));
  
 	}
 	
@@ -176,20 +183,21 @@ return Redirect::route('gxadmin.students.index');
 public function update($id)
 {
 		//
-$validation = new GradeValidator;
+$validation = new AdminValidator;
 if ($validation->passes())
 {
 	$loggeduser=\App::make('authenticator')->getLoggedUser();
 		$loginteacher = array_search('teacher', $loggeduser->permissions);
         $authentication = \App::make('authenticator');
-$grade =Grade::find($id);
-$grade->niandu = Input::get('niandu');
-$grade->gradename = Input::get('gradename');
-$grade->stucount = Input::get('stucount');
-$grade->save();
+$student =Student::find($id);
+$student->stuname = Input::get('stuname');
+$student->stuno = Input::get('stuno');
+$student->classname = Input::get('classname');
+$student->emailaddress = Input::get('emailaddress');
+$student->save();
 //var_dump(Input::get('classname'));
-Notification::success('更新年级成功！');
-return Redirect::route('gxadmin.grades.edit', $grade->id);
+Notification::success('更新学生成功！');
+return Redirect::route('gxadmin.students.edit', $student->id);
 }
 return Redirect::back()->withInput()->withErrors($validation->errors);
 	}
@@ -205,10 +213,10 @@ return Redirect::back()->withInput()->withErrors($validation->errors);
 	public function destroy($id)
 	{
 		
-		$grade =Grade::find($id);
-$grade->delete();
+		$student =Student::find($id);
+$student->delete();
 Notification::success('删除成功！');
-return Redirect::route('gxadmin.grades.index');
+return Redirect::route('gxadmin.students.index');
 	}
 
 }

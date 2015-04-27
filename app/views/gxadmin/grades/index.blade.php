@@ -52,6 +52,7 @@
 <table class="table table-striped">
     <thead>
     <tr>
+    <th>年度</th>
     <th>年级</th>
     <th>年级人数</th>
     <th>年级管理</th>
@@ -60,6 +61,7 @@
     <tbody>
     @foreach ($grades as $grade)
      <tr>
+     <td>{{ $grade->niandu }}</td>
      <td>{{ $grade->gradename }}</td>
      <td>{{ $grade->stucount }}</td>
      <td>
@@ -78,8 +80,10 @@
 {{ implode('<br>', $errors->all()) }}
 </div>
 @endif
- {{ Form::open(array('route' => array('Gradestore','method' => 'post'))) }}
+ {{ Form::open(array('route' => array('Gradestore','method' => 'post','class'=>'form-inline'))) }}
 <div class="control-group">
+	{{ Form::label('niandu', '年度') }}
+{{ Form::text('niandu') }}
 {{ Form::label('gradename', '年级名称') }}
 {{ Form::text('gradename') }}
 {{ Form::label('stucount', '年级人数') }}

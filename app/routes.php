@@ -73,6 +73,7 @@ Route::any('/', 'App\Controllers\Gxadmin\GxadminController@index');
 Route::resource('classes', 'App\Controllers\Gxadmin\ClassesController');
 Route::resource('teachers', 'App\Controllers\Gxadmin\TeachersController');
 Route::resource('grades', 'App\Controllers\Gxadmin\GradesController');
+Route::resource('history', 'App\Controllers\Gxadmin\HistoryController');
 Route::post('gradestore',[
 		'as'=>'Gradestore',
 		'uses'=>'App\Controllers\Gxadmin\GradesController@store'

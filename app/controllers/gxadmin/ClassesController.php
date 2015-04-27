@@ -80,7 +80,6 @@ if ($validation->passes())
 		$inputtname=Input::get('teachername');
 		$mteacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
 		$teacher=Teacher::where('teachername','=',$inputtname)->first();
-		var_dump($teacher);
 		if($teacher){$sclass = new Sclass;
 $sclass->classname = Input::get('classname');
 $sclass->stucount = Input::get('stucount');

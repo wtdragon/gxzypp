@@ -52,6 +52,7 @@
 		<table class="table table-striped">
 <thead>
 <tr>
+	<th>年度</th>
 <th>年级</th>
 <th>年级人数</th>
 <th>备注</th>
@@ -60,6 +61,7 @@
 <tbody>
 @foreach ($grades as $grade)
 <tr>
+	<td>{{ $grade->niandu }}</td>
 <td>{{ $grade->gradename }}</td>
 <td>{{ $grade->stucount }}</td>
 <td></td>
@@ -72,6 +74,7 @@
 	<table class="table table-striped">
 <thead>
 <tr>
+	
 <th>班级名称</th>
 <th>班级人数</th>
 <th>备注</th>
@@ -103,7 +106,7 @@
 <tr>
 <td>{{ $teacher->teachername }}</td>
 <td>{{ $teacher->emailaddress }}</td>
-<td></td>
+<td>{{ $teacher->phone }}</td>
 </tr>
 @endforeach
 </tbody>

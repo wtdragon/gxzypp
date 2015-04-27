@@ -121,7 +121,7 @@ return Redirect::back()->withInput()->withErrors($validation->errors);
 		public function edit($id)
 	{
 		//
-		return \View::make('gxadmin.students.edit')->with('students', Student::find($id));
+		return \View::make('gxadmin.teachers.edit')->with('teachers', Teacher::find($id));
  
 	}
 	
@@ -177,21 +177,29 @@ return Redirect::route('gxadmin.students.index');
 public function update($id)
 {
 		//
-$validation = new AdminValidator;
+$validation = new TeacherValidator;
 if ($validation->passes())
 {
 	$loggeduser=\App::make('authenticator')->getLoggedUser();
 		$loginteacher = array_search('teacher', $loggeduser->permissions);
         $authentication = \App::make('authenticator');
-$student =Student::find($id);
-$student->stuname = Input::get('stuname');
-$student->stuno = Input::get('stuno');
-$student->classname = Input::get('classname');
-$student->emailaddress = Input::get('emailaddress');
-$student->save();
+$teacher =Teacher::find($id);
+$teacher->teachername = Input::get('teachername');
+$teacher->classname = Input::get('classname');
+$teacher->phone = Input::get('phone');
+$teacher->emailaddress = Input::get('emailaddress');
+$teacher->save();
+  $user = Sentry::findUserById($teacher->user_id);
+
+    // Update the user details
+    $user->email = Input::get('emailaddress');
+ 
+
+    // Update the user
+ $user->save();
 //var_dump(Input::get('classname'));
-Notification::success('更新学生成功！');
-return Redirect::route('gxadmin.students.edit', $student->id);
+Notification::success('更新教师成功！');
+return Redirect::route('gxadmin.teachers.edit', $teacher->id);
 }
 return Redirect::back()->withInput()->withErrors($validation->errors);
 	}
@@ -207,10 +215,10 @@ return Redirect::back()->withInput()->withErrors($validation->errors);
 	public function destroy($id)
 	{
 		
-		$student =Student::find($id);
-$student->delete();
+		$teacher =Teacher::find($id);
+$teacher->delete();
 Notification::success('删除成功！');
-return Redirect::route('gxadmin.students.index');
+return Redirect::route('gxadmin.teachers.index');
 	}
 
 }
