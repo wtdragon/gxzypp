@@ -88,10 +88,12 @@ $classname = Input::get('classname');
 $student->emailaddress = Input::get('emailaddress');
 
 //var_dump($classname);
-$asclass=Sclass::where('classname','=',$classname)->firstOrFail();
+$asclass=Sclass::where('classname','=',$classname)->first();
+if($asclass)
+{
 //var_dump($classid);
-$student->classname = $classname;
-$student->classid=$asclass->id;
+//$student->classname = $classname;
+$student->sclassid=$asclass->id;
 $data = array(
                 "email"     => $student->emailaddress,
                 "password"  => 123456,
@@ -130,6 +132,11 @@ $student->save();
 //var_dump(Input::get('classname'));
 Notification::success('新增学生成功！');
 return Redirect::route('tcadmin.students.edit', $student->id);
+}
+else {
+	Notification::success('班级不存在，请先添加班级！');
+return Redirect::route('tcadmin.students.index');
+}
 }
 return Redirect::back()->withInput()->withErrors($validation->errors);
 }
@@ -221,11 +228,21 @@ $student =Student::find($id);
 $student->stuname = Input::get('stuname');
 $student->stuno = Input::get('stuno');
 $student->classname = Input::get('classname');
+$classid=Sclass::where('classname','=',Input::get('classname'))->first();
+if($classid){
+$student->sclassid=$classid->id;
 $student->emailaddress = Input::get('emailaddress');
 $student->save();
+
 //var_dump(Input::get('classname'));
 Notification::success('更新学生成功！');
-return Redirect::route('tcadmin.students.edit', $student->id);
+return Redirect::route('tcadmin.students.edit', $students->id);
+}
+else 
+	{
+		Notification::success('班级不存在，请先添加班级！');
+return Redirect::route('tcadmin.students.index');
+	}
 }
 return Redirect::back()->withInput()->withErrors($validation->errors);
 	}
