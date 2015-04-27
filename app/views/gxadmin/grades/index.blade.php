@@ -80,18 +80,27 @@
 {{ implode('<br>', $errors->all()) }}
 </div>
 @endif
- {{ Form::open(array('route' => array('Gradestore','method' => 'post','class'=>'form-inline'))) }}
-<div class="control-group">
-	{{ Form::label('niandu', '年度') }}
+{{ Form::open(array('route' => array('Gradestore','method' => 'post'),'class'=>'form-inline')) }}
+
+<div class="form-group">
+	{{ Form::label('niandu', '年度', array('class' => 'col-sm-2 control-label')) }}
+	<div class="col-md-4"> 
 {{ Form::text('niandu') }}
-{{ Form::label('gradename', '年级名称') }}
+</div>
+{{ Form::label('gradename', '年级名称', array('class' => 'col-sm-2 control-label')) }}
+<div class="col-md-4"> 
 {{ Form::text('gradename') }}
-{{ Form::label('stucount', '年级人数') }}
+</div>
+{{ Form::label('stucount', '年级人数', array('class' => 'col-sm-2 control-label')) }}
+<div class="col-md-4"> 
 {{ Form::text('stucount') }}
 </div>
+</div>
+<div class="control-group bottom">
 <div class="form-actions bottom">
 {{ Form::submit('新增', array('class' => 'btn btn-success btn-save btn-large')) }}
 <a href="{{ URL::route('gxadmin.classes.index') }}" class="btn btn-large">取消</a>
+</div>
 </div>
 {{ Form::close() }}
 </div>

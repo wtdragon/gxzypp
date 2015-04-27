@@ -47,18 +47,40 @@
  	@include('gxadmin.slidbar')
 </div>
 <div class='col-md-7 text-center'>
-	<div class="row">
- <h3>管理中心</h3>
-<div class="col-md-4 text-left">
-<h3>年度选择:</h3>
-{{ Form::select( 'niandu',$niandu,'1' )}}
-</div>
 
-<div class="col-md-4 text-left">
-<h3>班级选择:</h3>
-{{ Form::select( 'banji',$banji,'1' )}}
-</div>
- </div>
+ {{ Form::open(array('route' => array('Gradestore','method' => 'post'),'class'=>'form-horizontal')) }}
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">管理中心</legend>
+      </div>
+    <div class="control-group">
+
+          <!-- Select Basic -->
+          <label class="control-label">年度选择：</label>
+	  {{ Form::select( 'niandu',$niandu,null, array('class' => 'input-xlarge')) }}
+
+        </div>
+
+    <div class="control-group">
+
+          <!-- Select Basic -->
+          <label class="control-label">班级选择:</label>
+           {{ Form::select( 'banji',$banji,null, array('class' => 'input-xlarge')) }}
+
+        </div>
+
+    <div class="control-group">
+          <label class="control-label"></label>
+
+          <!-- Button -->
+          <div  id="legend">
+          {{ Form::submit('确认', array('class' => 'btn btn-success btn-save btn-large')) }}
+          </div>
+        </div>
+
+    </fieldset>
+{{ Form::close() }}
+
 <div class="row">
 <div class='col-md-4 text-left'>	
 <h3>学生列表</h3>
