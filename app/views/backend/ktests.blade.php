@@ -5,7 +5,7 @@
 :: Home
 @stop
 @section('headtitle')
-登录学校管理
+K测试管理
 @stop
 @section('content')
 {{ Notification::showAll() }}

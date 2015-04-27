@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Backend;
  
-use Area,City,College,Mschool,Province,UserProfile,Zylb,Specialty,ProfileField,Ktest,Kresult,Teacher,Student;
+use Area,City,College,Mschool,Province,UserProfile,Zylb,Specialty,ProfileField,Ktest,Kresult,Kmajor,Kcareer,Teacher,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
