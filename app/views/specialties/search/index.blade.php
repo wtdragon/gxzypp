@@ -1,47 +1,6 @@
 @extends('master')
 @section('header')
-<script type="text/javascript">
-$(document).ready(function (){ 								    //  等待DOM加载完毕.
-	var $category = $('#mylist ul a:gt(15):not(:last)');     	    //  获得索引值大于5的品牌集合对象(除最后一条)	
-	$category.hide();							    //  隐藏上面获取到的jQuery对象。
-	var $toggleBtn = $('div.showmore > a');             //  获取“显示全部品牌”按钮
-	$toggleBtn.click(function(){
-		  if($category.is(":visible")){
-				$category.hide();                   		 //  隐藏$category
-				$(this).find('span')
-					.css("background","url(img/down.gif) no-repeat 0 0")      
-					.text("显示全部");                  //改变背景图片和文本		// 去掉高亮样式
-		  }else{
-				$category.show();                   		 //  显示$category
-				$(this).find('span')
-					.css("background","url(img/up.gif) no-repeat 0 0")      
-					.text("精简显示");                  //改变背景图片和文本			//添加高亮样式
-		  }
-		return false;					      	//超链接不跳转
-	})
-})
-</script>
-<script type="text/javascript">
-$(document).ready(function (){ 								    //  等待DOM加载完毕.
-	var $category = $('#mylist1 ul a:gt(15):not(:last)');     	    //  获得索引值大于5的品牌集合对象(除最后一条)	
-	$category.hide();							    //  隐藏上面获取到的jQuery对象。
-	var $toggleBtn = $('div.showmore1 > a');             //  获取“显示全部品牌”按钮
-	$toggleBtn.click(function(){
-		  if($category.is(":visible")){
-				$category.hide();                   		 //  隐藏$category
-				$(this).find('span')
-					.css("background","url(img/down.gif) no-repeat 0 0")      
-					.text("显示全部");                  //改变背景图片和文本		// 去掉高亮样式
-		  }else{
-				$category.show();                   		 //  显示$category
-				$(this).find('span')
-					.css("background","url(img/up.gif) no-repeat 0 0")      
-					.text("精简显示");                  //改变背景图片和文本			//添加高亮样式
-		  }
-		return false;					      	//超链接不跳转
-	})
-})
-</script>
+
 @stop
 @section('content')
 {{ Notification::showAll() }}
@@ -66,35 +25,26 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
     </div><!-- /input-group -->
 {{ Form::close() }}
 <div class='row top bottom marginlr'>
-<h4>基本专业</h4>
-<div id="mylist1">
-<ul>
-@foreach ($ptzys as $ptzy)
-<a href="{{ URL::route('Showsspec',$ptzy->mkml) }}">
-{{ $ptzy->mkml }}
-</a>
-@endforeach
-</ul>
-</div>
-<div class="showmore1">
-	<a href='#'><span>全部专业</span></a>
-</div>
-</div>
-<div class='row top bottom marginlr'>
-<h4>特设专业</h4>
-<div id="mylist">
-<ul>
-	
-@foreach ($tszys as $tszy)
-<a href="{{ URL::route('Showsspec',$tszy->mkml) }}">
-{{ $tszy->mkml }}
-</a>
-@endforeach
-</ul>
-<div class="showmore">
-<a href='#'><span>全部专业</span></a>
-</div>
-</div>
+<p>
+	<div class="btn-group">
+  <button class="btn btn-large btn-primary" type="button">本科专业列表</button>
+  <button class="btn btn-large" type="button">专科专业列表</button>
+ </div>
+</p>
+<ul class="list-inline">
+    <li><a href="#a1" class="h6">哲学</a></li>
+    <li><a href="#a2" class="h6">经济学</a></li>
+    <li><a href="#a3" class="h6">法学</a></li>
+    <li><a href="#a4" class="h6">教育学</a></li>
+    <li><a href="#a5" class="h6">文学</a></li>
+    <li><a href="#a6" class="h6">历史学</a></li>
+    <li><a href="#a7" class="h6" >理学</a></li>
+    <li><a href="#a8" class="h6">工学</a></li>
+    <li><a href="#a9" class="h6">农学</a></li>
+    <li><a href="#a10" class="h6">医学</a></li>
+    <li><a href="#a11" class="h6">管理学</a></li>
+    <li class="last"><a href="#a12" class="h6">艺术学</a></li>
+  </ul>
 </div>
 <table class="table table-striped">
 <thead>
@@ -125,5 +75,8 @@ $(document).ready(function (){ 								    //  等待DOM加载完毕.
 	</div>
 	</div>
 @stop
+
+
 @section('bootor')
+	@include('script')
 @stop

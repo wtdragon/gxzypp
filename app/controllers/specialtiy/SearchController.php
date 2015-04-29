@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Specialtiy;
  
-use Area,City,College,Specialty,Province,Zylb,Tzy;
+use Area,City,College,Specialty,Province,Zylb,Tzy,Flzhuanye,Yierjifl;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -20,8 +20,8 @@ class SearchController extends \BaseController {
 		//
 		$pre_page = 20;//每页显示页数
 		$schools = Zylb::paginate($pre_page);
-		$ptzys=Tzy::distinct()->select('mkml','id')->where('tszy', '=', 0)->groupBy('mkml')->get();
-		$tszys=Tzy::distinct()->select('mkml','id')->where('tszy', '=', 1)->groupBy('mkml')->get();
+		$ptzys=Yierjifl::distinct()->select('yijimc','id')->groupBy('yijimc')->get();
+		$tszys=Yierjifl::distinct()->select('erjimc','id')->groupBy('erjimc')->get();
 		
 		$provinces=Province::All();
 		return \View::make('specialties.search.index')->with('schools',$schools)
