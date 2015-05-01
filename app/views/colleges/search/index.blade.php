@@ -25,9 +25,14 @@
     </div><!-- /input-group -->
            {{ Form::close() }}
 <div class="row top bottom marginlr">
-@foreach ($provinces as $province)
-<a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">{{ $province->pname }}</a>
-@endforeach
+        @foreach($provinces as $province)
+        <div class="col-md-3">
+          
+               <a href="{{ URL::route('colleges.search.show',$province->provinceID) }}">{{ $province->pname }}</a>
+         
+        </div><!--/col-md-3-->
+        @endforeach
+
 </div>
  <div class="row top bottom bottom-border marginlr">
 	 <a href="{{ URL::route('Cofilter','jyb') }}">教育部直属</a>
