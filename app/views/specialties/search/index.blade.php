@@ -31,7 +31,7 @@
   <button class="btn btn-large" type="button">专科专业列表</button>
  </div>
 </p>
-<ul class="list-inline">
+<ul class="list-inline " id="zy1">
     <li><a href="#a1" class="h6">哲学</a></li>
     <li><a href="#a2" class="h6">经济学</a></li>
     <li><a href="#a3" class="h6">法学</a></li>
@@ -45,6 +45,27 @@
     <li><a href="#a11" class="h6">管理学</a></li>
     <li class="last"><a href="#a12" class="h6">艺术学</a></li>
   </ul>
+  <ul class="list-inline notshow" id="zy2">
+    <li><a href="#a6" class="h6" class="h6">土建</a></li>
+    <li><a href="#a7" class="h6" class="h6">水利</a></li>
+    <li><a href="#a8" class="h6" class="h6">制造</a></li>
+    <li><a href="#a12" class="h6" class="h6">财经</a></li>
+    <li><a href="#a14" class="h6" class="h6">旅游</a></li>
+    <li><a href="#a18" class="h6">公安</a></li>
+    <li><a href="#a19" class="h6">法律</a></li>
+    <li><a href="#a1" class="h6">农林牧渔</a></li>
+    <li><a href="#a2" class="h6">交通运输</a></li>
+    <li><a href="#a9" class="h6">电子信息</a></li>
+    <li class="s1" class="h6"><a href="#a11" class="h6">轻纺食品</a></li>
+    <li><a href="#a13" class="h6">医药卫生</a></li>
+    <li><a href="#a15" class="h6">公共事业</a></li>
+    <li><a href="#a16" class="h6">文化教育</a></li>
+    <li><a href="#a3" class="h6">生化与药品</a></li>
+    <li><a href="#a5" class="h6">材料与能源</a></li>
+    <li class="s2" class="h6"><a href="#a4" class="h6">资源开发与测绘</a></li>
+    <li class="s2" class="h6"><a href="#a10" class="h6">环保、气象与安全</a></li>
+    <li class="s3" class="h6"><a href="#a17" class="h6">艺术设计传媒</a></li>
+  </ul> 
 </div>
 <table class="table table-striped">
 <thead>

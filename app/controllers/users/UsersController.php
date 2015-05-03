@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Ktest,Kresult,Student;
+use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -206,7 +206,8 @@ else{
          
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
-        $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
+        $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)->groupBy('co_id')->get();
+	     $student=Student::whereraw("user_id = $loggeduser->id")->first();  
 		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
 	    $configId = 104;  //lsi
         $accountId = 1000001;
@@ -230,6 +231,7 @@ else{
         $zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
         
 		return \View::make('users.matches.index')->with('ktests',$ktests)
+		->with('user',$student)
 		                                             ->with('ktest1st',$ktest1st)
 		                                             ->with('zylbs',$zylbs);
 	}
@@ -249,13 +251,16 @@ else{
          
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
-        $ktests=Ktest::where('user_id','=',$loggeduser->id)->distinct()->get();
-	    $configId = 104;  //lsi
+       $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)->groupBy('co_id')->get();
+	 $configId = 104;  //lsi
         $accountId = 1000001;
         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
         $kuserId=$student->kuser_id;
 		  $ktest1st=Ktest::where('co_id','=',$collegename)->first();
+		  	$zyjs=Flzhuanye::where('zymc','=',$ktest1st->zymc)->first();
+		$ktest1st->zyjs=$zyjs->zyjs;
+	 
         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
 	
 			if(!$ktest1st)
@@ -274,6 +279,7 @@ else{
         $zylbs =Zylb::where('coid','=',$collegename)->distinct()->paginate(10);
         
 		return \View::make('users.matches.index')->with('ktests',$ktests)
+		->with('user',$student)
 		                                             ->with('ktest1st',$ktest1st)
 		                                             ->with('zylbs',$zylbs);
 	}
@@ -289,7 +295,9 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
-		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+		$ktest1st=Ktest::where('zymc','=',$filter)->first();
+			$zyjs=Flzhuanye::where('zymc','=',$filter)->first();
+		$ktest1st->zyjs=$zyjs->zyjs;
 	     $configId = 104;  //lsi
          $accountId = 1000001;
          $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
@@ -309,6 +317,7 @@ else{
         $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(10);
         
 		return \View::make('users.specialties.index')->with('ktests',$ktests)
+		->with('user',$student)
 		                                               ->with('ktest1st',$ktest1st)
                                             ->with('colleges',$colleges);
 	} 
@@ -325,7 +334,9 @@ else{
          //                                        ->with('provinces',$provinces);
         $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
 		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
-	     $configId = 104;  //lsi
+		$zyjs=Flzhuanye::where('zymc','=',$ktest1st->zymc)->first();
+		$ktest1st->zyjs=$zyjs->zyjs;
+	    $configId = 104;  //lsi
          $accountId = 1000001;
          $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
          $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
@@ -343,6 +354,7 @@ else{
         $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(10);
         
 		return \View::make('users.specialties.index')->with('ktests',$ktests)
+		->with('user',$student)
 		                                               ->with('ktest1st',$ktest1st)
                                             ->with('colleges',$colleges);
 	} 

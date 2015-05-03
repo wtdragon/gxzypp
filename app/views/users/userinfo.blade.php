@@ -5,7 +5,7 @@
 		<p>
 		用户名：{{$user->stuname}}
 		</p>
-		<p>学号：</p><p>{{$user->stuno}}</p> 
+		<p>学生信息:学号：{{$user->stuno}}</p> 
 		  <div class="panel-body">
 		  	
 @if ($kresult === "你还没做过测试" )

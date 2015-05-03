@@ -94,6 +94,10 @@ margin:0;
 	 padding-left:20%;
 	
 }
+.notshow{
+	display:none;
+	
+}
 .white{
 	color: #ffffff;
 }
@@ -145,7 +149,7 @@ margin:0;
 }
 .navbar-default .navbar-nav > .active > a, .navbar-default .navbar-nav > .active > a:hover, .navbar-default .navbar-nav > .active > a:focus {
   color: #f49800;
-  background-color: #d94131;
+  background-color: #fcfaf9;
 }
 .navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
   color: #f49800;

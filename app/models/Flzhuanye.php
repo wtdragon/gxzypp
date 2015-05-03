@@ -1,5 +1,5 @@
 <?php
-
+use Nicolaslopezj\Searchable\SearchableTrait;
 class Flzhuanye extends \Eloquent {
 	protected $fillable = [];
 	protected $table = 'flzhuanye';  
@@ -9,4 +9,9 @@ class Flzhuanye extends \Eloquent {
 	public function xkfl(){
     return $this->belongsTo('Yierjifl','xkfldm');
     }
+	protected $searchable = [
+        'columns' => [
+            'zymc' => 10,
+        ],
+    ];
 }
