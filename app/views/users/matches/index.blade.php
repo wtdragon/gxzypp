@@ -17,8 +17,7 @@
 		<p>
 			用户名：{{$user->stuname}}
 		</p>
-		<p>会员信息：</p>
-		<p>学号{{$user->stuno}}</p> 
+		<p>会员信息：学号{{$user->stuno}}</p> 
 		 
         <h4>根据您的测评结果，我们为您推荐以下院校：</h4>
         	<div class="row top bottom  marginlr">
