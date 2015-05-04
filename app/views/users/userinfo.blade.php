@@ -1,4 +1,4 @@
-<div class='col-md-7'>
+<div class='col-md-8'>
 <h2>
 会员中心
 </h2>
@@ -10,9 +10,9 @@
 		  	
 @if ($kresult === "你还没做过测试" )
 </div>
-    <p> {{ $kresult }}</p>
-    <div class='col-md-3'>
-	 <a href="{{ $kurl }}" class="btn btn-default btn1" type="button">职业测试</a> 
+    <p> {{ $kresult }}   请点击职业测试进行职业测试</p>
+    <div class='col-md-8'>
+	 <a href="{{ $kurl }}" class="btn btn-default btn1 center" type="button">职业测试</a> 
 	 </div>
 @else
    <p>根据您做的测试，以下为您的测试结果：</p>

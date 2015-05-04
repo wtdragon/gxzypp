@@ -259,7 +259,8 @@ else{
         $kuserId=$student->kuser_id;
 		  $ktest1st=Ktest::where('co_id','=',$collegename)->first();
 		  	$zyjs=Flzhuanye::where('zymc','=',$ktest1st->zymc)->first();
-		$ktest1st->zyjs=$zyjs->zyjs;
+			$mzyjs= preg_replace("/(。)/", "/(。)/</p><p>", $zyjs->zyjs);
+		$ktest1st->zyjs=$mzyjs;
 	 
         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
 	
@@ -334,9 +335,7 @@ else{
          //                                        ->with('provinces',$provinces);
         $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
 		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
-		$zyjs=Flzhuanye::where('zymc','=',$ktest1st->zymc)->first();
-		$ktest1st->zyjs=$zyjs->zyjs;
-	    $configId = 104;  //lsi
+		 $configId = 104;  //lsi
          $accountId = 1000001;
          $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
          $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
@@ -350,7 +349,10 @@ else{
 		                                 ->with('kurl',$kurl)
 						                 ->with('kresult',$kresult);
 						                 } 
-else{
+else{   $zyjs=Flzhuanye::where('zymc','=',$ktest1st->zymc)->first();
+			$mzyjs= preg_replace("/(。)/", "。</p><p>", $zyjs->zyjs);
+		$ktest1st->zyjs=$mzyjs;
+	   
         $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(10);
         
 		return \View::make('users.specialties.index')->with('ktests',$ktests)
