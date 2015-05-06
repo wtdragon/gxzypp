@@ -31,10 +31,6 @@
 	<script type="text/javascript" src={{ URL::asset('images/js/scripts.js') }}></script>
  
 
-<link href={{ URL::asset('images/css/sb-admin-2.css') }} rel="stylesheet">
-<link href={{ URL::asset('images/css/timeline.css') }} rel="stylesheet">
-<script type="text/javascript" src={{ URL::asset('images/metisMenu/dist/metisMenu.js') }}></script>
-<script type="text/javascript" src={{ URL::asset('images/js/sb-admin-2.js') }}></script>
 </head>
 		
 			@section('header.nav')	 
@@ -88,6 +84,7 @@
 @endforeach
 </tbody>
 </table>
+{{ $students->links() }}  
 	</div>
 @stop
 @section('bootor')

@@ -90,7 +90,6 @@ Route::post('filestore',[
 
 
 //教师管理中心
-//Route::get('gxadmin', 'App\Controllers\Gxadmin\GxadminController@index');
 
 Route::group(array('prefix' => 'tcadmin'), function()
 {
@@ -102,6 +101,12 @@ Route::post('filestore',[
 		'as'=>'Filestore',
 		'uses'=>'App\Controllers\Tcadmin\StudentsController@excel'
 	]);
+
+//ajax: return student ktest
+Route::post( 'ajaxktest', array(
+    'as' => 'ajaxktest',
+    'uses' => 'App\Controllers\Tcadmin\StudentsController@ajaxktest'
+) );	
 });	
   
  

@@ -43,7 +43,9 @@ class ClassesController extends \BaseController {
 		{
 		$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
 		$sclasses=Sclass::where('mschoolid','=',$teacher->mschoolid)->get();
-		 return \View::make('gxadmin.classes.index')->with('classes', $sclasses);
+		$banji=Sclass::distinct()->lists('classname');
+		 return \View::make('gxadmin.classes.index')->with('classes', $sclasses)
+		                                            ->with('banji', $banji);
 	}
 		else {
 			return "not a teacher";

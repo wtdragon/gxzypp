@@ -39,8 +39,11 @@ class GradesController extends \BaseController {
 			
 		$teacher=Teacher::whereRaw("user_id = '$loggeduser->id'")->first();
 		$grades=Grade::where('tid', '=',$teacher->id)->get();
+		$niandu=Grade::distinct()->lists('niandu');
+		$banji=Sclass::distinct()->lists('classname');
 		$teachers=Teacher::where('mschoolid','=',$teacher->mschoolid)->get();
-		return \View::make('gxadmin.grades.index')->with('grades',$grades);
+		return \View::make('gxadmin.grades.index')->with('grades',$grades)
+		                                          ->with('niandu',$niandu);
 			
 		}
 		else {

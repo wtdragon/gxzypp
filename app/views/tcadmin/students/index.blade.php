@@ -4,6 +4,7 @@
   <title>九子高考志愿匹配网</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="为您提供全面，专业的数据库搜索功能，根据搜索结果查询专业信息">
+  <meta name="_token" content="{{ csrf_token() }}"/>
   <meta name="author" content="">
 
 	<!--link rel="stylesheet/less" href="less/bootstrap.less" type="text/css" /-->
@@ -29,13 +30,7 @@
 	<script type="text/javascript" src={{ URL::asset('images/js/jquery.min.js') }}></script>
 	<script type="text/javascript" src={{ URL::asset('images/js/bootstrap.min.js') }}></script>
 	<script type="text/javascript" src={{ URL::asset('images/js/scripts.js') }}></script>
- 
-
-<link href={{ URL::asset('images/css/sb-admin-2.css') }} rel="stylesheet">
-<link href={{ URL::asset('images/css/timeline.css') }} rel="stylesheet">
-<script type="text/javascript" src={{ URL::asset('images/metisMenu/dist/metisMenu.js') }}></script>
-<script type="text/javascript" src={{ URL::asset('images/js/sb-admin-2.js') }}></script>
-</head>
+ </head>
 		
 			@section('header.nav')	 
 		@include('tcadmin.headnav')
@@ -47,6 +42,39 @@
  	@include('tcadmin.slidbar')
 </div>
 <div class='col-md-7 text-center'>
+	 {{ Form::open(array('route' => array('Gradestore','method' => 'post'),'class'=>'form-horizontal')) }}
+    <fieldset>
+      <div id="legend" class="">
+        <legend class="">教师端管理中心</legend>
+      </div>
+    <div class="control-group">
+
+          <!-- Select Basic -->
+          <label class="control-label">年度选择：</label>
+	  {{ Form::select( 'niandu',$niandu,null, array('class' => 'input-xlarge')) }}
+
+        </div>
+
+    <div class="control-group">
+
+          <!-- Select Basic -->
+          <label class="control-label">班级选择:</label>
+           {{ Form::select( 'banji',$banji,null, array('class' => 'input-xlarge')) }}
+
+        </div>
+
+    <div class="control-group">
+          <label class="control-label"></label>
+
+          <!-- Button -->
+          <div  id="legend">
+          {{ Form::submit('确认', array('class' => 'btn btn-success btn-save btn-large')) }}
+          </div>
+        </div>
+
+    </fieldset>
+{{ Form::close() }}
+
 		<h3>学生列表</h3>
 	<table class="table table-striped border">
 <thead>
@@ -61,7 +89,7 @@
 <tbody>
 @foreach ($students as $student)
 <tr>
-<td>{{ $student->stuname }}</td>
+<td><a href="#modal1" data-toggle="modal" class="open-popup-link">{{ $student->stuname }}</a></td>
 <td>{{ $student->stuno }}</td>
 <td>{{ $student->emailaddress }}</td>
 <td>{{ $student->phone }}</td>
@@ -75,6 +103,7 @@
 @endforeach
 </tbody>
 </table>
+{{ $students->links() }}  
 <h3>新增学生</h3>
 @if ($errors->any())
 <div class="alert alert-error">
@@ -119,4 +148,58 @@
 </div>
 @stop
 @section('bootor')
+<div class="modal fade" id="modal1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h4 class="modal-title text-primary"></h4>
+      </div>
+      <div class="modal-body">
+        ...
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="modal-button1" class="btn btn-default" data-dismiss="modal">返回</button>
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<script type="text/javascript">
+$(document).ready(function() { 
+$.ajaxSetup({
+   headers: { 'X-CSRF-Token' : $('meta[name=_token]').attr('content') }
+});  
+$('.open-popup-link').click(function(){
+	 
+	var stuname=$(this).html();
+	var postStr   = "stuname="+ stuname;
+	 $.ajax({
+	 	type: 'post',
+		url: "{{ URL::to('tcadmin/ajaxktest') }}",
+		data: postStr,
+		dataType:  'json',
+		tryCount:0,//current retry count
+		retryLimit:3,//number of retries on fail
+		timeout: 2000,//time before retry on fail
+		success: function(data) {
+			 $(".modal-body").val(data.msg);// 设置文本内容
+			 
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			 if (textStatus == 'timeout') {//if error is 'timeout'
+				this.tryCount++;
+				if (this.tryCount < this.retryLimit) {
+					$.ajax(this);//try again
+					return;
+				}
+			}//try 3 times to get a response from server
+		}
+	});
+$("#modal1").on("show.bs.modal", function(e) {
+    var link = $(e.relatedTarget);
+    $(this).find(".modal-body").load(link.attr("href"));
+});
+}); 
+} );    
+</script>
 @stop

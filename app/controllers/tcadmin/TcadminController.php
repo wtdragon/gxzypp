@@ -39,7 +39,7 @@ class TcadminController extends \BaseController {
 	   $classid=$sclasses->toArray();
 	   
 	   //var_dump(array_fetch($classid, 'id'));
-		$students=Student::wherein('sclassid',array_fetch($classid, 'id'))->get();
+		$students=Student::wherein('sclassid',array_fetch($classid, 'id'))->paginate(10);
 		return \View::make('tcadmin.index')->with('students',$students)
 		->with('class_tongjis',$sclasses);
 			
