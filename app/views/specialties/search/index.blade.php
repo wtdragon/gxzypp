@@ -31,64 +31,50 @@
   <button class="btn btn-large" type="button">专科专业列表</button>
  </div>
 </p>
-<ul class="list-inline " id="zy1">
-    <li><a href="#a1" class="h6">哲学</a></li>
-    <li><a href="#a2" class="h6">经济学</a></li>
-    <li><a href="#a3" class="h6">法学</a></li>
-    <li><a href="#a4" class="h6">教育学</a></li>
-    <li><a href="#a5" class="h6">文学</a></li>
-    <li><a href="#a6" class="h6">历史学</a></li>
-    <li><a href="#a7" class="h6" >理学</a></li>
-    <li><a href="#a8" class="h6">工学</a></li>
-    <li><a href="#a9" class="h6">农学</a></li>
-    <li><a href="#a10" class="h6">医学</a></li>
-    <li><a href="#a11" class="h6">管理学</a></li>
-    <li class="last"><a href="#a12" class="h6">艺术学</a></li>
+<div class="scrollingBox">
+<ul class="list-inline button" id="zy1">
+    <li><a href="#a1" class="button">哲学</a></li>
+    <li><a href="#a2" class="button">经济学</a></li>
+    <li><a href="#a3" class="button">法学</a></li>
+    <li><a href="#a4" class="button">教育学</a></li>
+    <li><a href="#a5" class="button">文学</a></li>
+    <li><a href="#a6" class="button">历史学</a></li>
+    <li><a href="#a7" class="button" >理学</a></li>
+    <li><a href="#a8" class="button">工学</a></li>
+    <li><a href="#a9" class="button">农学</a></li>
+    <li><a href="#a10" class="button">医学</a></li>
+    <li><a href="#a11" class="button">管理学</a></li>
+    <li class="last"><a href="#a12" class="button">艺术学</a></li>
   </ul>
-  <ul class="list-inline notshow" id="zy2">
-    <li><a href="#a6" class="h6" class="h6">土建</a></li>
-    <li><a href="#a7" class="h6" class="h6">水利</a></li>
-    <li><a href="#a8" class="h6" class="h6">制造</a></li>
-    <li><a href="#a12" class="h6" class="h6">财经</a></li>
-    <li><a href="#a14" class="h6" class="h6">旅游</a></li>
-    <li><a href="#a18" class="h6">公安</a></li>
-    <li><a href="#a19" class="h6">法律</a></li>
-    <li><a href="#a1" class="h6">农林牧渔</a></li>
-    <li><a href="#a2" class="h6">交通运输</a></li>
-    <li><a href="#a9" class="h6">电子信息</a></li>
-    <li class="s1" class="h6"><a href="#a11" class="h6">轻纺食品</a></li>
-    <li><a href="#a13" class="h6">医药卫生</a></li>
-    <li><a href="#a15" class="h6">公共事业</a></li>
-    <li><a href="#a16" class="h6">文化教育</a></li>
-    <li><a href="#a3" class="h6">生化与药品</a></li>
-    <li><a href="#a5" class="h6">材料与能源</a></li>
-    <li class="s2" class="h6"><a href="#a4" class="h6">资源开发与测绘</a></li>
-    <li class="s2" class="h6"><a href="#a10" class="h6">环保、气象与安全</a></li>
-    <li class="s3" class="h6"><a href="#a17" class="h6">艺术设计传媒</a></li>
+  <ul class="list-inline notshow anchors" id="zy2">
+    <li><a href="#ab6" class="button" >土建</a></li>
+    <li><a href="#ab7" class="button" >水利</a></li>
+    <li><a href="#ab8" class="button">制造</a></li>
+    <li><a href="#ab12" class="button">财经</a></li>
+    <li><a href="#ab14" class="button">旅游</a></li>
+    <li><a href="#ab18" class="button">公安</a></li>
+    <li><a href="#ab19" class="button">法律</a></li>
+    <li><a href="#ab1" class="button">农林牧渔</a></li>
+    <li><a href="#ab2" class="button">交通运输</a></li>
+    <li><a href="#ab9" class="button">电子信息</a></li>
+    <li> <a href="#ab11" class="button">轻纺食品</a></li>
+    <li><a href="#ab13" class="button">医药卫生</a></li>
+    <li><a href="#ab15" class="button">公共事业</a></li>
+    <li><a href="#ab16" class="button">文化教育</a></li>
+    <li><a href="#ab3" class="button">生化与药品</a></li>
+    <li><a href="#ab5" class="button">材料与能源</a></li>
+    <li><a href="#ab4" class="button">资源开发与测绘</a></li>
+    <li><a href="#ab10" class="button">环保、气象与安全</a></li>
+    <li><a href="#ab17" class="button">艺术设计传媒</a></li>
   </ul> 
 </div>
-<table class="table table-striped">
-<thead>
-<tr>
-<th>专业名称</th>
-<th>院校</th>
-<th>科类</th>
-<th>层次</th>
-<th><i class="icon-cog"></i></th>
-</tr>
-</thead>
-<tbody>
-@foreach ($schools as $school)
-<tr>
-<td>{{ $school->zymingcheng }}</td>
-<td>{{ $school->yxmc }}</td>
-<td>{{ $school->kelei }}</td>
-<td>{{ $school->cengci }}</td>
-</tr>
-@endforeach
-</tbody>
-</table>
-{{ $schools->links() }}  
+</div>
+ {{ Form::open(array('route' => array('PostSpecialtiysearch','method' => 'post'))) }}
+@include('specialties.search.bklist')
+@include('specialties.search.zklist')
+ {{ Form::close() }}
+
+
 </div>
 <div class='col-md-3'>
 	<div class='row top bottom'>

@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Specialtiy;
  
-use Area,City,College,Specialty,Province,Zylb,Tzy,Flzhuanye,Yierjifl;
+use Area,City,College,Specialty,Province,Zylb,Tzy,Flzhuanye,Yierjifl,Zjfl;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -22,12 +22,14 @@ class SearchController extends \BaseController {
 		$schools = Zylb::paginate($pre_page);
 		$ptzys=Yierjifl::distinct()->select('yijimc','id')->groupBy('yijimc')->get();
 		$tszys=Yierjifl::distinct()->select('erjimc','id')->groupBy('erjimc')->get();
-		
+		$flzhuanye=Flzhuanye::All();
+		$bkfl=Zjfl::where('cengci','=',2)->get();
+		$zkfl=Zjfl::where('cengci','=',1)->get();
 		$provinces=Province::All();
 		return \View::make('specialties.search.index')->with('schools',$schools)
                                                       ->with('provinces',$provinces)
-												      ->with('ptzys',$ptzys)
-												      ->with('tszys',$tszys);
+												      ->with('bkfl',$bkfl)
+												      ->with('zkfl',$zkfl);
 		
 	}
     
@@ -40,13 +42,14 @@ class SearchController extends \BaseController {
 		 //return $coid;
 		  $pre_page = 20;//每页显示页数
 		  $schools = Zylb::search($specname)->paginate(20);
+		  $zy=Flzhuanye::where('zymc','=',$specname)->first();
 		  $ptzys= Tzy::distinct()->select('mkml','id')->where('tszy', '=', 0)->groupBy('mkml')->get();
 		  $tszys= Tzy::distinct()->select('mkml','id')->where('tszy', '=', 1)->groupBy('mkml')->get();
 		
 		  $provinces= Province::All();
-		  return \View::make('specialties.search.index')->with('schools',$schools)
+		  return \View::make('specialties.search.show')->with('schools',$schools)
                                                         ->with('provinces',$provinces)
-												        ->with('ptzys',$ptzys)
+												        ->with('zy',$zy)
 												        ->with('tszys',$tszys);
 			 
 	}
@@ -78,8 +81,10 @@ class SearchController extends \BaseController {
 	{
 		//
 		//
-		$inputData = Input::get('specialty'); 
-		$specialty = $inputData;
+		$inputData = Input::All(); 
+		var_dump($inputData);
+		$specialty = $inputData['title'];
+		$zy=Flzhuanye::where('zymc','=',$specialty)->first();
 		 $schools = Zylb::search($specialty)->paginate(20);
 		  $ptzys= Tzy::distinct()->select('mkml','id')->where('tszy', '=', 0)->groupBy('mkml')->get();
 		  $tszys= Tzy::distinct()->select('mkml','id')->where('tszy', '=', 1)->groupBy('mkml')->get();
@@ -87,9 +92,9 @@ class SearchController extends \BaseController {
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
           $provinces= Province::All();
-   return \View::make('specialties.search.index')->with('schools',$schools)
+   return \View::make('specialties.search.show')->with('schools',$schools)
                                                         ->with('provinces',$provinces)
-												        ->with('ptzys',$ptzys)
+												        ->with('zy',$specialty)
 												        ->with('tszys',$tszys);
 	}
 	/**

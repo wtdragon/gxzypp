@@ -98,6 +98,40 @@ margin:0;
 	display:none;
 	
 }
+
+/* clearfix */
+.cf { padding-top:20px;*zoom:1}
+.cf:after { content:"."; 
+clear:both; display:block; 
+overflow:hidden; 
+visibility:hidden; 
+height:0; 
+font-size:0
+}
+
+.scrollingBox{
+		background:#F3F3F3;
+}
+.scrollingBox li a { 
+  color:#555555;
+  display:block;
+  padding:8px 0;
+  text-align:center;
+}
+.div1{}
+.div2{position:fixed;_position:absolute;top:3px;z-index:295;}
+.list { padding:10px 5px 20px}
+.list section {display: block;}
+.list section p {
+z-index: 1;
+width: 1px;
+height: 10px;
+}
+.list div small { float:left; padding-left:8px; color:#999;padding-top:20px;}
+.list div h3 { float:left; padding-left:12px; font:bold 16px/20px Microsoft Yahei; color:#f70;}
+.list h4 { padding:4px; font-weight:bold; font-size:12px; background:#f3f3f3}
+.list ul { padding:8px 4px}
+.list li { padding-left:0px;overflow:hidden; height:24px; line-height:24px}
 .white{
 	color: #ffffff;
 }
