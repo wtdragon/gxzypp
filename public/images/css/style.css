@@ -100,7 +100,7 @@ margin:0;
 }
 
 /* clearfix */
-.cf { padding-top:20px;*zoom:1}
+.cf {}
 .cf:after { content:"."; 
 clear:both; display:block; 
 overflow:hidden; 
@@ -118,6 +118,9 @@ font-size:0
   padding:8px 0;
   text-align:center;
 }
+.list-inline li:first-child {
+padding-left: 5px;
+}
 .div1{}
 .div2{position:fixed;_position:absolute;top:3px;z-index:295;}
 .list { padding:10px 5px 20px}
@@ -125,7 +128,14 @@ font-size:0
 .list section p {
 z-index: 1;
 width: 1px;
-height: 10px;
+height: 0px;
+}
+.list section p:after { content:"."; 
+clear:both; display:block; 
+overflow:hidden; 
+visibility:hidden; 
+height:5; 
+font-size:0
 }
 .list div small { float:left; padding-left:8px; color:#999;padding-top:20px;}
 .list div h3 { float:left; padding-left:12px; font:bold 16px/20px Microsoft Yahei; color:#f70;}

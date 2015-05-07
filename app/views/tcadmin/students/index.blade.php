@@ -89,7 +89,7 @@
 <tbody>
 @foreach ($students as $student)
 <tr>
-<td><a href="#modal1" data-toggle="modal" class="open-popup-link">{{ $student->stuname }}</a></td>
+<td><a href="#" data-toggle="modal" class="open-popup-link" data-target="#modal1">{{ $student->stuname }}</a></td>
 <td>{{ $student->stuno }}</td>
 <td>{{ $student->emailaddress }}</td>
 <td>{{ $student->phone }}</td>
@@ -156,7 +156,7 @@
         <h4 class="modal-title text-primary"></h4>
       </div>
       <div class="modal-body">
-        ...
+         
       </div>
       <div class="modal-footer">
         <button type="button" id="modal-button1" class="btn btn-default" data-dismiss="modal">返回</button>
@@ -177,12 +177,12 @@ $('.open-popup-link').click(function(){
 	 	type: 'post',
 		url: "{{ URL::to('tcadmin/ajaxktest') }}",
 		data: postStr,
-		dataType:  'json',
+		dataType:  'html',
 		tryCount:0,//current retry count
 		retryLimit:3,//number of retries on fail
 		timeout: 2000,//time before retry on fail
 		success: function(data) {
-			 $(".modal-body").val(data.msg);// 设置文本内容
+			 $(".modal-body").html(data);// 设置文本内容
 			 
 		},
 		error: function(xhr, textStatus, errorThrown) {
@@ -195,10 +195,6 @@ $('.open-popup-link').click(function(){
 			}//try 3 times to get a response from server
 		}
 	});
-$("#modal1").on("show.bs.modal", function(e) {
-    var link = $(e.relatedTarget);
-    $(this).find(".modal-body").load(link.attr("href"));
-});
 }); 
 } );    
 </script>

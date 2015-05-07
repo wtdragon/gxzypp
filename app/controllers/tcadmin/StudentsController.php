@@ -1,13 +1,13 @@
 <?php
 namespace App\Controllers\Tcadmin;
  
-use Area,City,College,School,Province,User,UserProfile,ProfileField,Teacher,Student,Sclass,Grade,Ktest;
+use Area,City,College,School,Province,User,UserProfile,ProfileField,Teacher,Student,Sclass,Grade,Ktest,Kresult;
 use Input, Notification, Redirect, Sentry, Str,DB;
 
 use App\Services\Validators\AdminValidator;
 use App\Services\Ktest\Cryptographer;
 use App\Services\Ktest\HesClient;
-
+use App\Services\Ktest\Kclasses;
 class StudentsController extends \BaseController {
 
 	/**
@@ -166,8 +166,19 @@ return Redirect::back()->withInput()->withErrors($validation->errors);
 	public function ajaxktest()
 	{
 		$stuname= Input::get('stuname');
-	 return \Response::json(array('success' => true, 'msg' => $stuname));
-	
+		$student=Student::whereraw("stuname = '$stuname'")->first();  
+		$ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
+		   $kclass=new Kclasses("singapore");
+          $kuserId=$student->kuser_id;
+		   $kurl=$kclass->getkLsiUrl($kuserId);
+         if ($ktest->count())
+	       {
+	       	 
+			 return \Response::view('ajaxview', array('kurl' => $kurl));
+			 }
+else {
+	 return '此同学未进行职业测试';
+}
 	}
 	/**
 	 * Show the form for editing the specified resource.

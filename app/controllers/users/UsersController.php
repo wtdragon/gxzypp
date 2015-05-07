@@ -8,6 +8,7 @@ use Input, Notification, Redirect, Sentry, Str;
 use App\Services\Validators\PageValidator;
 use App\Services\Ktest\Cryptographer;
 use App\Services\Ktest\HesClient;
+use App\Services\Ktest\Kclasses;
 use App\Services\Sclass\JsonArrayHandle;
 use SoapBox\Formatter\Formatter;
 
@@ -29,42 +30,35 @@ class UsersController extends \BaseController {
 		  if (array_key_exists('_student',$loggeduser->permissions))
 		  { //var_dump($loginstudent);
 	      $student=Student::whereraw("user_id = $loggeduser->id")->first();  
-          //$xuehao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 2")->pluck('value');
-	      //$xihao=ProfileField::whereRaw("profile_id = '$userprofile->id' and profile_field_type_id = 3")->pluck('value');
-          //$xuehao=$student->stuno;
-		  //$name=$student->stuname;
-          //$userprofile->xuehao=$xuehao;
-	     // $userprofile->xihao=$xihao;
-	     //var_dump($student);
-	     //$kuserId=Ktest::whereraw("user_id = $loggeduser->id");  
-		 $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
-		 $configId = 104;  //lsi
-         $accountId = 1000001;
-         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
-         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
-         $kuserId=$student->kuser_id;
-         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
-		 
+		  $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
+		  //$configId = 104;  //lsi
+          //$accountId = 1000001;
+          //$yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
+          //$bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
+          $kclass=new Kclasses("singapore");
+          $kuserId=$student->kuser_id;
+          //$kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+		 $kurl=$kclass->getkLsiUrl($kuserId);
          if ($ktest->count())
 	       {
 	       	
-			$accountId = 1000001;
+			//$accountId = 1000001;
 	//	$accountId = $_GET['accountId'];
-        $userId = $student->kuser_id;
-         $configId = 104;  //lsi
+       // $userId = $student->kuser_id;
+        // $configId = 104;  //lsi
 
-        $accountKey = "deI%2BKwrnkhenLX"; 
-        $accountPassword = "d1SLnDVAbxKxOid5"; 
+       // $accountKey = "deI%2BKwrnkhenLX"; 
+       // $accountPassword = "d1SLnDVAbxKxOid5"; 
 
-        $environment = "singapore";
+       // $environment = "singapore";
 
-        $hesClient = new HesClient($environment);
-        $nonce = $hesClient->handshake($accountId, $accountPassword, $accountKey);
+       // $hesClient = new HesClient($environment);
+       // $nonce = $hesClient->handshake($accountId, $accountPassword, $accountKey);
  
-        $userId = $hesClient->encryptMe($userId, $accountKey);
+       // $userId = $hesClient->encryptMe($userId, $accountKey);
         //$fullLoginUrl = $hesClient->getLoginUrl($accountId, $configId, $userId, $nonce);
-        $kresult = $hesClient->getLoginUrl($accountId, $configId, $userId, $nonce); 
- 
+        //$kresult = $hesClient->getLoginUrl($accountId, $configId, $userId, $nonce); 
+          $kresult=$kclass->getkResultUrl($kuserId);
 		//$ch = curl_init();
 //$timeout = 5;
 //curl_setopt ($ch, CURLOPT_URL, $kurl);
@@ -209,13 +203,10 @@ else{
         $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)->groupBy('co_id')->get();
 	     $student=Student::whereraw("user_id = $loggeduser->id")->first();  
 		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
-	    $configId = 104;  //lsi
-        $accountId = 1000001;
-        $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
-        $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
-        $kuserId=$student->kuser_id;
-        $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
-	
+	    $kclass=new Kclasses("singapore");
+          $kuserId=$student->kuser_id;
+          //$kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+		 $kurl=$kclass->getkLsiUrl($kuserId);
 			if(!$ktest1st)
 		{
 			$kresult="你还没做过测试";
@@ -252,7 +243,7 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
        $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)->groupBy('co_id')->get();
-	 $configId = 104;  //lsi
+	    $configId = 104;  //lsi
         $accountId = 1000001;
         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";

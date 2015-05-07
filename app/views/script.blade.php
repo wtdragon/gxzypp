@@ -36,12 +36,14 @@ $(document).ready(function(){
 			if ($(window).scrollTop() > offsetPixels) {
 				$(".scrollingBox").css({
 					"position": "fixed",
-					"top": "0px"
+					"top": "0px",
+					"width": "47.5%"
 				});
 			} else {
 				$(".scrollingBox").css({
 					"position": "relative",
-					"top": "0"
+					"top": "0",
+					"width": "100%"
 				});
 			}
 		});

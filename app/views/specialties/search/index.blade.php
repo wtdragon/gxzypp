@@ -69,10 +69,10 @@
   </ul> 
 </div>
 </div>
- {{ Form::open(array('route' => array('PostSpecialtiysearch','method' => 'post'))) }}
+
 @include('specialties.search.bklist')
 @include('specialties.search.zklist')
- {{ Form::close() }}
+
 
 
 </div>
