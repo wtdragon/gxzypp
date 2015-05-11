@@ -13,7 +13,8 @@ K测试管理
                 	<table class="table table-bordered">
 <thead>
 <tr>
-<th>院校代码</th>
+<th>学生姓名</th>
+<th>院校名称</th>
 <th>专业名称</th>
 <th><i class="icon-cog"></i></th>
 </tr>
@@ -21,8 +22,11 @@ K测试管理
 <tbody>
 @foreach ($ktests as $ktest)
 <tr>
-<td>{{ $ktest->co_id }}</td>
+	
+<td>{{ $ktest->student->stuname}}</td>
+<td>{{ $ktest->colleges->name }}</td>
 <td>{{ $ktest->zymc }}</td>
+
 <td>
 <a href="{{ URL::route('backend.ktests.edit', $ktest->id ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
 {{ Form::open(array('route' => array('backend.ktests.destroy', $ktest->id ), 'method' => 'delete', 'data-confirm' => '确定删除？')) }}
@@ -47,26 +51,7 @@ K测试管理
         <button type="submit" class="btn btn-default" type="button">同步</button>
         </div>
            {{ Form::close() }}
-                    <div class="col-lg-6">
-
-                        <form role="form">
-                            <div class="form-group">
-                                <label>批量上传学校信息</label>
-                                <input type="file">
-                            </div>
-                        </form>
-
-                    </div>
-                    <div class="col-lg-6">
-                        <h1>Disabled Form States</h1>
-
-                        <form role="form">
-                            <div class="form-group input-group">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span>
-                            </div>
-                        </form>
-                    </div>
+                   
                 </div>
                 <!-- /.row -->
 

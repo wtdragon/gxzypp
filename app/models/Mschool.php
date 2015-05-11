@@ -6,6 +6,6 @@ class Mschool extends \Eloquent {
     return $this->hasMany('Sclass','sclassid');
 	}
 	public function teachers(){
-    return $this->hasMany('Teacher','tcid');
+    return $this->belongsTo('Teacher','tcid');
 	}
 }

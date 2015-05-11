@@ -11,7 +11,4 @@ class Student extends \Eloquent {
 	public function teachers(){
     return $this->hasMany('Teacher');
 	}
-	public function ktest(){
-    return $this->hasMany('Ktest');
-	}
 }

@@ -47,6 +47,9 @@
 </tr>
 </tbody>
 </table>
+
+
+
 @elseif($specialty)
 
 <td>{{ $specialty->college->name }}</td>
@@ -57,14 +60,61 @@
 <td>{{ $specialty->teshe }}</td>
 <td>{{ $specialty->paiming }}</td>
 
+
+
+
 @elseif($carticle) 
 {
 	 carticle 
 }
+
+
 @elseif($mschool) 
-	mschool
+	<div class='col-md-7 text-center'>
+ <h3>修改受管理学校</h3>
+@if ($errors->any())
+<div class="alert alert-error">
+{{ implode('<br>', $errors->all()) }}
+</div>
+@endif
+ {{ Form::model($mschool, array('method' => 'put', 'route' => array('backend.mschools.update', $mschool->id))) }}
+<div class="control-group">
+{{ Form::label('schoolname', '修改学校名称') }}
+{{ Form::text('schoolname') }}
+{{ Form::label('teachername', '修改管理员名称') }}
+{{ Form::text('teachername') }}
+</div>
+<div class="form-actions">
+{{ Form::submit('更新', array('class' => 'btn btn-success btn-save btn-large')) }}
+<a href="{{ URL::route('backend.mschools.index') }}" class="btn btn-large">取消</a>
+</div>
+{{ Form::close() }}
+	</div>
+
 @else
-	ktest
+
+
+		<div class='col-md-7 text-center'>
+ <h3>修改受学生ktest数据</h3>
+@if ($errors->any())
+<div class="alert alert-error">
+{{ implode('<br>', $errors->all()) }}
+</div>
+@endif
+ {{ Form::model($ktests, array('method' => 'put', 'route' => array('backend.ktests.update', $ktests->id))) }}
+<div class="control-group">
+{{ Form::label('学生姓名:') }}{{ $ktests->student->stuname }}
+{{ Form::label('collegename', '修改学校') }}
+{{ Form::text('collegename') }}
+{{ Form::label('zymc', '修改专业') }}
+{{ Form::text('zymc') }}
+</div>
+<div class="form-actions">
+{{ Form::submit('更新', array('class' => 'btn btn-success btn-save btn-large')) }}
+<a href="{{ URL::route('backend.ktests.index') }}" class="btn btn-large">取消</a>
+</div>
+{{ Form::close() }}
+	</div>
 @endif
 </div>
                 <!-- /.row -->

@@ -220,6 +220,7 @@ class KtestsController extends \BaseController {
 			     	$mc1=str_replace("类","",$zylb->zymingcheng);
 				//$mc2=str_replace("类","",$mc1);     
                     $value = str_contains($kresult->majorsname, $zylb->zymingcheng);
+					$student=Student::where('user_id','=',$kresult->user_id)->first();
 			   //$gresult= new \stdClass;
 			       if($value)
 			        { 
@@ -228,6 +229,7 @@ class KtestsController extends \BaseController {
 					 $ktests->kresult_id=$kresult->id;
 					 $ktests->ktest_id=$kresult->ktest_id;
 					 $ktests->user_id=$kresult->user_id;
+					  $ktests->stuid=$student->id;
 				     $ktests->co_id=$zylb->coid;
                      $ktests->zymc=$zylb->zymingcheng;
 				     $zycount=Ktest::where('zymc','=',$ktests->zymc)->count(); 
@@ -264,6 +266,7 @@ class KtestsController extends \BaseController {
 	{
 		//
 		
+		
 	}
 
 	/**
@@ -296,7 +299,7 @@ class KtestsController extends \BaseController {
 		                                  ->with('specialty', null)
 										  ->with('carticle', null)
 										  ->with('mschool', null)
-										  ->with('Ktest', Ktest::find($id));
+										  ->with('ktests', Ktest::find($id));
 	}
 
 	/**
@@ -309,7 +312,14 @@ class KtestsController extends \BaseController {
 	public function update($id)
 	{
 		//
-	}
+			$ktest =Ktest::find($id);
+$college = College::where('name','=',Input::get('collegename'))->first();
+$ktest->co_id=$college->coid;
+$ktest->zymc=Input::get('zymc');
+$ktest->save();
+//var_dump(Input::get('classname'));
+Notification::success('更新成功！');
+return Redirect::route('backend.ktests.index');	}
 
 	/**
 	 * Remove the specified resource from storage.

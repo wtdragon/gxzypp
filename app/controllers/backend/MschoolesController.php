@@ -5,6 +5,7 @@ use Area,City,College,Mschool,Province,UserProfile,ProfileField,Ktest,Kresult,Te
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
+use App\Services\Validators\TeacherValidator;
 use App\Services\Ktest\Cryptographer;
 use App\Services\Ktest\HesClient;
 use App\Services\Sclass\JsonArrayHandle;
@@ -110,6 +111,44 @@ class MschoolesController extends \BaseController {
 	public function store()
 	{
 		//
+				
+$validation = new TeacherValidator;
+if ($validation->passes())
+{
+	 
+$mschool =new Mschool;
+$mschool->schoolname = Input::get('schoolname');
+$teachername= Input::get('teachername');
+$teacher_email = Input::get('emailaddress');
+$teacher_phone = Input::get('phone');
+$newteacher =new Teacher;
+$newteacher->teachername=$teachername;
+$newteacher->emailaddress=$teacher_email;
+$data = array(
+                "email"     => $teacher_email,
+                "password"  => 123456,
+                "activated" => 1,
+                "banned"    =>  0,
+                'permissions' => array("_teacher" => 1,"_mschool" => 1 )
+        );
+//use sentry create a user		
+$user=\Sentry::createUser($data);	
+$newteacher->user_id=$user->id;
+$newteacher->phone=$teacher_phone;
+$newteacher->save();
+$mschool->tcid=$newteacher->id;
+$mschool->save();
+
+$mteacher = Teacher::find($newteacher->id);
+
+$mteacher->mschoolid = $mschool->id ;
+
+$mteacher->save();
+//var_dump(Input::get('classname'));
+Notification::success('新增受管学校成功！');
+return Redirect::route('backend.mschools.index');
+}
+return Redirect::back()->withInput()->withErrors($validation->errors);
 		
 	}
 
@@ -157,7 +196,17 @@ class MschoolesController extends \BaseController {
 	public function update($id)
 	{
 		//
-	}
+		$mschool =Mschool::find($id);
+$mschool->schoolname = Input::get('schoolname');
+$mschool->save();
+$teachername= Input::get('teachername');
+$teacher=Teacher::find($mschool->tcid);
+ 
+$teacher->teachername=$teachername;
+$teacher->save();
+//var_dump(Input::get('classname'));
+Notification::success('更新成功！');
+return Redirect::route('backend.mschools.index');	}
 
 	/**
 	 * Remove the specified resource from storage.
@@ -169,6 +218,10 @@ class MschoolesController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+		$mschool =Mschool::find($id);
+$mschool->delete();
+Notification::success('删除成功！');
+return Redirect::route('backend.mschools.index');
 	}
 
 }
