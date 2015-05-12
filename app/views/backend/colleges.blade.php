@@ -58,16 +58,6 @@
                         </form>
 
                     </div>
-                    <div class="col-lg-6">
-                        <h1>Disabled Form States</h1>
-
-                        <form role="form">
-                            <div class="form-group input-group">
-                                <input type="text" class="form-control">
-                                <span class="input-group-btn"><button class="btn btn-default" type="button"><i class="fa fa-search"></i></button></span>
-                            </div>
-                        </form>
-                    </div>
                 </div>
                 <!-- /.row -->
 

@@ -11,56 +11,59 @@
 
 <div class="row">
 @if($college)
-<table class="table table-bordered">
-<thead>
-<tr>
-<th>院校名称</th>
-<th>院校排名</th>
-<th>所在地区</th>
-<th>985</th>
-<th>211</th>
-<th>院校隶属</th>
-<th>院校举办</th>
-<th>办学类型</th>
-<th>院校科类</th>
-<th><i class="icon-cog"></i></th>
-</tr>
-</thead>
-<tbody>
-
-<tr>
-<td>{{ $college->name }}</td>
-<td>{{ $college->paiming }}</td>
-<td>{{ $college->province->pname }}</td>
-<td>{{ $college->is985 }}</td>
-<td>{{ $college->is211 }}</td>
-<td>{{ $college->lishu }}</td>
-<td>{{ $college->juban }}</td>
-<td>{{ $college->leixing }}</td>
-<td>{{ $college->kelei }}</td>
-<td>
-<a href="{{ URL::route('backend.colleges.edit', $college->coid ) }}" class="btn btn-success btn-mini pull-left">编辑</a>
-{{ Form::open(array('route' => array('backend.colleges.destroy', $college->id ), 'method' => 'delete', 'data-confirm' => '确定删除？')) }}
-<button type="submit" href="{{ URL::route('backend.colleges.destroy', $college->id) }}" class="btn btn-danger btn-mini">删除</button>
+{{ Form::model($college,array('method' => 'PUT','route' => array('backend.colleges.update', $college->coid), 'class'=>'form-inline edit-form')) }}		
+<p>
+{{ Form::label('name', '院校名称:') }}
+{{ Form::text('name') }} 
+{{ Form::label('paiming', '院校排名:') }}
+{{ Form::text('paiming') }} 
+{{ Form::label('is985', '985:') }}
+{{ Form::text('is985') }}
+{{ Form::label('is211', '211:') }}
+{{ Form::text('is211') }} 
+</p>
+<p>
+{{ Form::label('lishu', '院校隶属:') }}	
+{{ Form::text('lishu') }} 
+{{ Form::label('juban', '院校举办:') }}	
+{{ Form::text('juban') }} 
+{{ Form::label('leixing', '办学类型:') }}	
+{{ Form::text('leixing') }} 
+{{ Form::label('kelei', '院校科类:') }}	
+{{ Form::text('kelei') }} 
+</p>
+<div class="form-actions">
+{{ Form::submit('更新', array('class' => 'btn btn-success btn-save btn-large')) }}
+<a href="{{ URL::route('backend.colleges.index') }}" class="btn btn-large">取消</a>
+</div>
 {{ Form::close() }}
-</td>
-</tr>
-</tbody>
-</table>
-
 
 
 @elseif($specialty)
+ 
 
-<td>{{ $specialty->college->name }}</td>
-<td>{{ $specialty->bkleibie }}</td>
-<td>{{ $specialty->name }}</td>
-<td>{{ $specialty->wenlike }}</td>
-<td>{{ $specialty->pici }}</td>
-<td>{{ $specialty->teshe }}</td>
-<td>{{ $specialty->paiming }}</td>
-
-
+{{ Form::model($specialty,array('method' => 'PUT','route' => array('backend.specialties.update', $specialty->id), 'class'=>'form-inline edit-form')) }}		
+<p>
+{{ Form::label('yxmc', '院校名称:') }}
+{{ Form::text('yxmc') }} 
+{{ Form::label('cengci', '层次:') }}
+{{ Form::text('cengci') }} 
+{{ Form::label('zymingcheng', '专业名称:') }}
+{{ Form::text('zymingcheng') }}
+{{ Form::label('kelei', '科类:') }}
+{{ Form::text('kelei') }} 
+</p>
+<p>
+{{ Form::label('pici', '批次:') }}	
+{{ Form::text('pici') }} 
+{{ Form::label('jihuaxingzhi', '计划性质:') }}	
+{{ Form::text('jihuaxingzhi') }} 
+</p>
+<div class="form-actions">
+{{ Form::submit('更新', array('class' => 'btn btn-success btn-save btn-large')) }}
+<a href="{{ URL::route('backend.specialties.index') }}" class="btn btn-large">取消</a>
+</div>
+{{ Form::close() }}
 
 
 @elseif($carticle) 

@@ -198,6 +198,9 @@ class CollegesController extends \BaseController {
 		     $userprofile=UserProfile::find($loggeduser->id);
 			 
 		return \View::make('backend.edit')->with('user',$userprofile)
+		                                  ->with('specialty', null)
+										  ->with('carticle', null)
+										  ->with('mschool', null)
 		                                  ->with('college', College::find($id));
  
 	}
@@ -212,6 +215,22 @@ class CollegesController extends \BaseController {
 	public function update($id)
 	{
 		//
+		var_dump('test');
+		$college =College::find($id);
+$college->name = Input::get('name');
+$college->paiming = Input::get('paiming');
+$college->is985 = Input::get('is985');
+$college->is211 = Input::get('is211');
+$college->lishu = Input::get('lishu');
+$college->juban = Input::get('juban');
+$college->leixing = Input::get('leixing');
+$college->kelei = Input::get('kelei');
+ 
+
+$college->save();
+
+Notification::success('更新成功！');
+return Redirect::route('backend.colleges.index');	 
 	}
 
 	/**
@@ -224,6 +243,10 @@ class CollegesController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+			$college =College::find($id);
+$college->delete();
+Notification::success('删除成功！');
+return Redirect::route('backend.colleges.index');
 	}
 
 }

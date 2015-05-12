@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Backend;
  
-use Area,City,College,Specialty,Province,UserProfile,ProfileField,Ktest,Kresult,Teacher,Student;
+use Area,City,College,Specialty,Province,UserProfile,ProfileField,Ktest,Kresult,Teacher,Student,Zylb;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -12,66 +12,7 @@ use SoapBox\Formatter\Formatter;
 
 class SpecialtiesController extends \BaseController {
 
-	/**
-	 * Display a listing of the resource.
-	 * GET /backend/backend
-	 *
-	 * @return Response
-	 */
-	public function colleges()
-	{
-		//
-		$loggeduser=\App::make('authenticator')->getLoggedUser();
-		$ccounts=College::All()->count();
-		$mcounts=School::All()->count();
-		$kcounts=Ktest::All()->count();
-		$stucounts=Student::All()->count();
-		$teccounts=Teacher::All()->count();
-		$tongji=new \stdClass; 
-		$tongji->cct=$ccounts;
-		$tongji->mct=$mcounts;
-		$tongji->kct=$kcounts;
-		$tongji->stuct=$stucounts;
-		$tongji->tect=$teccounts;
-		//var_dump($userinfo);
-		//var_dump($userprofile->first_name);
-		    if($loggeduser)
-			{
-				$userinfo=\App::make('authenticator')->getUserById($loggeduser->id);
-		$userprofile=UserProfile::find($loggeduser->id);
-		return \View::make('backend.dashboard')->with('user',$userprofile)
-		                                       ->with('tongji',$tongji);
-			}
-			else{
-		 	$logged='not login';
-		   	return \View::make('users.login');
-		}
-	}
-    
-	/**
-	 * Display a listing of the resource.
-	 * GET /backend/backend
-	 *
-	 * @return Response
-	 */
-	public function charts()
-	{
-		//
-		$loggeduser=\App::make('authenticator')->getLoggedUser();
-		
-		//var_dump($userinfo);
-		//var_dump($userprofile->first_name);
-		    if($loggeduser)
-			{
-				$userinfo=\App::make('authenticator')->getUserById($loggeduser->id);
-		$userprofile=UserProfile::find($loggeduser->id);
-		return \View::make('backend.charts')->with('user',$userprofile);
-			}
-			else{
-		 	$logged='not login';
-		   	return \View::make('users.login');
-		}
-	}
+
 	
 		/**
 	 * Display a listing of the resource.
@@ -91,7 +32,7 @@ class SpecialtiesController extends \BaseController {
 		     $userinfo=\App::make('authenticator')->getUserById($loggeduser->id);
 		     $userprofile=UserProfile::find($loggeduser->id);
 			 $pre_page = 20;//每页显示页数
-		     $specialties = Specialty::paginate($pre_page);
+		     $specialties = Zylb::paginate($pre_page);
 			 
 		     return \View::make('backend.specialties')->with('user',$userprofile)
 			                                       ->with('specialties',$specialties);
@@ -198,8 +139,10 @@ class SpecialtiesController extends \BaseController {
 		$userprofile=UserProfile::find($loggeduser->id);
 		$college=null;	 
 		return \View::make('backend.edit')->with('user',$userprofile)
-		                                  ->with('college',null)
-		                                  ->with('specialty', Specialty::find($id));
+										  ->with('carticle', null)
+										  ->with('mschool', null)
+		                                  ->with('college', null)
+		                                  ->with('specialty',Zylb::find($id));
 	}
 
 	/**
@@ -211,7 +154,21 @@ class SpecialtiesController extends \BaseController {
 	 */
 	public function update($id)
 	{
-		//
+$zylb =Zylb::find($id);
+$zylb->yxmc = Input::get('yxmc');
+$zylb->cengci = Input::get('cengci');
+$zylb->zymingcheng = Input::get('zymingcheng');
+$zylb->kelei = Input::get('kelei');
+$zylb->pici = Input::get('pici');
+$zylb->jihuaxingzhi = Input::get('jihuaxingzhi');
+ 
+ 
+
+$zylb->save();
+
+
+Notification::success('更新成功！');
+return Redirect::route('backend.specialties.index');	
 	}
 
 	/**
@@ -224,6 +181,10 @@ class SpecialtiesController extends \BaseController {
 	public function destroy($id)
 	{
 		//
+		$zylb=Zylb::find($id);
+		$zylb->delete();
+Notification::success('删除成功！');
+return Redirect::route('backend.specialties.index');
 	}
 
 }
