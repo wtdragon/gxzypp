@@ -220,7 +220,7 @@ class KtestsController extends \BaseController {
 		 
 			   $ktest=\DB::table('ktests')->distinct()->lists('ktest_id');
 			   
-			   $kresults=Kresult::All();
+			   $kresults=Kresult::whereNotIn('ktest_id',$ktest)->get();
 			   foreach($kresults as $kresult)
 			   {   $engmajors=json_decode($kresult->majorsname);
 			       $encareers=json_decode($kresult->careername);
