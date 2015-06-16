@@ -17,11 +17,11 @@
 			我的收藏
 		</h3>
 		 <p>
-	<div class="btn-group">
-  <button class="btn btn-large btn-primary" type="button">职业收藏</button>
-  <button class="btn btn-large" type="button">院校收藏</button>
- </div>
-</p>
+        	<div class="btn-group">
+            <button class="btn btn-large btn-primary" type="button">职业收藏</button>
+            <button class="btn btn-large" type="button">院校收藏</button>
+            </div>
+         </p>
 
             </div>
 <div class='col-md-3'>

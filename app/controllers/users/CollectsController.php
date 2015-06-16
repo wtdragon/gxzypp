@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Video,Collect;
+use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Collect;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -11,7 +11,7 @@ use App\Services\Ktest\Kclasses;
 use App\Services\Sclass\JsonArrayHandle;
 use SoapBox\Formatter\Formatter;
 
-class CareerController extends \BaseController {
+class CollectsController extends \BaseController {
 
 	/**
 	 * Display a listing of the resource.

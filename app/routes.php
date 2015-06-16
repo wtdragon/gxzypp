@@ -49,6 +49,8 @@ Route::get('/collects/specialites', 'App\Controllers\Users\UsersController@speci
 Route::resource('matches', 'App\Controllers\Users\UsersController@matches');
 Route::resource('specialties', 'App\Controllers\Users\UsersController@specialties');
 Route::resource('ktest', 'App\Controllers\Users\KtestController');
+Route::resource('career', 'App\Controllers\Users\CareerController');
+Route::resource('collects', 'App\Controllers\Users\CollectsController');
 Route::post('collegesearch',[
 		'as'=>'PostSpecialtiysearch',
 		'uses'=>'App\Controllers\College\SearchController@collegesearch'

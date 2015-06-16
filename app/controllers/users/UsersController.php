@@ -64,23 +64,7 @@ class UsersController extends \BaseController {
 //curl_setopt ($ch, CURLOPT_URL, $kurl);
 //curl_setopt ($ch, CURLOPT_RETURNTRANSFER, 1);
 //curl_setopt ($ch, CURLOPT_CONNECTTIMEOUT, $timeout);
-//$file_contents = curl_exec($ch); 
-		// $kresult=$file_contents; 
-        //$kresult=$kurl;
-		//   $formatter = Formatter::make($result, Formatter::JSON);
-		  // $jstoarray=new JsonArrayHandle;
-		 //  $array = $formatter->toArray();
-		 //  $finalresult=$jstoarray->objectToArray($array); 
-		 //  $finalresult2=json_decode($result);
-		 //   $zhuanye=array_keys(get_object_vars($finalresult2));
-		    
-		//	foreach($finalresult2 as $mydata)
-
-  //  {   
-    //	$zhiye[]=array_keys(get_object_vars($mydata->Careers)); 
-		//var_dump($zhiye);
-        
-  //  }    
+  
 			 
 			
 			 }   
@@ -201,9 +185,12 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)->groupBy('co_id')->get();
+ 
+	   // $areaid=College::distinct()->select('provinceID')->whereIN('coid','=',$ktests->co_id->toArray())->get();
 	     $student=Student::whereraw("user_id = $loggeduser->id")->first();  
 		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
 	    $kclass=new Kclasses("singapore");
+		$area=Province::distinct()->lists('pname');
           $kuserId=$student->kuser_id;
           //$kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
 		 $kurl=$kclass->getkLsiUrl($kuserId);
@@ -212,6 +199,7 @@ else{
 			$kresult="你还没做过测试";
 				return \View::make('users.index')->with('user',$student)
 		                                 ->with('kurl',$kurl)
+										 ->with('area',$area)
 						                 ->with('kresult',$kresult);
 						                 } 
 else{
@@ -223,6 +211,7 @@ else{
         
 		return \View::make('users.matches.index')->with('ktests',$ktests)
 		->with('user',$student)
+		->with('area',$area)
 		                                             ->with('ktest1st',$ktest1st)
 		                                             ->with('zylbs',$zylbs);
 	}
