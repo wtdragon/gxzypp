@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Backend;
  
-use Area,City,College,Mschool,Province,UserProfile,Zylb,Specialty,ProfileField,Ktest,Kresult,Kmajor,Kcareer,Teacher,Student;
+use Area,City,College,Mschool,Province,UserProfile,Zylb,Specialty,ProfileField,Ktest,Kresult,Kmajor,Kcareer,Teacher,Careermajors,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -81,7 +81,7 @@ class KtestsController extends \BaseController {
 		 foreach($students  as $student)
 		 {
 		 $hesClient = new HesClient($environment);
-	     $filters = array ('type'=>"asPortDWYAResult",'dwya_career_mode'=>8,'culture'=>'zh_CN');
+	     $filters = array ('type'=>"asPortDWYAResult",'dwya_career_mode'=>8,'culture'=>'en_US');
          $nonce=$hesClient->handshake($accountId,$accountPassword,$accountKey);
 		 $kuserId = $student->kuser_id;
 		 $userId= $student->user_id;
@@ -94,7 +94,9 @@ class KtestsController extends \BaseController {
               $ktest_type = $de_json[$i]['type'];
 	          $ktest_userid = $de_json[$i]['user_id'];
               $result =  json_encode($de_json[$i]['CareerClusters']);
-			  $str2 = $hesClient-> unicode_decode($result, 'UTF-8', true, '\u', '');
+			   //$career =  json_encode($de_json[$i]['Career']);
+			  $str2=$result;
+			 // $str2 = $hesClient-> unicode_decode($result, 'UTF-8', true, '\u', '');
 //$str2 = iconv('GBK', 'UTF-8', $str2);
 //var_dump($str2); 
 			  //$text  = $hesClient->unicode_decode($result);
@@ -107,7 +109,8 @@ class KtestsController extends \BaseController {
               $czhuanye=array_keys(get_object_vars($finalresult2));
                foreach($finalresult2 as $mydata)
                 {   
-                  $zhiye[]=array_keys(get_object_vars($mydata->Careers)); 
+                 // $zhiye[]=array_keys(get_object_vars($mydata->Careers)); 
+                 $zhiye[]=$mydata->Careers;
                    foreach($mydata as $key => $majors){
  	               $jstoarray=new JsonArrayHandle;
  	               $finalresult=$jstoarray->objectToArray($majors);
@@ -119,7 +122,11 @@ class KtestsController extends \BaseController {
 	 
                                                        }
 
-                 }            
+                 }  
+				
+				
+				 
+				 $zhiye2=json_encode($zhiye);
                $czy=$hesClient-> unicode_decode(json_encode($czhuanye), 'UTF-8', true, '\u', '');
 			   $ccn=$hesClient-> unicode_decode(json_encode($zhiye), 'UTF-8', true, '\u', '');
 			   $mmn=$hesClient-> unicode_decode(json_encode($mayjors), 'UTF-8', true, '\u', '');
@@ -133,8 +140,9 @@ class KtestsController extends \BaseController {
                   $kresult->type=$ktest_type;
                   $kresult->careerclusters=$str2;
 				  $kresult->clustername=$czy;
-				  $kresult->careername=$ccn;
-				  $kresult->majorsname=$mmn;
+				  //var_dump($career);
+				 $kresult->careername=$zhiye2;
+				  $kresult->majorsname=json_encode($mayjors);
 				  $kresult->save();
 			  
 				  //foreach($mayjors as $mayjor)
@@ -212,48 +220,49 @@ class KtestsController extends \BaseController {
 		 
 			   $ktest=\DB::table('ktests')->distinct()->lists('ktest_id');
 			   
-			   $kresults=Kresult::whereNotIn('ktest_id',$ktest)->get();
+			   $kresults=Kresult::All();
 			   foreach($kresults as $kresult)
-			   {
-			    foreach($zylbs as $zylb)
-			     {
-			     	$mc1=str_replace("类","",$zylb->zymingcheng);
-				//$mc2=str_replace("类","",$mc1);     
-                    $value = str_contains($kresult->majorsname, $zylb->zymingcheng);
-					$student=Student::where('user_id','=',$kresult->user_id)->first();
-			   //$gresult= new \stdClass;
-			       if($value)
-			        { 
-				     $ktests=new Ktest;
-                     $ktests->kuser_id=$kresult->kuser_id;
-					 $ktests->kresult_id=$kresult->id;
-					 $ktests->ktest_id=$kresult->ktest_id;
-					 $ktests->user_id=$kresult->user_id;
-					  $ktests->stuid=$student->id;
-				     $ktests->co_id=$zylb->coid;
-                     $ktests->zymc=$zylb->zymingcheng;
-				     $zycount=Ktest::where('zymc','=',$ktests->zymc)->count(); 
-				     if(!$zycount){
-				      $ktests->save();
-				      }
-			    
+			   {   $engmajors=json_decode($kresult->majorsname);
+			       $encareers=json_decode($kresult->careername);
+			   $student=Student::where('user_id','=',$kresult->user_id)->first();
+			 foreach($engmajors as $engmajor)
+				   {	
+				   	foreach(json_decode($engmajor) as $realmajor)
+					{
+						$kmajors=Kmajor::where('english_name','=',$realmajor)->get();
+						foreach($kmajors as $kmajor)
+						{
+							 $ktests=new Ktest;
+                             $ktests->kuser_id=$kresult->kuser_id;
+		                     $ktests->kresult_id=$kresult->id;
+		                     $ktests->ktest_id=$kresult->ktest_id;
+		                     $ktests->user_id=$kresult->user_id;
+		                     $ktests->stuid=$student->id;
+							 $ylb=Zylb::where('zymingcheng','=',$kmajor->real_zymc)->first();
+							 if($ylb and $ylb->coid !=0){
+							  $ktests->co_id=$ylb->coid;
+							  $ktests->zymc=$kmajor->real_zymc;  
+							 }
+                            
+							  $ktests->save();
+		                      
+			             }
+			           }
 			         }
-			       else {
-			         $coid="no result";
-			        }
-			//   var_dump($gresult);
-			   }
-			   }
-			    Notification::success('成功！');
+
+ }
+
+
+				   Notification::success('成功！');
 				 $loggeduser=\App::make('authenticator')->getLoggedUser();
 		    $userinfo=\App::make('authenticator')->getUserById($loggeduser->id);
 		     $userprofile=UserProfile::find($loggeduser->id);
 			 $pre_page = 20;//每页显示页数
 		     $ktests = Ktest::paginate($pre_page);
-			 
-		     return \View::make('backend.ktests')->with('user',$userprofile)
-			                                       ->with('ktests',$ktests);
 		 
+		     return \View::make('backend.ktests')->with('user',$userprofile)
+			                                     ->with('ktests',$ktests);
+			   
 		
 	}
 	/**

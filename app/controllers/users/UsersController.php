@@ -184,11 +184,15 @@ else{
          
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
-        $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)->groupBy('co_id')->get();
- 
+        $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)
+                                                       ->groupBy('co_id')->get();
+        foreach($ktests as $ktest)
+		{
+			$colleges=College::where('coid','=',$ktest->co_id)->get();
+		}
 	   // $areaid=College::distinct()->select('provinceID')->whereIN('coid','=',$ktests->co_id->toArray())->get();
-	     $student=Student::whereraw("user_id = $loggeduser->id")->first();  
-		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+	    $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+		$ktest1st=Ktest::whereraw("user_id = $loggeduser->id")->first();
 	    $kclass=new Kclasses("singapore");
 		$area=Province::distinct()->lists('pname');
           $kuserId=$student->kuser_id;
@@ -230,7 +234,8 @@ else{
    		$student=Student::whereraw("user_id = $loggeduser->id")->first();  
          
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
-         //                                        ->with('provinces',$provinces);
+         //     
+         $area=Province::distinct()->lists('pname');                                   
        $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)->groupBy('co_id')->get();
 	    $configId = 104;  //lsi
         $accountId = 1000001;
@@ -249,7 +254,8 @@ else{
 			$kresult="你还没做过测试";
 				return \View::make('users.index')->with('user',$student)
 		                                 ->with('kurl',$kurl)
-						                 ->with('kresult',$kresult);
+						                 ->with('kresult',$kresult)
+										 ->with('area',$area);
 						                 } 
 else{
 		
@@ -262,7 +268,8 @@ else{
 		return \View::make('users.matches.index')->with('ktests',$ktests)
 		->with('user',$student)
 		                                             ->with('ktest1st',$ktest1st)
-		                                             ->with('zylbs',$zylbs);
+		                                             ->with('zylbs',$zylbs) 
+		                                             ->with('area',$area);
 	}
 	}
    // get spec use ktest

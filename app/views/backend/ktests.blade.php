@@ -14,7 +14,6 @@ K测试管理
 <thead>
 <tr>
 <th>学生姓名</th>
-<th>院校名称</th>
 <th>专业名称</th>
 <th><i class="icon-cog"></i></th>
 </tr>
@@ -23,8 +22,10 @@ K测试管理
 @foreach ($ktests as $ktest)
 <tr>
 	
+
 <td>{{ $ktest->student->stuname}}</td>
-<td>{{ $ktest->colleges->name }}</td>
+ 
+ 
 <td>{{ $ktest->zymc }}</td>
 
 <td>

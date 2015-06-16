@@ -29,27 +29,28 @@
         </div> 
 		<h4>院校类型：<a>211</a><a>985</a><a>全部</a></h4> 
         <h4>院校科类：<a>本科</a>   <a>专科</a>  <a>全部</a> </h4>
-        	<p>根据你的筛选条件，共有50所合适的本科招生院校</p>
-        <div class='row top bottom bottom-border marginlr'>
-        
-      @foreach ($ktests as $ktest)
+         @foreach ($ktests as $ktest)
        <div class="col-md-4">
         <a href="{{ URL::route('Specfilter',$ktest->co_id) }}">
-         {{ $ktest->colleges->name }}
+           {{ $ktest->college->yxmc }}
          </a>
         </div>
          @endforeach
-        </div>
-          </div>
-         <div class='row top bottom bottom-border marginlr'>
+         
+        	<p>根据你的筛选条件，共有50所合适的本科招生院校</p>
+ 
+        
+   
+		</div>
+		 <div class='row top bottom bottom-border marginlr'>
         <h4>
-		  {{ $ktest1st->colleges->name }}
+		  {{ $ktest1st->college->yxmc }}
 		  <div class='row top bottom  marginlr'>
 		  	<div class='col-md-4'>
 		  	<h5>所属地区:</h5>
 		  	</div>
 		  	<div class='col-md-4'>
-		  	<h5>所属科类:{{ $ktest1st->colleges->kelei}}</h5>
+		  	<h5>所属科类:{{ $ktest1st->college->kelei}}</h5>
 		  	</div>
 		  	<div class='col-md-4'>
 		  	<h5><a>收藏</a></h5>
