@@ -245,7 +245,7 @@ class KtestsController extends \BaseController {
 							 }
                             
 							  $ktests->save();
-		                      
+		                      $affectedRows = Ktest::where('zymc', '=', '')->delete();
 			             }
 			           }
 			         }
