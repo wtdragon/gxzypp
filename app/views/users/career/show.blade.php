@@ -18,16 +18,12 @@
 		</p>
 		<p>
         	<div class="btn-group">
-            <a href="{{ URL::route('videosearch',$collects->careername) }}" class="btn btn-large" type="button">职业视讯</a>
-          <a href="{{ URL::route('salarysearch',$collects->careername) }}" class="btn btn-large" type="button">工资概况</a>
- 
+            <a href="{{ URL::route('videosearch',$collects->careername) }}">职业视讯</a>
+            <button class="btn btn-large" type="button">工资概况</button>
             </div>
          </p>
-		     @if ($video)
-             	<p>   {{$video->kcontent }}	</p>
-             @else
-                                            <p>暂未收录相关视频</p>
-                                            @endif
+		 
+ 
             </div>
 <div class='col-md-3'>
 		@include('ads')

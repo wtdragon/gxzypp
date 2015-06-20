@@ -14,99 +14,16 @@
 		<h2>
 			会员中心
 		</h2>
-		<p>
-        	<div class="btn-group">
-            <button class="btn btn-large btn-primary" type="button">职业信息</button>
-            <button class="btn btn-large" type="button">院校信息</button>
-            </div>
-         </p>
-        <div  class='list' id="zy3">
-        	  <div class="row">
-          @foreach ($careers as $career)
+		 
+            
      
-        <a href="{{ URL::route('Specfilter',$career->id) }}">
-           {{ $career->careername }}
-         </a>
-      
-         @endforeach
-           </div>
-          <div class='row top bottom bottom-border marginlr'>
-        <h4>职业名称：
-		  {{ $ktest1st->college->yxmc }}
-		   </h4>
-		  <div class='row top bottom  marginlr'>
-		  	<div class='col-md-4'>
-		  	<div class="control-group">
-          <label class="control-label">招生地区：</label>
-           {{ Form::select( 'area',$area,null, array('class' => 'input-xlarge')) }}
-
-      
-         </div> 
-		  	</div>
-		  	<div class='col-md-4'>
-		  	<h5>所属科类:{{ $ktest1st->college->kelei}}</h5>
-		  	</div>
-		  	<div class='col-md-4'>
-		  	<h5><a>收藏</a></h5>
-		  	</div>
-		  </div>
-	      <table class="table table-striped" id="Table1">
-<thead>
-<tr>
-<th>职业名称</th>
-<th>专业名称</th>
-<th>收藏</th>
-</tr>
-</thead>
-<tbody>
-@foreach ($careers as $career)
-<tr>
-<td>{{ $career->careername }}</td>	
-<td>{{ $career->majorname }}</td>
-<td><a href="#" id="{{ $career->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
-</tr>
-@endforeach
-</tbody>
-</table>
-{{ $careers->links() }}  
-		</div>
-         
-            </div>
-            
-            
-            
-       <div  class='list notshow' id="zy4">
-		<div class="control-group">
-
-          <!-- Select Basic -->
-          <label class="control-label">招生地区：</label>
-           {{ Form::select( 'area',$area,null, array('class' => 'input-xlarge')) }}
-
-        </div> 
-		<h4>院校类型：<a>211</a><a>985</a><a>全部</a></h4> 
-        <h4>院校科类：<a>本科</a>   <a>专科</a>  <a>全部</a> </h4>
-         @foreach ($ktests as $ktest)
-       <div class="col-md-4">
-        <a href="{{ URL::route('Specfilter',$ktest->co_id) }}">
-           {{ $ktest->college->yxmc }}
-         </a>
-        </div>
-         @endforeach
-         
-        	<p>根据你的筛选条件，共有50所合适的本科招生院校</p>
- 
-        
-   
-	
-		 <div class='row top bottom bottom-border marginlr'>
+		 
+		 <div class='row top bottom   marginlr'>
         <h4>
-		  {{ $ktest1st->college->yxmc }}
+		  {{ $ktest1st->name }}
 		  <div class='row top bottom  marginlr'>
 		  	<div class='col-md-4'>
-		  	<h5>所属地区:</h5>
-		  	</div>
-		  	<div class='col-md-4'>
-		  	<h5>所属科类:{{ $ktest1st->college->kelei}}</h5>
+		  	<h5>所属科类:{{ $ktest1st->kelei}}</h5>
 		  	</div>
 		  	<div class='col-md-4'>
 		  	<h5><a>收藏</a></h5>
@@ -117,7 +34,6 @@
 <table class="table table-striped">
 <thead>
 <tr>
-<th>职业名称</th>
 <th>专业名称</th>
 <th>层次</th>
 <th>科类</th>
@@ -128,7 +44,6 @@
 <tbody>
 @foreach ($zylbs as $zylb)
 <tr>
-<td>{{ $zylb->zymingcheng }}</td>	
 <td>{{ $zylb->zymingcheng }}</td>
 <td>{{ $zylb->kelei }}</td>
 <td>{{ $zylb->pici }}</td>
@@ -141,7 +56,7 @@
 {{ $zylbs->links() }}  
             </div>
             	</div>
-                 </div>
+ 
 <div class='col-md-3'>
 		@include('ads')
 	</div>

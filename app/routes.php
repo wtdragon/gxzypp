@@ -63,6 +63,23 @@ Route::get('colfilter/{filter}',[
 		'as'=>'Colfilter',
 		'uses'=>'App\Controllers\Users\UsersController@colfilter'
 	]);
+Route::get('careersearch/{id}',[
+		'as'=>'careersearch',
+		'uses'=>'App\Controllers\Users\CareerController@show'
+	]); 
+	Route::get('videosearch/{careername}',[
+		'as'=>'videosearch',
+		'uses'=>'App\Controllers\Users\CareerController@video'
+	]); 
+		Route::get('salarysearch/{careername}',[
+		'as'=>'salarysearch',
+		'uses'=>'App\Controllers\Users\CareerController@salary'
+	]); 		
+//ajax: add collect for college and career
+Route::post( 'ajaxcollect', array(
+    'as' => 'ajaxcollect',
+    'uses' => 'App\Controllers\Users\CollectsController@ajaxcollect'
+) );		
 });	
 
  
@@ -139,7 +156,10 @@ Route::post('syncktest',[
 		'as'=>'SyncCoinfo',
 		'uses'=>'App\Controllers\Backend\KtestsController@getzylb'
 	]);
-
+	Route::post('getcareers',[
+		'as'=>'SyncCareerinfo',
+		'uses'=>'App\Controllers\Backend\KtestsController@getcareers'
+	]);
 });	
 
  

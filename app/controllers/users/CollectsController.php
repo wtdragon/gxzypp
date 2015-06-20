@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Collect;
+use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Careermajors,Ktest,Kresult,Flzhuanye,Student,Career,Collect;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -20,8 +20,41 @@ class CollectsController extends \BaseController {
 	 * @return Response
 	 */
 	public function index()
-	{
-		//
+{            $loggeduser=\App::make('authenticator')->getLoggedUser();
+		  if (array_key_exists('_student',$loggeduser->permissions))
+		  { //var_dump($loginstudent);
+	      $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+		  $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
+		  $kclass=new Kclasses("singapore");
+          $kuserId=$student->kuser_id;
+		  $collects=Collect::where('userid','=',$loggeduser->id)->paginate(20);;
+          $kurl=$kclass->getkLsiUrl($kuserId);
+         if ($ktest->count())
+	       {
+	       	 
+          $kresult=$kclass->getkResultUrl($kuserId);
+		 
+			
+			 }   
+		else {
+			$kresult="你还没做过测试";
+		 
+		}
+       	
+		return \View::make('users.collects.index')->with('user',$student)
+		                                 ->with('kurl',$kurl)
+										 ->with('collects',$collects)
+						                 ->with('kresult',$kresult);
+						                 }
+elseif(array_key_exists('_teacher',$loggeduser->permissions)){
+	return Redirect::to('gxadmin');
+}
+else{
+	return "not have permissions ";
+}
+
+ 
+		
 	}
 
 	/**
@@ -34,7 +67,65 @@ class CollectsController extends \BaseController {
 	{
 		//
 	}
-
+    
+	 /**
+	 *  ajax ktest data.
+	 * GET /tcadmin/tcadmin/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function ajaxcollect()
+	{
+		header('Content-Type: text/event-stream');
+        header('Cache-Control: no-cache');
+		$coid= Input::get('coid');
+		$realcoid=strstr($coid,'c');
+		if($realcoid)
+		{
+	     $coid2=substr($coid, 1);    
+		$collect=Collect::where('coid','=',$coid2)->get();
+	    if($collect->count())
+		 {
+	       	 $kurl='收藏过了';
+			 return \Response::view('ajaxcollect', array('kurl' => $kurl));
+			 }
+else {
+	  $loggeduser=\App::make('authenticator')->getLoggedUser();
+				$newcollect=new Collect;
+				$newcollect->userid=$loggeduser->id;
+				$newcollect->coid=$coid2;
+				$newcollect->save();
+				$kurl='收藏成功';
+				return \Response::view('ajaxcollect', array('kurl' => $kurl));
+			    
+}
+		}
+		else {
+			$careerid= Input::get('coid');
+			$collect=Collect::where('careerid','=',$coid)->get();
+			if($collect->count())
+		 {
+	       	 $kurl='收藏过了';
+			 return \Response::view('ajaxcollect', array('kurl' => $kurl));
+			 }
+else {
+	  $loggeduser=\App::make('authenticator')->getLoggedUser();
+				$newcollect=new Collect;
+				$newcollect->userid=$loggeduser->id;
+				$newcollect->careerid=$careerid;
+				$newcollect->save();
+				$kurl='收藏成功';
+				return \Response::view('ajaxcollect', array('kurl' => $kurl));
+			    
+}
+		}
+		
+		 
+		 
+        
+	   
+	}
 	/**
 	 * Store a newly created resource in storage.
 	 * POST /users/career

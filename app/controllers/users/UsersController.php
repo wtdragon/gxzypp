@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student;
+use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Careermajors,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -193,6 +193,10 @@ else{
 	   // $areaid=College::distinct()->select('provinceID')->whereIN('coid','=',$ktests->co_id->toArray())->get();
 	    $student=Student::whereraw("user_id = $loggeduser->id")->first();  
 		$ktest1st=Ktest::whereraw("user_id = $loggeduser->id")->first();
+		 $careername=Careermajors::where('userid','=',$loggeduser->id)->take(200)->paginate(20);
+                                                
+		//var_dump($cama);
+		//$ca=array_unique($cama->careername);
 	    $kclass=new Kclasses("singapore");
 		$area=Province::distinct()->lists('pname');
           $kuserId=$student->kuser_id;
@@ -216,6 +220,7 @@ else{
 		return \View::make('users.matches.index')->with('ktests',$ktests)
 		->with('user',$student)
 		->with('area',$area)
+		 ->with('careers',$careername)
 		                                             ->with('ktest1st',$ktest1st)
 		                                             ->with('zylbs',$zylbs);
 	}
@@ -242,35 +247,16 @@ else{
         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
         $kuserId=$student->kuser_id;
-		  $ktest1st=Ktest::where('co_id','=',$collegename)->first();
-		  	$zyjs=Flzhuanye::where('zymc','=',$ktest1st->zymc)->first();
-			$mzyjs= preg_replace("/(。)/", "/(。)/</p><p>", $zyjs->zyjs);
-		$ktest1st->zyjs=$mzyjs;
-	 
-        $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
-	
-			if(!$ktest1st)
-		{
-			$kresult="你还没做过测试";
-				return \View::make('users.index')->with('user',$student)
-		                                 ->with('kurl',$kurl)
-						                 ->with('kresult',$kresult)
-										 ->with('area',$area);
-						                 } 
-else{
-		
-		
-		
-	
-	  
+		 $ktest1st=College::where('coid','=',$collegename)->first();
+		  
         $zylbs =Zylb::where('coid','=',$collegename)->distinct()->paginate(10);
         
-		return \View::make('users.matches.index')->with('ktests',$ktests)
-		->with('user',$student)
+		return \View::make('users.matches.show') 
+		                                              ->with('user',$student) 
 		                                             ->with('ktest1st',$ktest1st)
 		                                             ->with('zylbs',$zylbs) 
 		                                             ->with('area',$area);
-	}
+	 
 	}
    // get spec use ktest
 	  public function colfilter($filter)
@@ -283,9 +269,14 @@ else{
 		//return \View::make('colleges.search.index')->with('colleges',$colleges)
          //                                        ->with('provinces',$provinces);
         $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
-		$ktest1st=Ktest::where('zymc','=',$filter)->first();
+		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
 			$zyjs=Flzhuanye::where('zymc','=',$filter)->first();
-		$ktest1st->zyjs=$zyjs->zyjs;
+ 
+			$mzyjs= preg_replace("/(。)/", "/(。)/</p><p>", $zyjs->zyjs);
+		$ktest1st->zyjs=$mzyjs;
+ 
+		$ktest1st->zymc=$zyjs->zymc;
+		
 	     $configId = 104;  //lsi
          $accountId = 1000001;
          $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
@@ -304,7 +295,7 @@ else{
 	    $ktest1st->zymc=$filter;  
         $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(10);
         
-		return \View::make('users.specialties.index')->with('ktests',$ktests)
+		return \View::make('users.specialties.show')->with('ktests',$ktests)
 		->with('user',$student)
 		                                               ->with('ktest1st',$ktest1st)
                                             ->with('colleges',$colleges);

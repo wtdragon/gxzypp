@@ -17,17 +17,6 @@
 		<p>
 			用户名：{{$user->stuname}}
 		</p>
-		<p>会员信息： 学号：{{$user->stuno}}</p> 
-		<p>根据您的测评结果，我们为您推荐以下职业及专业：</p>
-		<div class="row top bottom marginlr">
-		@foreach ($ktests as $ktest)
-		 <div class="col-md-3">
-         <a href="{{ URL::route('Colfilter',$ktest->zymc) }}">
-         {{ $ktest->zymc }}
-         </a>
-        </div>
-         @endforeach
-        </div>
            </div>
          <div class='row top bottom bottom-border marginlr'>
         <h4>
@@ -38,6 +27,7 @@
 		    </div>
   
 		</div>
+ 
 <table class="table table-striped">
 <thead>
 <tr>
@@ -50,7 +40,7 @@
 <tbody>
 @foreach ($colleges as $college)
 <tr>
-<td>{{ $college->yxmc }}</td>
+<td> <a href="{{ URL::route('Specfilter',$college->coid) }}">{{ $college->yxmc }}</a></td>
 <td>{{ $college->kelei }}</td>
 <td>{{ $college->pici }}</td>
 <td>{{ $college->province->pname }}</td>

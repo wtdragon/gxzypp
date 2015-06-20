@@ -52,7 +52,12 @@ K测试管理
         <button type="submit" class="btn btn-default" type="button">同步</button>
         </div>
            {{ Form::close() }}
-                   
+              {{ Form::open(array('route' => array('SyncCareerinfo','method' => 'post'))) }}
+      	     <div class="col-xs-2">
+      	     	 <label for="exampleInputEmail2">同步职业数据</label>
+        <button type="submit" class="btn btn-default" type="button">同步</button>
+        </div>
+           {{ Form::close() }}     
                 </div>
                 <!-- /.row -->
 

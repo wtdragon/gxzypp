@@ -223,7 +223,7 @@ class KtestsController extends \BaseController {
 			   $kresults=Kresult::whereNotIn('ktest_id',$ktest)->get();
 			   foreach($kresults as $kresult)
 			   {   $engmajors=json_decode($kresult->majorsname);
-			       $encareers=json_decode($kresult->careername);
+			       $encareers=$kresult->careername;
 			   $student=Student::where('user_id','=',$kresult->user_id)->first();
 			 foreach($engmajors as $engmajor)
 				   {	
@@ -265,6 +265,69 @@ class KtestsController extends \BaseController {
 			   
 		
 	}
+    
+	 /**
+	 * Show the form for creating a new resource.
+	 * GET /backend/backend/create
+	 *
+	 * @return Response
+	 */
+	public function getcareers()
+	{
+		//
+		       
+		 
+			   $kcareer=\DB::table('careermajors')->distinct()->lists('kresult_id');
+			   
+			   $kresults=Kresult::whereNotIn('kresult_id',$kcareer)->get();
+			   foreach($kresults as $kresult)
+			   {    
+			       $encareers=json_decode($kresult->careername);
+				   foreach($encareers as $encareer)
+				   {
+				   $careers=array_keys(get_object_vars($encareer));
+				    //  var_dump($career);
+				   //$majors=$encareer->Majors;
+				   foreach($careers as $career)
+				   {
+				    foreach($encareer as $majors)
+					{
+						$finalmajorss=$majors->Majors;
+						foreach($finalmajorss as $finalmajors )
+						{
+						    
+						   $careername=Kcareer::search($career)->first();
+						   $majorname=Kmajor::search($finalmajors)->first();
+						   
+						  $careermajor=new Careermajors;
+		                   $careermajor->careername=$careername->chinese_name;
+		                   $careermajor->majorname=$majorname->real_zymc;
+		                   $careermajor->userid=$kresult->user_id;
+		                   $careermajor->kresult_id=$kresult->id;
+						   $careermajor->save();
+						   
+						}
+					}
+				   }
+				   }
+			   }
+			     Notification::success('成功！');
+				 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		    $userinfo=\App::make('authenticator')->getUserById($loggeduser->id);
+		     $userprofile=UserProfile::find($loggeduser->id);
+			 $pre_page = 20;//每页显示页数
+		     $ktests = Ktest::paginate($pre_page);
+		 
+		     return \View::make('backend.ktests')->with('user',$userprofile)
+			                                     ->with('ktests',$ktests);
+			        
+			 
+ }
+
+ 
+			   
+		
+ 
 	/**
 	 * Store a newly created resource in storage.
 	 * POST /backend/backend
