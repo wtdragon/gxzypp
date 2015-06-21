@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,Careermajors,Careervideo,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Video,Collect;
+use Area,City,College,Specialty,Province,UserProfile,Careermajors,Careervideo,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Kcareer,Video,Collect;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -128,7 +128,9 @@ else{
 		  $kclass=new Kclasses("singapore");
           $kuserId=$student->kuser_id;
 		    $collects=Careermajors::where('careername','=',$careername)->first();
-			$video=Careervideo::where('ktitle','=',$careername)->first();
+		  $videoname=Kcareer::where('chinese_name','=',$careername)->first();
+		  var_dump($videoname->kcvideo);
+			$video=Careervideo::where('ktitle','=',$videoname->kcvideo)->first();
           $kurl=$kclass->getkLsiUrl($kuserId);
          if ($ktest->count())
 	       {
