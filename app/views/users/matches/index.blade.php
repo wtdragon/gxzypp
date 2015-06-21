@@ -21,35 +21,12 @@
             </div>
          </p>
         <div  class='list' id="zy3">
-        	  <div class="row">
-          @foreach ($careers as $career)
-     
-        <a href="{{ URL::route('Specfilter',$career->id) }}">
-           {{ $career->careername }}
-         </a>
-      
-         @endforeach
-           </div>
-          <div class='row top bottom bottom-border marginlr'>
-        <h4>职业名称：
+    
+          <div class='row top bottom  marginlr'>
+        <h2>院校名称：
 		  {{ $ktest1st->college->yxmc }}
-		   </h4>
-		  <div class='row top bottom  marginlr'>
-		  	<div class='col-md-4'>
-		  	<div class="control-group">
-          <label class="control-label">招生地区：</label>
-           {{ Form::select( 'area',$area,null, array('class' => 'input-xlarge')) }}
-
-      
-         </div> 
-		  	</div>
-		  	<div class='col-md-4'>
-		  	<h5>所属科类:{{ $ktest1st->college->kelei}}</h5>
-		  	</div>
-		  	<div class='col-md-4'>
-		  	<h5><a>收藏</a></h5>
-		  	</div>
-		  </div>
+		   </h2>
+		   
 	      <table class="table table-striped" id="Table1">
 <thead>
 <tr>

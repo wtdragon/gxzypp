@@ -18,8 +18,8 @@
 		</p>
 		<p>
         	<div class="btn-group">
-            <a href="{{ URL::route('videosearch',$collects->careername) }}">职业视讯</a>
-            <button class="btn btn-large" type="button">工资概况</button>
+              <a href="{{ URL::route('videosearch',$collects->careername) }}" class="btn btn-large" type="button">职业视讯</a>
+              <a href="{{ URL::route('salarysearch',$collects->careername) }}" class="btn btn-large" type="button">工资概况</a>
             </div>
          </p>
 		 

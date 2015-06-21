@@ -58,14 +58,13 @@
              
               <div  class='list notshow' id="zy4">
               
-            <table class="table table-striped">
+            <table class="table table-striped" id="Table1">
 <thead>
 <tr>
 <th>院校名称</th>
 <th>所在地区</th>
-<th>院校特色</th>
+<th>批次</th>
 <th>层次</th>
-<th>种类</th>
 </tr>
 </thead>
 <tbody>
@@ -74,7 +73,9 @@
 	@else
 <tr>
 <td>{{ $collect->colleges->yxmc }}</td>
-
+<td>{{ $collect->colleges->province->pname }}</td>
+<td>{{ $collect->colleges->pici }}</td>
+<td>{{ $collect->colleges->cengci }}</td>
 </tr>
 @endif
 @endforeach
@@ -92,5 +93,7 @@
 @stop
 @section('bootor')
 	@include('users.script')
-	@include('script')
+ @include('script')
+
+	
 @stop
