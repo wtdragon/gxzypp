@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,Careermajors,Careervideo,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Kcareer,Video,Collect;
+use Area,City,College,Specialty,Province,UserProfile,Careersalay,Careermajors,Careervideo,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Kcareer,Video,Collect;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -129,7 +129,7 @@ else{
           $kuserId=$student->kuser_id;
 		    $collects=Careermajors::where('careername','=',$careername)->first();
 		  $videoname=Kcareer::where('chinese_name','=',$careername)->first();
-		  var_dump($videoname->kcvideo);
+		  
 			$video=Careervideo::where('ktitle','=',$videoname->kcvideo)->first();
           $kurl=$kclass->getkLsiUrl($kuserId);
          if ($ktest->count())
@@ -179,7 +179,12 @@ else{
 		  $kclass=new Kclasses("singapore");
           $kuserId=$student->kuser_id;
 		    $collects=Careermajors::where('careername','=',$careername)->first();
-			$video=Careervideo::where('ktitle','=',$careername)->first();
+			$salary=Careersalay::search($careername)->first();
+			 preg_match('/(\d+|\d+[.,]\d{1,2})(?=\s*%)/',$salary->srsptu,$matches);
+			 $unique_arr  = array_unique($matches);
+    // 获取重复数据的数组
+    $repeat_arr  = array_diff_assoc($matches,$unique_arr);
+    $salary->josn=json_encode($unique_arr);
           $kurl=$kclass->getkLsiUrl($kuserId);
          if ($ktest->count())
 	       {
@@ -196,7 +201,7 @@ else{
 		return \View::make('users.career.salary')->with('user',$student)
 		                                 ->with('kurl',$kurl)
 										 ->with('collects',$collects)
-										  ->with('video',$video)
+										  ->with('salary',$salary)
 						                 ->with('kresult',$kresult);
 						                 }
 elseif(array_key_exists('_teacher',$loggeduser->permissions)){
