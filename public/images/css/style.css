@@ -1,4 +1,36 @@
 body,button, input, select, textarea,h1 ,h2, h3, h4, h5, h6 { font-family: Microsoft YaHei,'宋体' , Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;}
+h2,h3{
+color:#f39800;
+}
+th{
+color:#FFFFFF;
+background-color:#f39800;
+}
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+ 
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+ 
+.btn-primary {
+    background: #f39800;
+    color: #ffffff;
+}
+ 
+.btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open > .dropdown-toggle.btn-primary {
+    background: #f39800;
+}
+ 
+.btn-primary:active, .btn-primary.active {
+    background: #f39800;
+    box-shadow: none;
+}
 .header-row {
 margin-top:1px;
 }
