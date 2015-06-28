@@ -47,6 +47,7 @@ Route::get('/collects/colleges', 'App\Controllers\Users\UsersController@colleges
 Route::get('/collects/others', 'App\Controllers\Users\UsersController@others');
 Route::get('/collects/specialites', 'App\Controllers\Users\UsersController@specialites');
 Route::resource('matches', 'App\Controllers\Users\UsersController@matches');
+Route::get('college', 'App\Controllers\Users\UsersController@college');
 Route::resource('specialties', 'App\Controllers\Users\UsersController@specialties');
 Route::resource('ktest', 'App\Controllers\Users\KtestController');
 Route::resource('career', 'App\Controllers\Users\CareerController');

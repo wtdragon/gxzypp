@@ -15,12 +15,12 @@
 			职业名称：
 		</h2>
 		<p>
-		 {{$collects->careername}}
+		 {{$collects->career_name_chinese}}
 		</p>
 		<p>
         	<div class="btn-group">
-            <a href="{{ URL::route('videosearch',$collects->careername) }}" class="btn btn-large bg-color-orange" type="button">职业视讯</a>
-          <a href="{{ URL::route('salarysearch',$collects->careername) }}" class="btn btn-large bg-color-orange" type="button">工资概况</a>
+            <a href="{{ URL::route('videosearch',$collects->career_name_chinese) }}" class="btn btn-large" type="button">职业视讯</a>
+          <a href="{{ URL::route('salarysearch',$collects->career_name_chinese) }}" class="btn btn-large btn-primary" type="button">工资概况</a>
  
             </div>
          </p>
@@ -44,7 +44,7 @@
              	<ul>   {{$salary->lngzbh }}	</ul>
              	 {{$salary->lnjson }}
              @else
-                                            <p>暂未收录职业信息</p>
+                                            <p>暂未收录职业薪资信息</p>
                                             @endif
             </div>
 <div class='col-md-3'>
@@ -54,6 +54,7 @@
 @section('bootor')
 	@include('users.script')
 	@include('script')
+@if ($salary)	
 <script>
   var t={{ $salary->josn}};
  
@@ -162,4 +163,7 @@
 
 
 	</script>
+	 @else
+                                             
+                                            @endif
 @stop

@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Careermajors,Student;
+use Area,City,College,Specialty,Province,Kcresult,Ctomajor,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Careermajors,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -19,14 +19,7 @@ class UsersController extends \BaseController {
 
 	public function index()
 {
-    // $loggeduser=\App::make('authenticator')->getLoggedUser();
-    // $authentication = \App::make('authenticator');
-	// var_dump($loggeduser->permissions);
-	// var_dump(array_key_exists('_teacher',$loggeduser->permissions));
-	// var_dump(array_key_exists('_student',$loggeduser->permissions));
-   //  if($loggeduser)
-   //   {
-      	  $loggeduser=\App::make('authenticator')->getLoggedUser();
+        	  $loggeduser=\App::make('authenticator')->getLoggedUser();
 		  if (array_key_exists('_student',$loggeduser->permissions))
 		  { //var_dump($loginstudent);
 	      $student=Student::whereraw("user_id = $loggeduser->id")->first();  
@@ -193,7 +186,9 @@ else{
 	   // $areaid=College::distinct()->select('provinceID')->whereIN('coid','=',$ktests->co_id->toArray())->get();
 	    $student=Student::whereraw("user_id = $loggeduser->id")->first();  
 		$ktest1st=Ktest::whereraw("user_id = $loggeduser->id")->first();
-		 $careername=Careermajors::where('userid','=',$loggeduser->id)->take(200)->paginate(20);
+		$usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
+ 
+		$careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);;
                                                 
 		//var_dump($cama);
 		//$ca=array_unique($cama->careername);
@@ -225,6 +220,59 @@ else{
 		                                             ->with('zylbs',$zylbs);
 	}
 	}
+   	  public function college()
+	{
+		  $loggeduser=\App::make('authenticator')->getLoggedUser();
+		
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
+   		$student=Student::whereraw("user_id = $loggeduser->id")->first();  
+         
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
+        $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)
+                                                       ->groupBy('co_id')->get();
+        foreach($ktests as $ktest)
+		{
+			$colleges=College::where('coid','=',$ktest->co_id)->get();
+		}
+	   // $areaid=College::distinct()->select('provinceID')->whereIN('coid','=',$ktests->co_id->toArray())->get();
+	    $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+		$ktest1st=Ktest::whereraw("user_id = $loggeduser->id")->first();
+		$usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
+ 
+		$careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);;
+                                                
+		//var_dump($cama);
+		//$ca=array_unique($cama->careername);
+	    $kclass=new Kclasses("singapore");
+		$area=Province::distinct()->lists('pname');
+          $kuserId=$student->kuser_id;
+          //$kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+		 $kurl=$kclass->getkLsiUrl($kuserId);
+			if(!$ktest1st)
+		{
+			$kresult="你还没做过测试";
+				return \View::make('users.index')->with('user',$student)
+		                                 ->with('kurl',$kurl)
+										 ->with('area',$area)
+						                 ->with('kresult',$kresult);
+						                 } 
+else{
+		
+		
+		
+		$collegename=Zylb::where('coid','=',$ktest1st->coid)->distinct()->first();
+        $zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
+        
+		return \View::make('users.college.index')->with('ktests',$ktests)
+		->with('user',$student)
+		->with('area',$area)
+		 ->with('careers',$careername)
+		                                             ->with('ktest1st',$ktest1st)
+		                                             ->with('zylbs',$zylbs);
+	}
+    }
 
    // college search use spec name for filter
       public function specfilter($filter)

@@ -16,44 +16,78 @@
 		</h2>
 		<p>
 			<div class="btn-group">
-            <a href="{{ URL::to('users/matches') }}" class="btn btn-large btn-primary" type="button">职业信息</a>
-          <a href="{{ URL::to('users/college') }}" class="btn btn-large" type="button">院校信息</a>
+            <a href="{{ URL::to('users/matches') }}" class="btn btn-large" type="button">职业信息</a>
+            <a href="{{ URL::to('users/college') }}" class="btn btn-large  btn-primary" type="button">院校信息</a>
  
             </div> 
-         </p>
-        <div  class='list'>
-    
-          <div class='row top bottom  marginlr'>
-        <h2>院校名称：
+         </p>    
+       <div  class='list'>
+		<div class="control-group">
+
+          <!-- Select Basic -->
+          <label class="control-label">招生地区：</label>
+           {{ Form::select( 'area',$area,null, array('class' => 'input-xlarge')) }}
+
+        </div> 
+		<h4>院校类型：<a>211</a><a>985</a><a>全部</a></h4> 
+        <h4>院校科类：<a>本科</a>   <a>专科</a>  <a>全部</a> </h4>
+         @foreach ($ktests as $ktest)
+       <div class="col-md-4">
+        <a href="{{ URL::route('Specfilter',$ktest->co_id) }}">
+  
+           {{ $ktest->college->name   }}
+     
+         </a>
+        </div>
+         @endforeach
+         
+        	<p>根据你的筛选条件，共有50所合适的本科招生院校</p>
+ 
+        
+   
+	
+		 <div class='row top bottom bottom-border marginlr'>
+        <h4>
 		  {{ $ktest1st->college->yxmc }}
-		   </h2>
-		   
-	      <table class="table table-striped" id="Table1">
+		  <div class='row top bottom  marginlr'>
+		  	<div class='col-md-4'>
+		  	<h5>所属地区:</h5>
+		  	</div>
+		  	<div class='col-md-4'>
+		  	<h5>所属科类:{{ $ktest1st->college->kelei}}</h5>
+		  	</div>
+		  	<div class='col-md-4'>
+		  	<h5><a>收藏</a></h5>
+		  	</div>
+		  </div>
+		</h4> 
+		</div>
+<table class="table table-striped">
 <thead>
 <tr>
 <th>职业名称</th>
 <th>专业名称</th>
+<th>层次</th>
+<th>科类</th>
+<th>选报科目</th>
 <th>收藏</th>
 </tr>
 </thead>
 <tbody>
-@foreach ($careers as $career)
+@foreach ($zylbs as $zylb)
 <tr>
-<td>{{ $career->career_name_chinese }}</td>	
-<td>{{ $career->major_name_chinese }}</td>
-<td><a href="#" id="{{ $career->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
+<td>{{ $zylb->zymingcheng }}</td>	
+<td>{{ $zylb->zymingcheng }}</td>
+<td>{{ $zylb->kelei }}</td>
+<td>{{ $zylb->pici }}</td>
+<td>{{ $zylb->xuezhi }}</td>
+<td><a href="#" id="c{{ $zylb->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
 </tr>
 @endforeach
 </tbody>
 </table>
-{{ $careers->links() }}  
-		</div>
-         
+{{ $zylbs->links() }}  
             </div>
-            
-            
-            
-
             	</div>
                  </div>
 <div class='col-md-3'>

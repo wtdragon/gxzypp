@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,Careersalay,Careermajors,Careervideo,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Kcareer,Video,Collect;
+use Area,City,College,Specialty,Province,UserProfile,Careersalay,Ctomajor,Kcresult,Careermajors,Careervideo,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Kcareer,Video,Collect;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -30,8 +30,8 @@ class CareerController extends \BaseController {
 		  $kclass=new Kclasses("singapore");
           $kuserId=$student->kuser_id;
 		  
-				   $collects=Careermajors::where('userid','=',$loggeduser->id)->take(200)->paginate(20);
-			 
+		  $usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
+		  $collects=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);
           $kurl=$kclass->getkLsiUrl($kuserId);
          if ($ktest->count())
 	       {
@@ -79,12 +79,15 @@ else{
 		  $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
 		  $kclass=new Kclasses("singapore");
           $kuserId=$student->kuser_id;
-		    $collects=Careermajors::find($id);
+		    $collects=Ctomajor::find($id);
           $kurl=$kclass->getkLsiUrl($kuserId);
-		  $videoname=Kcareer::where('chinese_name','=',$collects->careername)->first();
-		  
+		  $videoname=Kcareer::where('chinese_name','=',$collects->chinese_name)->first();
+		  if($videoname){
 			$video=Careervideo::where('ktitle','=',$videoname->kcvideo)->first();
-         
+		  }
+else {
+	$video=null;
+}
          if ($ktest->count())
 	       {
 	       	 
@@ -183,8 +186,10 @@ else{
 		  $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
 		  // $kclass=new Kclasses("singapore");
           $kuserId=$student->kuser_id;
-		    $collects=Careermajors::where('careername','=',$careername)->first();
+		    $collects=Ctomajor::where('career_name_chinese','=',$careername)->first();
 			$salary=Careersalay::search($careername)->first();
+			if($salary)
+			{
 			 preg_match_all("/(\d+|\d+[.,]\d{1,2})(?=\s*%)/",$salary->srsptu,$matches);
 			 foreach(array_values(array_unique(array_flatten($matches))) as $salary2)
 	      	 {
@@ -211,7 +216,10 @@ else{
 	// preg_match_all("/(\d+|\d+[.,]\d{1,2})(?=\s*%)/",$salary->srsptu,$m2);
 			 
          
-       	
+			}
+			else {
+				$salary=null;
+			}
 		return \View::make('users.career.salary')->with('user',$student)
 		                                 
 										 ->with('collects',$collects)
