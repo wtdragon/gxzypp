@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,Careersalay,Ctomajor,Kmajor,Kcresult,Careermajors,Careervideo,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Kcareer,Video,Collect;
+use Area,City,College,Specialty,Province,UserProfile,Careersalay,Trend,Ctomajor,Kmajor,Kcresult,Careermajors,Careervideo,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Kcareer,Video,Collect;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -241,7 +241,7 @@ else{
 	 *
 	 * @return Response
 	 */
-	public function trends($filter)
+public function trends($filter)
 	      
 {
 	 
@@ -258,6 +258,16 @@ else{
 		$majorname=Kmajor::where('chinese_name','=',$filter)->first();    
 		$zyjs=Flzhuanye::where('zymc','=',$majorname->real_zymc)->first();
         $careername=Ctomajor::where('major_name_chinese','=',$filter)->first();
+		$real_career=Kcareer::where('chinese_name','=',$careername->career_name_chinese)->first();
+		$trend=Trend::where('careername','=',$real_career->kcvideo)->first();
+		if($trend)
+		 {
+		 	$trends=$trend;
+		 }
+		else
+			{
+				$trends=null;
+			}
 		$mzyjs= preg_replace("/。/", "。</p><p>", $zyjs->zyjs);
 		$ktest1st->zyjs=$mzyjs;
  
@@ -271,7 +281,8 @@ else{
          $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
 		
 		return \View::make('users.specialties.trends')->with('ktests',$ktests)
-		->with('user',$student)
+	                                                	->with('user',$student)
+		                                                ->with('trends',$trends)
 		                                               ->with('ktest1st',$ktest1st)
 													      ->with('career',$careername) ;
 						                 }

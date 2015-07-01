@@ -28,7 +28,16 @@
          </p>	
         
 		 <div class='row top bottom  marginlr'>
-		     {{ $ktest1st->zyjs }}
+		 	 @if ($trends)
+		    <p>
+		    	<ul>   {{$trends->zptjfx }}	</ul>
+		    </p>
+		      <p>
+		    	<ul>   {{$trends->pjxc }}	</ul>
+		    </p>
+		     @else
+                                            <p>暂未收录职业趋势信息</p>
+                                            @endif
 		 </div>
   
 		</div>
