@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,Kcresult,Ctomajor,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Careermajors,Student;
+use Area,City,College,Specialty,Province,Kcresult,Ctomajor,Kmajor,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Careermajors,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -318,13 +318,14 @@ else{
          //                                        ->with('provinces',$provinces);
         $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
 		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
-			$zyjs=Flzhuanye::where('zymc','=',$filter)->first();
- 
-			$mzyjs= preg_replace("/(。)/", "/(。)/</p><p>", $zyjs->zyjs);
+		$majorname=Kmajor::where('chinese_name','=',$filter)->first();    
+		$zyjs=Flzhuanye::where('zymc','=',$majorname->real_zymc)->first();
+        $careername=Ctomajor::where('major_name_chinese','=',$filter)->first();
+		$mzyjs= preg_replace("/。/", "。</p><p>", $zyjs->zyjs);
 		$ktest1st->zyjs=$mzyjs;
  
 		$ktest1st->zymc=$zyjs->zymc;
-		
+		$ktest1st->ezymc=$filter;
 	     $configId = 104;  //lsi
          $accountId = 1000001;
          $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
@@ -340,12 +341,13 @@ else{
 						                 ->with('kresult',$kresult);
 						                 } 
 else{
-	    $ktest1st->zymc=$filter;  
+	     
         $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(10);
         
 		return \View::make('users.specialties.show')->with('ktests',$ktests)
 		->with('user',$student)
 		                                               ->with('ktest1st',$ktest1st)
+													      ->with('career',$careername)
                                             ->with('colleges',$colleges);
 	} 
 	}

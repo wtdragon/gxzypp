@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,Careersalay,Ctomajor,Kcresult,Careermajors,Careervideo,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Kcareer,Video,Collect;
+use Area,City,College,Specialty,Province,UserProfile,Careersalay,Ctomajor,Kmajor,Kcresult,Careermajors,Careervideo,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Student,Career,Kcareer,Video,Collect;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -235,7 +235,100 @@ else{
  
 		
 	}
+/**
+	 * Display a listing of the resource.
+	 * GET /users/career
+	 *
+	 * @return Response
+	 */
+	public function trends($filter)
+	      
+{
+	 
+              
+	       $loggeduser=\App::make('authenticator')->getLoggedUser();
+		  if (array_key_exists('_student',$loggeduser->permissions))
+		  { //var_dump($loginstudent);
+	      $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+		  $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
+		  // $kclass=new Kclasses("singapore");
+          
+	         $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
+		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+		$majorname=Kmajor::where('chinese_name','=',$filter)->first();    
+		$zyjs=Flzhuanye::where('zymc','=',$majorname->real_zymc)->first();
+        $careername=Ctomajor::where('major_name_chinese','=',$filter)->first();
+		$mzyjs= preg_replace("/。/", "。</p><p>", $zyjs->zyjs);
+		$ktest1st->zyjs=$mzyjs;
+ 
+		$ktest1st->zymc=$zyjs->zymc;
+		$ktest1st->ezymc=$filter;
+	     $configId = 104;  //lsi
+         $accountId = 1000001;
+         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
+         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
+         $kuserId=$student->kuser_id;
+         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+		
+		return \View::make('users.specialties.trends')->with('ktests',$ktests)
+		->with('user',$student)
+		                                               ->with('ktest1st',$ktest1st)
+													      ->with('career',$careername) ;
+						                 }
+elseif(array_key_exists('_teacher',$loggeduser->permissions)){
+	return Redirect::to('gxadmin');
+}
+else{
+	return "not have permissions ";
+}
 
+ 
+		
+	}
+public function dis($filter)
+	      
+{
+	 
+              
+	       $loggeduser=\App::make('authenticator')->getLoggedUser();
+		  if (array_key_exists('_student',$loggeduser->permissions))
+		  { //var_dump($loginstudent);
+	      $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+		  $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
+		  // $kclass=new Kclasses("singapore");
+          
+	         $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
+		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+		$majorname=Kmajor::where('chinese_name','=',$filter)->first();    
+		$zyjs=Flzhuanye::where('zymc','=',$majorname->real_zymc)->first();
+        $careername=Ctomajor::where('major_name_chinese','=',$filter)->first();
+		$mzyjs= preg_replace("/。/", "。</p><p>", $zyjs->zyjs);
+		$ktest1st->zyjs=$mzyjs;
+ 
+		$ktest1st->zymc=$zyjs->zymc;
+		$ktest1st->ezymc=$filter;
+	     $configId = 104;  //lsi
+         $accountId = 1000001;
+         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
+         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
+         $kuserId=$student->kuser_id;
+         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+		
+		return \View::make('users.specialties.dis')->with('ktests',$ktests)
+		->with('user',$student)
+		                                               ->with('ktest1st',$ktest1st)
+													      ->with('career',$careername) ;
+						                 }
+elseif(array_key_exists('_teacher',$loggeduser->permissions)){
+	return Redirect::to('gxadmin');
+}
+else{
+	return "not have permissions ";
+}
+
+ 
+		
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /users/career/create

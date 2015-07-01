@@ -68,14 +68,22 @@ Route::get('careersearch/{id}',[
 		'as'=>'careersearch',
 		'uses'=>'App\Controllers\Users\CareerController@show'
 	]); 
-	Route::get('videosearch/{careername}',[
+Route::get('videosearch/{careername}',[
 		'as'=>'videosearch',
 		'uses'=>'App\Controllers\Users\CareerController@video'
 	]); 
-		Route::get('salarysearch/{careername}',[
+Route::get('salarysearch/{careername}',[
 		'as'=>'salarysearch',
 		'uses'=>'App\Controllers\Users\CareerController@salary'
-	]); 		
+	]); 
+Route::get('trendssearch/{careername}',[
+		'as'=>'trendssearch',
+		'uses'=>'App\Controllers\Users\CareerController@trends'
+	]); 
+Route::get('disssearch/{careername}',[
+		'as'=>'disssearch',
+		'uses'=>'App\Controllers\Users\CareerController@dis'
+	]); 				
 //ajax: add collect for college and career
 Route::post( 'ajaxcollect', array(
     'as' => 'ajaxcollect',

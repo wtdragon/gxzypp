@@ -21,9 +21,9 @@
 		    </h3>
          <p>
         	<div class="btn-group">
-            <a href="{{ URL::route('Colfilter',$ktest1st->ezymc) }}" class="btn btn-large btn-primary" type="button">专业简介</a>
+            <a href="{{ URL::route('Colfilter',$ktest1st->ezymc) }}" class="btn btn-large " type="button">专业简介</a>
             <a href="{{ URL::route('trendssearch',$ktest1st->ezymc) }}" class="btn btn-large" type="button">就业趋势</a>
-            <a href="{{ URL::route('disssearch',$ktest1st->ezymc) }}" class="btn btn-large" type="button">专业评论</a>
+            <a href="{{ URL::route('disssearch',$ktest1st->ezymc) }}" class="btn btn-large btn-primary" type="button">专业评论</a>
             </div>
          </p>	
         
@@ -32,28 +32,6 @@
 		 </div>
   
 		</div>
- 
-<table class="table table-striped">
-<thead>
-<tr>
-<th>开设院校</th>
-<th>科类</th>
-<th>招生批次</th>
-<th>所在地区</th>
-</tr>
-</thead>
-<tbody>
-@foreach ($colleges as $college)
-<tr>
-<td> <a href="{{ URL::route('Specfilter',$college->coid) }}">{{ $college->yxmc }}</a></td>
-<td>{{ $college->kelei }}</td>
-<td>{{ $college->pici }}</td>
-<td>{{ $college->province->pname }}</td>
-</tr>
-@endforeach
-</tbody>
-</table>
-{{ $colleges->links() }}  
             </div>
 <div class='col-md-3'>
 		@include('ads')
