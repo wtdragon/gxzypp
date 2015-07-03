@@ -25,7 +25,7 @@
     
           <div class='row top bottom  marginlr'>
         <h2>院校名称：
-		  {{ $ktest1st->college->yxmc }}
+		  {{ $ktest1st->college->name }}
 		   </h2>
 		   
 	      <table class="table table-striped" id="Table1">
@@ -39,8 +39,8 @@
 <tbody>
 @foreach ($careers as $career)
 <tr>
-<td>{{ $career->career_name_chinese }}</td>	
-<td>{{ $career->major_name_chinese }}</td>
+<td><a href="{{ URL::route('careersearch',$career->id) }}">{{ $career->career_name_chinese }}</a></td>	
+<td><a href="{{ URL::route('Colfilter',$career->major_name_chinese) }}">{{ $career->major_name_chinese }}</a></td>
 <td><a href="#" id="{{ $career->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
 </tr>
 @endforeach

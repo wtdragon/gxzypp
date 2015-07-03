@@ -56,6 +56,10 @@ Route::post('collegesearch',[
 		'as'=>'PostSpecialtiysearch',
 		'uses'=>'App\Controllers\College\SearchController@collegesearch'
 	]);
+Route::post('collegelist',[
+		'as'=>'collegelist',
+		'uses'=>'App\Controllers\College\SearchController@collegelist'
+	]);	
 Route::get('spefilter/{filter}',[
 		'as'=>'Specfilter',
 		'uses'=>'App\Controllers\Users\UsersController@specfilter'

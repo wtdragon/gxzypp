@@ -114,6 +114,60 @@ class SearchController extends \BaseController {
 		}
 		 
 	}
+// college list use some filter
+    public function collegelist()
+	{
+		  $loggeduser=\App::make('authenticator')->getLoggedUser();
+		
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
+   		$student=Student::whereraw("user_id = $loggeduser->id")->first();  
+         
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
+        $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)
+                                                       ->groupBy('co_id')->get();
+        foreach($ktests as $ktest)
+		{
+			$colleges=College::where('coid','=',$ktest->co_id)->get();
+		}
+	   // $areaid=College::distinct()->select('provinceID')->whereIN('coid','=',$ktests->co_id->toArray())->get();
+	    $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+		$ktest1st=Ktest::whereraw("user_id = $loggeduser->id")->first();
+		$usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
+ 
+		$careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);;
+                                                
+		//var_dump($cama);
+		//$ca=array_unique($cama->careername);
+	    $kclass=new Kclasses("singapore");
+		$area=Province::distinct()->lists('pname');
+          $kuserId=$student->kuser_id;
+          //$kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+		 $kurl=$kclass->getkLsiUrl($kuserId);
+			if(!$ktest1st)
+		{
+			$kresult="你还没做过测试";
+				return \View::make('users.index')->with('user',$student)
+		                                 ->with('kurl',$kurl)
+										 ->with('area',$area)
+						                 ->with('kresult',$kresult);
+						                 } 
+else{
+		
+		
+		
+		$collegename=Zylb::where('coid','=',$ktest1st->coid)->distinct()->first();
+        $zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
+        
+		return \View::make('users.college.index')->with('ktests',$ktests)
+		->with('user',$student)
+		->with('area',$area)
+		 ->with('careers',$careername)
+		                                             ->with('ktest1st',$ktest1st)
+		                                             ->with('zylbs',$zylbs);
+	}
+	}
 	/**
 	 * Display the specified resource.
 	 * GET /college/articles/{id}

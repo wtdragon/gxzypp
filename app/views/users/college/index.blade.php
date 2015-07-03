@@ -23,14 +23,17 @@
          </p>    
        <div  class='list'>
 		<div class="control-group">
+        
 
           <!-- Select Basic -->
           <label class="control-label">招生地区：</label>
+         
            {{ Form::select( 'area',$area,null, array('class' => 'input-xlarge')) }}
 
         </div> 
 		<h4>院校类型：<a>211</a><a>985</a><a>全部</a></h4> 
         <h4>院校科类：<a>本科</a>   <a>专科</a>  <a>全部</a> </h4>
+        
          @foreach ($ktests as $ktest)
        <div class="col-md-4">
         <a href="{{ URL::route('Specfilter',$ktest->co_id) }}">
