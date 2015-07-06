@@ -29,8 +29,8 @@
 <tbody>
 @foreach ($collects as $collect)
 <tr>
-<td><a href="{{ URL::route('careersearch',$collect->id) }}">{{ $collect->career_name_chinese }}</a></td>	
-<td><a href="{{ URL::route('Colfilter',$collect->major_name_chinese) }}">{{ $collect->major_name_chinese }}</a></td>
+<td><a href="{{ URL::route('careersearch',$collect->id) }}" target="_blank">{{ $collect->career_name_chinese }}</a></td>	
+<td><a href="{{ URL::route('Colfilter',$collect->major_name_chinese) }}" target="_blank">{{ $collect->major_name_chinese }}</a></td>
 </tr>
 @endforeach
 </tbody>
