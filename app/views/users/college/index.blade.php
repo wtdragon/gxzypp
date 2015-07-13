@@ -22,19 +22,23 @@
             </div> 
          </p>    
        <div  class='list'>
-		<div class="control-group">
+       <div class="control-group">
         
 
           <!-- Select Basic -->
           <label class="control-label">招生地区：</label>
          
-           {{ Form::select( 'area',$area,null, array('class' => 'input-xlarge')) }}
+           {{ Form::select( 'area',$area,null, array('id' => 'selectpicker')) }}
 
         </div> 
-		<h4>院校类型：<a>211</a><a>985</a><a>全部</a></h4> 
-        <h4>院校科类：<a>本科</a>   <a>专科</a>  <a>全部</a> </h4>
-        
-         @foreach ($ktests as $ktest)
+        <div id="yxlx">
+		<h4>院校类型： <a href="#" class="clicked">211</a> <a href="#">985</a> <a href="#">全部</a> </h4> 
+        </div>
+        <div id="yxkl">
+<h4>院校科类：<a href="#" class="clicked">本科</a>   <a href="#">专科</a>  <a href="#">全部</a> </h4>
+         </div>
+     <div id="projects">    
+           @foreach ($ktests as $ktest)
        <div class="col-md-4">
         <a href="{{ URL::route('Specfilter',$ktest->co_id) }}">
   
@@ -47,23 +51,10 @@
         	<p>根据你的筛选条件，共有50所合适的本科招生院校</p>
  
         
-   
+  	 
 	
 		 <div class='row top bottom bottom-border marginlr'>
-        <h4>
-		  {{ $ktest1st->college->yxmc }}
-		  <div class='row top bottom  marginlr'>
-		  	<div class='col-md-4'>
-		  	<h5>所属地区:</h5>
-		  	</div>
-		  	<div class='col-md-4'>
-		  	<h5>所属科类:{{ $ktest1st->college->kelei}}</h5>
-		  	</div>
-		  	<div class='col-md-4'>
-		  	<h5><a>收藏</a></h5>
-		  	</div>
-		  </div>
-		</h4> 
+		 <h3> {{ $ktest1st->college->name }}</h3>
 		</div>
 <table class="table table-striped">
 <thead>
@@ -90,8 +81,8 @@
 </tbody>
 </table>
 {{ $zylbs->links() }}  
-            </div>
-            	</div>
+           
+            	 </div>
                  </div>
 <div class='col-md-3'>
 		@include('ads')
@@ -134,7 +125,6 @@ $('.open-popup-link').click(function(){
 		dataType:  'html',
 		tryCount:0,//current retry count
 		retryLimit:3,//number of retries on fail
-		timeout: 2000,//time before retry on fail
 		success: function(data) {
 			 $(".modal-body").html(data);// 设置文本内容
 			 

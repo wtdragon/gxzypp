@@ -93,7 +93,41 @@
 </div>
 {{ Form::close() }}
 	</div>
-
+	
+@elseif($careersalay) 
+	<div class='col-md-7 text-center'>
+ <h3>职业修改</h3>
+@if ($errors->any())
+<div class="alert alert-error">
+{{ implode('<br>', $errors->all()) }}
+</div>
+@endif
+ {{ Form::model($careersalay, array('method' => 'put', 'route' => array('backend.careers.update', $careersalay->id))) }}
+<div class="control-group">
+<p>
+{{ Form::text('chengshi') }}
+{{ Form::text('zhiye') }}
+</p>
+ 
+<p>
+{{ Form::label('srsptu', '修改收入水平') }}
+{{ Form::textarea('srsptu') }}
+</p>
+<p>
+{{ Form::label('gzjygztj', '修改工作经验统计') }}
+{{ Form::textarea('gzjygztj') }}
+</p>
+<p>
+{{ Form::label('lngzbh', '修改历年工资变化') }}
+{{ Form::textarea('lngzbh') }}
+</p>
+</div>
+<div class="form-actions">
+{{ Form::submit('更新', array('class' => 'btn btn-success btn-save btn-large')) }}
+<a href="{{ URL::route('backend.mschools.index') }}" class="btn btn-large">取消</a>
+</div>
+{{ Form::close() }}
+	</div>
 @else
 
 

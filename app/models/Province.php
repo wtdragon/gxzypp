@@ -1,6 +1,7 @@
 <?php
-
+use Nicolaslopezj\Searchable\SearchableTrait;
 class Province extends \Eloquent {
+	use SearchableTrait;	
 	protected $fillable = [];
 	protected $table = 'province';  
 	protected $primaryKey = 'provinceID';
@@ -10,4 +11,9 @@ class Province extends \Eloquent {
 	public function colleges(){
     return $this->hasMany('College','provinceID');
 	}
+	protected $searchable = [
+        'columns' => [
+            'pname' => 10,
+        ],
+    ];
 }

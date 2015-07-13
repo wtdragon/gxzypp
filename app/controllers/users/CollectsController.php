@@ -126,6 +126,12 @@ else {
         
 	   
 	}
+
+
+ 
+        
+	   
+	 
 	/**
 	 * Store a newly created resource in storage.
 	 * POST /users/career

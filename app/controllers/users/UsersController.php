@@ -234,7 +234,7 @@ else{
                                                        ->groupBy('co_id')->get();
         foreach($ktests as $ktest)
 		{
-			$colleges=College::where('coid','=',$ktest->co_id)->get();
+			$areaid[]=College::distinct()->select('pid')->where('coid','=',$ktest->co_id)->pluck('pid');
 		}
 	   // $areaid=College::distinct()->select('provinceID')->whereIN('coid','=',$ktests->co_id->toArray())->get();
 	    $student=Student::whereraw("user_id = $loggeduser->id")->first();  
@@ -246,7 +246,7 @@ else{
 		//var_dump($cama);
 		//$ca=array_unique($cama->careername);
 	    $kclass=new Kclasses("singapore");
-		$area=Province::distinct()->lists('pname');
+		$area=Province::whereIn('pid',$areaid)->lists('pname');
           $kuserId=$student->kuser_id;
           //$kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
 		 $kurl=$kclass->getkLsiUrl($kuserId);
@@ -263,6 +263,7 @@ else{
 		
 		
 		$collegename=Zylb::where('coid','=',$ktest1st->coid)->distinct()->first();
+	    
         $zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
         
 		return \View::make('users.college.index')->with('ktests',$ktests)
@@ -351,6 +352,50 @@ else{
                                             ->with('colleges',$colleges);
 	} 
 	}
+ 
+/**
+	 *  ajax ktest data.
+	 * GET /tcadmin/tcadmin/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+	public function ajaxfilter()
+	{   header('Content-Type: text/event-stream');
+        header('Cache-Control: no-cache');
+		header('Access-Control-Allow-Origin: *');
+		 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		 $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+		$city= Input::get('City');
+		$klfilter= Input::get('Klfilter');
+		$lxfiler= Input::get('Lxfilter');
+	     $areaid=Province::where('pname','=',$city)->pluck('pid');
+	 
+        //$area=Province::where('province')->where('pname', 'LIKE BINARY', '%'.$city.'%')->first();
+        //
+        $colleges=College::distinct()->where('pid','=',$areaid)->lists('coid');
+$ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)
+		                               ->whereIn('co_id',$colleges)
+                                               ->groupBy('co_id')->get();
+
+$ktest1st=$ktests->first();
+$usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
+$careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);;
+$zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
+
+
+
+return \View::make('ajaxproject')->with('ktests',$ktests)
+		 ->with('careers',$careername)
+		                                             ->with('ktest1st',$ktest1st)
+		                                             ->with('zylbs',$zylbs);
+		
+	   
+            
+		}
+		
+		 
+		 
 // use filter to get the colleges
     public function specialties()
 	{
@@ -444,7 +489,7 @@ else{   $zyjs=Flzhuanye::where('zymc','=',$ktest1st->zymc)->first();
 	{
 		//
 	}
-
+   
 	/**
 	 * Remove the specified resource from storage.
 	 * DELETE /college/articles/{id}

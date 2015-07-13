@@ -29,7 +29,7 @@
 	<script type="text/javascript" src={{ URL::asset('images/js/jquery.min.js') }}></script>
 	<script type="text/javascript" src={{ URL::asset('images/js/bootstrap.min.js') }}></script>
 	<script type="text/javascript" src={{ URL::asset('images/js/scripts.js') }}></script>
-     @yield('hdsrc')
+	 @yield('hdsrc')
 </head>
 
 <body>

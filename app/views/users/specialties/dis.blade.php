@@ -28,7 +28,7 @@
          </p>	
         
 		 <div class='row top bottom  marginlr'>
-		     {{ $ktest1st->zyjs }}
+		     {{ $ktest1st->zypl }}
 		 </div>
   
 		</div>

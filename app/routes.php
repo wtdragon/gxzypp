@@ -92,6 +92,11 @@ Route::get('disssearch/{careername}',[
 Route::post( 'ajaxcollect', array(
     'as' => 'ajaxcollect',
     'uses' => 'App\Controllers\Users\CollectsController@ajaxcollect'
+) );
+//ajax: filter for the page
+Route::post( 'ajaxfilter', array(
+    'as' => 'ajaxfilter',
+    'uses' => 'App\Controllers\Users\UsersController@ajaxfilter'
 ) );		
 });	
 
@@ -161,6 +166,8 @@ Route::resource('carticles','App\Controllers\Backend\BackendController@carticles
 Route::resource('specialties','App\Controllers\Backend\SpecialtiesController');
 Route::resource('mschools','App\Controllers\Backend\MschoolesController');
 Route::resource('ktests','App\Controllers\Backend\KtestsController');
+Route::resource('careers','App\Controllers\Backend\CareersController');
+Route::resource('zyjs','App\Controllers\Backend\FlzhuanyeController');
 Route::post('syncktest',[
 		'as'=>'Syncktest',
 		'uses'=>'App\Controllers\Backend\KtestsController@syncktest'
