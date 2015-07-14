@@ -19,8 +19,8 @@
 		</p>
 		<p>
         	<div class="btn-group">
-            <a href="{{ URL::route('videosearch',$collects->careername) }}" class="btn btn-large btn-primary" type="button">职业视讯</a>
-          <a href="{{ URL::route('salarysearch',$collects->careername) }}" class="btn btn-large" type="button">工资概况</a>
+            <a href="{{ URL::route('videosearch',$collects->career_name_chinese) }}" class="btn btn-large btn-primary" type="button">职业视讯</a>
+          <a href="{{ URL::route('salarysearch',$collects->career_name_chinese) }}" class="btn btn-large" type="button">工资概况</a>
  
             </div>
          </p>

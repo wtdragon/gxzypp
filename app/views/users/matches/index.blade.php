@@ -39,7 +39,7 @@
 <tbody>
 @foreach ($careers as $career)
 <tr>
-<td><a href="{{ URL::route('careersearch',$career->id) }}" target="_blank">{{ $career->career_name_chinese }}</a></td>	
+<td><a href="{{ URL::route('videosearch',$career->career_name_chinese) }}" target="_blank">{{ $career->career_name_chinese }}</a></td>	
 <td><a href="{{ URL::route('Colfilter',$career->major_name_chinese) }}" target="_blank">{{ $career->major_name_chinese }}</a></td>
 <td><a href="#" id="{{ $career->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
 </tr>

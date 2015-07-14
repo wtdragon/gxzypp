@@ -30,8 +30,25 @@ class CareerController extends \BaseController {
 		  $kclass=new Kclasses("singapore");
           $kuserId=$student->kuser_id;
 		  
-		  $usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
-		  $collects=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);
+		  //$usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
+		 // $collects=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);
+         
+		   //$usercareers=Kcresult::where('userid','=',$loggeduser->id)->get();
+		 //  $usercareers=Careermajors::distinct()->select('careername','id')->where('userid','=',$loggeduser->id)
+                                      // ->groupBy('careername')->get(); 
+		 //$collects=Ctomajor::distinct()->select('career_name_chinese,major_name_chinese,id')
+		 //->whereraw('career_name_chinese = "$usercareers->careername"')
+		 //->orderBy($usercareers->id)
+		 //->paginate(20);
+		  $collects=\DB::table(\DB::raw('ctomajors ,careermajors'))
+           ->select('ctomajors.career_name_chinese', 'ctomajors.major_name_chinese', 'ctomajors.id')
+           ->where('careermajors.userid',$loggeduser->id)
+           ->whereraw('ctomajors.career_name_chinese=careermajors.careername')
+           ->orderBy('careermajors.id')
+           ->distinct()
+           ->paginate(20);
+          //$collects=Ctomajor::distinct()->select('career_name_chinese,major_name_chinese')->where('career_name_chinese','=', $usercareers->careername)->orderBy('$usercareers->id')->paginate(20);
+          // $collects=\DB::select('SELECT DISTINCT a.career_name_chinese,a.major_name_chinese,a.id  FROM ctomajors a, (SELECT careername,id  FROM careermajors ORDER BY  id ) AS b WHERE  a.career_name_chinese=b.careername ORDER  BY b.id')->paginate(20);
           $kurl=$kclass->getkLsiUrl($kuserId);
          if ($ktest->count())
 	       {
@@ -135,7 +152,7 @@ else{
 		  $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
 		  $kclass=new Kclasses("singapore");
           $kuserId=$student->kuser_id;
-		    $collects=Careermajors::where('careername','=',$careername)->first();
+		    $collects=Ctomajor::where('CAREER_NAME_CHINESE','=',$careername)->first();
 		  $videoname=Kcareer::where('chinese_name','=',$careername)->first();
 		  
 			$video=Careervideo::where('ktitle','=',$videoname->kcvideo)->first();

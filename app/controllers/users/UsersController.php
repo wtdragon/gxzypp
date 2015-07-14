@@ -264,7 +264,13 @@ else{
 		
 		$collegename=Zylb::where('coid','=',$ktest1st->coid)->distinct()->first();
 	    
-        $zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
+         $zylbs = \DB::table('zylb')
+    ->join('kmajors', 'zylb.zymingcheng', '=', 'kmajors.real_zymc')
+    ->join('ctomajors', 'kmajors.english_name', '=', 'ctomajors.major_name_english')
+    ->where('zylb.coid', '=', $ktest1st->co_id)
+    ->whereraw('english_name IS NOT NULL')
+	->groupBy('career_name_chinese')
+      ->distinct()->paginate(10);
         
 		return \View::make('users.college.index')->with('ktests',$ktests)
 		->with('user',$student)
@@ -319,14 +325,17 @@ else{
          //                                        ->with('provinces',$provinces);
         $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
 		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
-		$majorname=Kmajor::where('chinese_name','=',$filter)->first();    
+		$majorname=Kmajor::where('chinese_name','=',$filter)->first(); 
+	 
 		$zyjs=Flzhuanye::where('zymc','=',$majorname->real_zymc)->first();
-        $careername=Ctomajor::where('major_name_chinese','=',$filter)->first();
+		$careername=Ctomajor::where('major_name_chinese','=',$filter)->first();
 		$mzyjs= preg_replace("/。/", "。</p><p>", $zyjs->zyjs);
 		$ktest1st->zyjs=$mzyjs;
  
 		$ktest1st->zymc=$zyjs->zymc;
 		$ktest1st->ezymc=$filter;
+		 
+    
 	     $configId = 104;  //lsi
          $accountId = 1000001;
          $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain

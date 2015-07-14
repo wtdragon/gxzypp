@@ -48,8 +48,7 @@
         </div>
          @endforeach
          
-        	<p>根据你的筛选条件，共有50所合适的本科招生院校</p>
- 
+    
         
   	 
 	
@@ -70,11 +69,11 @@
 <tbody>
 @foreach ($zylbs as $zylb)
 <tr>
+<td><a href="{{ URL::route('videosearch',$zylb->career_name_chinese) }}" target="_blank">{{ $zylb->career_name_chinese }}</a></td>	
 <td>{{ $zylb->zymingcheng }}</td>	
-<td>{{ $zylb->zymingcheng }}</td>
 <td>{{ $zylb->kelei }}</td>
 <td>{{ $zylb->pici }}</td>
-<td>{{ $zylb->xuezhi }}</td>
+<td>{{ $zylb->xuanbao }}</td>
 <td><a href="#" id="c{{ $zylb->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
 </tr>
 @endforeach
