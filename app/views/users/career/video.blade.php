@@ -15,7 +15,7 @@
 			职业名称：
 		</h2>
 		<p>
-		 {{$collects->careername}}
+		 {{$collects->career_name_chinese}}
 		</p>
 		<p>
         	<div class="btn-group">

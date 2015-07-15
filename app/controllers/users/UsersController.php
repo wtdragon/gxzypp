@@ -361,6 +361,54 @@ else{
                                             ->with('colleges',$colleges);
 	} 
 	}
+ // get spec use ktest
+	  public function colfreal($filter)
+	{
+		//
+		//
+		 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		 $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+         
+		//return \View::make('colleges.search.index')->with('colleges',$colleges)
+         //                                        ->with('provinces',$provinces);
+        $ktests=Ktest::where('user_id','=',$loggeduser->id)->get();
+		$ktest1st=Ktest::where('user_id','=',$loggeduser->id)->first();
+		$majorname=Kmajor::where('real_zymc','=',$filter)->first(); 
+	 
+		$zyjs=Flzhuanye::where('zymc','=',$filter)->first();
+		$careername=Ctomajor::where('major_name_chinese','=',$majorname->chinese_name)->first();
+		$mzyjs= preg_replace("/。/", "。</p><p>", $zyjs->zyjs);
+		$ktest1st->zyjs=$mzyjs;
+ 
+		$ktest1st->zymc=$zyjs->zymc;
+		$ktest1st->ezymc=$majorname->chinese_name;
+		 
+    
+	     $configId = 104;  //lsi
+         $accountId = 1000001;
+         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
+         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
+         $kuserId=$student->kuser_id;
+         $kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
+		
+		if(!$ktest1st)
+		{
+			$kresult="你还没做过测试";
+				return \View::make('users.index')->with('user',$student)
+		                                 ->with('kurl',$kurl)
+						                 ->with('kresult',$kresult);
+						                 } 
+else{
+	     
+        $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(10);
+        
+		return \View::make('users.specialties.show')->with('ktests',$ktests)
+		->with('user',$student)
+		                                               ->with('ktest1st',$ktest1st)
+													      ->with('career',$careername)
+                                            ->with('colleges',$colleges);
+	} 
+	}
  
 /**
 	 *  ajax ktest data.

@@ -70,7 +70,7 @@
 @foreach ($zylbs as $zylb)
 <tr>
 <td><a href="{{ URL::route('videosearch',$zylb->career_name_chinese) }}" target="_blank">{{ $zylb->career_name_chinese }}</a></td>	
-<td>{{ $zylb->zymingcheng }}</td>	
+<td><a href="{{ URL::route('colfreal',$zylb->zymingcheng) }}" target="_blank">{{ $zylb->zymingcheng }}</a></td>	
 <td>{{ $zylb->kelei }}</td>
 <td>{{ $zylb->pici }}</td>
 <td>{{ $zylb->xuanbao }}</td>

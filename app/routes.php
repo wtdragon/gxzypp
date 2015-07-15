@@ -68,6 +68,10 @@ Route::get('colfilter/{filter}',[
 		'as'=>'Colfilter',
 		'uses'=>'App\Controllers\Users\UsersController@colfilter'
 	]);
+Route::get('colfreal/{filter}',[
+		'as'=>'colfreal',
+		'uses'=>'App\Controllers\Users\UsersController@colfreal'
+	]);	
 Route::get('careersearch/{id}',[
 		'as'=>'careersearch',
 		'uses'=>'App\Controllers\Users\CareerController@show'
