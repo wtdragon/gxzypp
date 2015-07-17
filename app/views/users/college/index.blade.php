@@ -140,5 +140,6 @@ $('.open-popup-link').click(function(){
 	});
 }); 
 } );    
-</script>	
+</script>
+
 @stop

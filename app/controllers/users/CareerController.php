@@ -203,8 +203,11 @@ else{
 		  $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
 		  // $kclass=new Kclasses("singapore");
           $kuserId=$student->kuser_id;
-		    $collects=Ctomajor::where('career_name_chinese','=',$careername)->first();
-			$salary=Careersalay::search($careername)->first();
+		   $area=Careersalay::distinct()->orderBy('chengshi', 'DESC')->lists('chengshi'); 
+		    $collects=Ctomajor::where('career_name_chinese','=',$careername)
+		                       ->first();
+			$salary=Careersalay::search($careername)  
+			 ->first();
 			if($salary)
 			{
 			 preg_match_all("/(\d+|\d+[.,]\d{1,2})(?=\s*%)/",$salary->srsptu,$matches);
@@ -238,7 +241,7 @@ else{
 				$salary=null;
 			}
 		return \View::make('users.career.salary')->with('user',$student)
-		                                 
+		                                 ->with('area',$area)
 										 ->with('collects',$collects)
 										  ->with('salary',$salary);
 						                 }
@@ -356,6 +359,67 @@ else{
 
  
 		
+	}
+/**
+	 * Show the form for creating a new resource.
+	 * GET /users/career/create
+	 *
+	 * @return Response
+	 */
+	public function ajaxjson()
+	{
+		//  
+		 header('Content-Type: text/event-stream');
+        header('Cache-Control: no-cache');
+		header('Access-Control-Allow-Origin: *');
+		$city= Input::get('City');
+		$careername=Input::get('Careername');
+		 
+			$salary=Careersalay::search($careername)
+			                     ->where('chengshi','=',$city)
+			                     ->first();
+	 
+			if($salary)
+			{
+			 preg_match_all("/(\d+|\d+[.,]\d{1,2})(?=\s*%)/",$salary->srsptu,$matches);
+			 foreach(array_values(array_unique(array_flatten($matches))) as $salary2)
+	      	 {
+			 	if($salary2 < 100)
+				{
+					 $sal[]=$salary2;
+				}
+			 }
+			 preg_match_all('!\d+!',$salary->gzjygztj,$m2);
+			 preg_match_all('!\d+!',$salary->lngzbh,$m3);
+			
+			 $exgzs=explode(',',$salary->gzjygztj);
+			 foreach($exgzs as $exgz)
+			 {
+			 	if(strpos($exgz,"工资"))
+				{
+				  $awithkey[]=str_replace("工资","=>",$exgz);
+				}
+			 }
+			 
+			 $salary->gzjson=substr(json_encode($m2),1,-1);
+			 $salary->lnjson=substr(json_encode($m3),1,-1);
+			 if($sal){
+    $salary->josn=json_encode($sal);
+			 }
+			 else {
+				$salary->josn =null;
+			 }
+	// preg_match_all("/(\d+|\d+[.,]\d{1,2})(?=\s*%)/",$salary->srsptu,$m2);
+			 
+         
+			}
+			else {
+				$salary=null;
+			}
+			 return \View::make('ajaxcharts')  ->with('salary',$salary);
+	// preg_match_all("/(\d+|\d+[.,]\d{1,2})(?=\s*%)/",$salary->srsptu,$m2);
+			 
+ 
 	}
 	/**
 	 * Show the form for creating a new resource.

@@ -1,43 +1,4 @@
-@extends('master')
-@section('hdsrc')
-@include('users.cscript')
-@stop
-@section('content')
-{{ Notification::showAll() }}
-	<div class='col-md-2 text-center  slidbar_bg'>
-		
-       @include('users.slidbar')
-        
-
-	</div>
-	<div class='col-md-7'>
-		
-		<h2>
-			职业名称：
-		</h2>
-		<p>
-			<h3 id="careername">
-		 {{$collects->career_name_chinese}}
-		 </h3>
-		</p>
-		<div class="control-group">
-        
-
-          <!-- Select Basic -->
-          <label class="control-label">选择地区：</label>
-         
-           {{ Form::select( 'area',$area,null, array('id' => 'selectpicker')) }}
-
-        </div> 
-		<p>
-        	<div class="btn-group">
-            <a href="{{ URL::route('videosearch',$collects->career_name_chinese) }}" class="btn btn-large" type="button">职业视讯</a>
-          <a href="{{ URL::route('salarysearch',$collects->career_name_chinese) }}" class="btn btn-large btn-primary" type="button">工资概况</a>
- 
-            </div>
-         </p>
-         <div id="project">
-		     @if ($salary)
+ @if ($salary)
 		     <h3>工资占比区间</h3>
 		     <div style="width:60%">
 			<canvas id="piearea" width="300" height="300"/>
@@ -59,15 +20,7 @@
              @else
              <p>暂未收录职业薪资信息</p>
              @endif
-            </div>
-           </div>
-<div class='col-md-3'>
-		@include('ads')
-	</div>
-@stop
-@section('bootor')
-@if ($salary)	
-<script>
+ <script>
 
   var t={{ $salary->josn}};
   
@@ -160,7 +113,7 @@
  
   ctx = document.getElementById("piearea").getContext("2d");
     window.myLine = new Chart(ctx).Pie(pieData, {
-    responsive: true
+    responsive: false
     });
 
 
@@ -172,47 +125,5 @@
     window.myLine = new Chart(ctx3).Line(lineChartData2, {
         responsive: true
     });  
+     </script>
  
-
-
-
-
-	 
-	$(document).ready(function(){ 
- $("#selectpicker").on('change', function() {
- var sendInfo = {
-           City: $(this).find("option:selected").text(),
-           Careername:$("#careername").text()
-       };
-   	 	$.ajax({
-           url: "{{ URL::to('users/ajaxjson') }}",
-          type: 'post',
-          dataType: 'html',
-          async:false,
-          charset:'UTF-8', 
-        data: sendInfo,
-		tryCount:0,//current retry count
-		retryLimit:3,//number of retries on fail
-		success: function(data) {
-			$("#project").html(data);// 设置文本内容
-		
-		},
-		error: function(xhr, textStatus, errorThrown) {
-			 if (textStatus == 'timeout') {//if error is 'timeout'
-				this.tryCount++;
-				if (this.tryCount < this.retryLimit) {
-					$.ajax(this);//try again
-					return;
-				}
-			}//try 3 times to get a response from server
-		}
-	});
- 
- 
-   });
-	});
-</script>	
-	 @else
-     @endif
-	     
-@stop

@@ -101,7 +101,12 @@ Route::post( 'ajaxcollect', array(
 Route::post( 'ajaxfilter', array(
     'as' => 'ajaxfilter',
     'uses' => 'App\Controllers\Users\UsersController@ajaxfilter'
-) );		
+) );	
+//ajax: salary  for the page
+Route::post( 'ajaxjson', array(
+    'as' => 'ajaxjson',
+    'uses' => 'App\Controllers\Users\CareerController@ajaxjson'
+) );	
 });	
 
  
