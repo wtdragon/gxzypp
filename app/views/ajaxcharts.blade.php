@@ -1,7 +1,7 @@
  @if ($salary)
 		     <h3>工资占比区间</h3>
 		     <div style="width:60%">
-			<canvas id="piearea" width="300" height="300"/>
+			<canvas id="newpiearea" width="300" height="300"/>
 		     </div>
              	<ul id="pieinfo">   {{$salary->srsptu }}	</ul>
               	<h3>按工作经验统计</h3>
@@ -110,10 +110,12 @@
 
 		}
    		
+
+ var newpiectx = $("#newpiearea").get(0).getContext("2d");
  
- var ctx = $("#piearea").get(0).getContext("2d");
+//ctx.clearRect(0, 0, ctx.width, ctx.height);
 //This will get the first returned node in the jQuery collection.
-var mypiearea = new Chart(ctx).Pie(pieData, {
+var mypiearea = new Chart(newpiectx).Pie(pieData, {
     responsive: true
     });
  

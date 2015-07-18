@@ -36,8 +36,8 @@
 @if ($collect->careerid === 0)
 	@else
 <tr>
-<td><a href="{{ URL::route('careersearch',$collect->careerid) }}">{{ $collect->careers->careername }}</a></td>	
-<td>{{ $collect->careers->majorname }}</td>
+<td><a href="{{ URL::route('careersearch',$collect->careerid) }}" target="_blank">{{ $collect->careers->careername }}</a></td>	
+<td><a href="{{ URL::route('colfreal',$collect->careers->majorname) }}" target="_blank">{{ $collect->careers->majorname }}</a></td>
 </tr>
 @endif
 @endforeach
@@ -72,7 +72,7 @@
 @if ($collect->coid === 0)
 	@else
 <tr>
-<td>{{ $collect->colleges->yxmc }}</td>
+<td><a href="{{ URL::route('Specfilter',$collect->colleges->coid) }}" target="_blank">{{ $collect->colleges->yxmc }}</a></td>
 <td>{{ $collect->colleges->province->pname }}</td>
 <td>{{ $collect->colleges->pici }}</td>
 <td>{{ $collect->colleges->cengci }}</td>
