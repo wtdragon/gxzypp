@@ -157,19 +157,21 @@
 
 		}
    		
- 
-  ctx = document.getElementById("piearea").getContext("2d");
-    window.myLine = new Chart(ctx).Pie(pieData, {
+    //Get context with jQuery - using jQuery's .get() method.
+var ctx = $("#piearea").get(0).getContext("2d");
+//This will get the first returned node in the jQuery collection.
+var mypiearea = new Chart(ctx).Pie(pieData, {
     responsive: true
     });
+ 
 
 
-   ctx2 = document.getElementById("linecanva").getContext("2d");
-    window.myLine = new Chart(ctx2).Line(lineChartData, {
+ var  ctx2 = $("#linecanva").get(0).getContext("2d");
+ var myline1 = new Chart(ctx2).Line(lineChartData, {
         responsive: true
     });
-  ctx3 = document.getElementById("line2canva").getContext("2d");
-    window.myLine = new Chart(ctx3).Line(lineChartData2, {
+ var  ctx3 = $("#line2canva").get(0).getContext("2d");
+  var  myline2 = new Chart(ctx3).Line(lineChartData2, {
         responsive: true
     });  
  
