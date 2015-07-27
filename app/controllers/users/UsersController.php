@@ -187,7 +187,7 @@ else{
 	    $student=Student::whereraw("user_id = $loggeduser->id")->first();  
 		$ktest1st=Ktest::whereraw("user_id = $loggeduser->id")->first();
 		$usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
- 
+       $taketf=Kcresult::where('userid','=',$loggeduser->id)->take(25)->lists('careername');
 		$careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);;
                                                 
 		//var_dump($cama);
@@ -216,6 +216,7 @@ else{
 		->with('user',$student)
 		->with('area',$area)
 		 ->with('careers',$careername)
+		 ->with('usercareer',$taketf)
 		                                             ->with('ktest1st',$ktest1st)
 		                                             ->with('zylbs',$zylbs);
 	}
@@ -331,7 +332,7 @@ else{
 		$careername=Ctomajor::where('major_name_chinese','=',$filter)->first();
 		$mzyjs= preg_replace("/。/", "。</p><p>", $zyjs->zyjs);
 		$ktest1st->zyjs=$mzyjs;
- 
+          $area=Province::distinct()->lists('pname');   
 		$ktest1st->zymc=$zyjs->zymc;
 		$ktest1st->ezymc=$filter;
 		 
@@ -358,6 +359,7 @@ else{
 		->with('user',$student)
 		                                               ->with('ktest1st',$ktest1st)
 													      ->with('career',$careername)
+														  ->with('area',$area)
                                             ->with('colleges',$colleges);
 	} 
 	}

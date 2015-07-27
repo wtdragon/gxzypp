@@ -64,5 +64,17 @@ $("#selectpicker").on('change', function() {
 			}//try 3 times to get a response from server
 		}
 	});
-                    }	   	   	   
+                    }	
+function delRepeat(){
+var str = $('#repeatValue').val();
+var strArr=str.split(" ");//把字符串以空格分割成一个数组
+
+
+var uniqueArr = [];
+$.each(strArr, function(i, el){
+if($.inArray(el, uniqueArr) === -1) uniqueArr.push(el);
+});
+$('#repeatValue').val(uniqueArr.join(" ")); //再将字符串组合
+
+}                    	   	   
 </script>	

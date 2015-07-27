@@ -30,13 +30,21 @@
 		 <div class='row top bottom  marginlr'>
 		     {{ $ktest1st->zyjs }}
 		 </div>
-  
+          <div class="control-group">
+        
+           <h4>开设院校</h4>
+          <!-- Select Basic -->
+          <label class="control-label">招生地区：</label>
+         
+           {{ Form::select( 'area',$area,null, array('id' => 'selectpicker')) }}
+
+        </div> 
 		</div>
  
 <table class="table table-striped">
 <thead>
 <tr>
-<th>开设院校</th>
+<th>院校名称</th>
 <th>科类</th>
 <th>招生批次</th>
 <th>所在地区</th>

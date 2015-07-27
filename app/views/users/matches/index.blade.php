@@ -21,17 +21,27 @@
  
             </div> 
          </p>
+     
         <div  class='list'>
-    
+        	<div id="six">
+        		<ul>
+        	   @foreach (array_unique($usercareer) as $career)
+         <li><a href="#" >{{ $career }}</a></li>
+         @endforeach
+         </ul>
+         </div>
+            </div>
+                  </div>
           <div class='row top bottom  marginlr'>
-        <h2>院校名称：
-		  {{ $ktest1st->college->name }}
-		   </h2>
+           
+        <h3  class="text-left">
+		  职业名称：{{ $ktest1st->college->name }}
+		   </h3>
 		   
 	      <table class="table table-striped" id="Table1">
 <thead>
 <tr>
-<th>职业名称</th>
+<th>院校名称</th>
 <th>专业名称</th>
 <th>收藏</th>
 </tr>
@@ -49,13 +59,13 @@
 {{ $careers->links() }}  
 		</div>
          
-            </div>
+        
             
             
             
 
             	</div>
-                 </div>
+                
 <div class='col-md-3'>
 		@include('ads')
 	</div>

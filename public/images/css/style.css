@@ -41,6 +41,7 @@ margin-top:1px;
 .c1 {
 	margin-top:5px;
 }
+#six li     { width:16.666%; float: left;} <span class="code-comment">/* 6 col */</span></code>
 .t1 {
 	 margin-left: auto;
     margin-right: auto;
@@ -172,7 +173,7 @@ font-size:0
 .list div small { float:left; padding-left:8px; color:#999;padding-top:20px;}
 .list div h3 { float:left; padding-left:12px; font:bold 16px/20px Microsoft Yahei; color:#f70;}
 .list h4 { padding:4px; font-weight:bold; font-size:12px; background:#f3f3f3}
-.list ul { padding:8px 4px}
+.list ul { padding:8px 4px;width: 760px;}
 .list li { padding-left:0px;overflow:hidden; height:24px; line-height:24px}
 .white{
 	color: #ffffff;
