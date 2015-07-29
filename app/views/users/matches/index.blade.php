@@ -57,6 +57,9 @@
 <tr>
 <th>院校名称</th>
 <th>专业名称</th>
+<th>层次</th>
+<th>科类</th>
+<th>选报科目</th>
 <th>收藏</th>
 </tr>
 </thead>
@@ -65,6 +68,9 @@
 <tr>
 <td><a href="" target="_blank">{{ $zylb->yxmc }}</a></td>	
 <td><a href="" target="_blank">{{ $zylb->zymingcheng }}</a></td>
+<td><a href="" target="_blank">{{ $zylb->cengci }}</a></td>	
+<td><a href="" target="_blank">{{ $zylb->kelei }}</a></td>
+<td><a href="" target="_blank">{{ $zylb->xuanbao }}</a></td>	
 <td><a href="#" id="{{ $zylb->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
 </tr>
 @endforeach
