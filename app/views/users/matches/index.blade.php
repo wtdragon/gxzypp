@@ -35,9 +35,23 @@
           <div class='row top bottom  marginlr'>
            
         <h3  class="text-left">
-		  职业名称：{{ $ktest1st->college->name }}
+		  职业名称：{{ $cname->careername }}
 		   </h3>
-		   
+		   <div class="control-group">
+        
+
+          <!-- Select Basic -->
+          <label class="control-label">招生地区：</label>
+         
+           {{ Form::select( 'area',$area,null, array('id' => 'selectpicker')) }}
+
+        </div> 
+        <div id="yxlx">
+		<h4>院校类型： <a href="#" class="clicked">211</a> <a href="#">985</a> <a href="#">全部</a> </h4> 
+        </div>
+        <div id="yxkl">
+<h4>院校科类：<a href="#" class="clicked">本科</a>   <a href="#">专科</a>  <a href="#">全部</a> </h4>
+         </div>
 	      <table class="table table-striped" id="Table1">
 <thead>
 <tr>
@@ -47,16 +61,16 @@
 </tr>
 </thead>
 <tbody>
-@foreach ($careers as $career)
+@foreach ($zylbs as $zylb)
 <tr>
-<td><a href="{{ URL::route('videosearch',$career->career_name_chinese) }}" target="_blank">{{ $career->career_name_chinese }}</a></td>	
-<td><a href="{{ URL::route('Colfilter',$career->major_name_chinese) }}" target="_blank">{{ $career->major_name_chinese }}</a></td>
-<td><a href="#" id="{{ $career->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
+<td><a href="" target="_blank">{{ $zylb->yxmc }}</a></td>	
+<td><a href="" target="_blank">{{ $zylb->zymingcheng }}</a></td>
+<td><a href="#" id="{{ $zylb->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
 </tr>
 @endforeach
 </tbody>
 </table>
-{{ $careers->links() }}  
+{{ $zylbs->links() }}  
 		</div>
          
         

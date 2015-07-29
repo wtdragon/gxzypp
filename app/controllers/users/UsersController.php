@@ -208,17 +208,23 @@ else{
 else{
 		
 		
-		
+		$cname=Kcresult::where('userid','=',$loggeduser->id)->first();
+	    $major=Ctomajor::where('career_name_chinese','=',$cname->careername)->lists('major_name_chinese');
+		var_dump($major);
+		$realmajor=Kmajor::whereIn('chinese_name',$major)->lists('real_zymc');
+		var_dump($realmajor);
 		$collegename=Zylb::where('coid','=',$ktest1st->coid)->distinct()->first();
         $zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
-        
+        $usezylbs = Zylb::whereIn('zymingcheng',$realmajor)->paginate(10);
+	 
 		return \View::make('users.matches.index')->with('ktests',$ktests)
 		->with('user',$student)
 		->with('area',$area)
 		 ->with('careers',$careername)
+		 		 ->with('cname',$cname)
 		 ->with('usercareer',$taketf)
 		                                             ->with('ktest1st',$ktest1st)
-		                                             ->with('zylbs',$zylbs);
+		                                             ->with('zylbs',$usezylbs);
 	}
 	}
    	  public function college()
