@@ -7,9 +7,7 @@ class Collect extends \Eloquent {
     return $this->belongsTo('User','userid');
     }
 	public function colleges(){
-    return $this->belongsTo('Zylb','coid');
+    return $this->belongsTo('Zylb','coid','coid');
     }
-	public function careers(){
-    return $this->belongsTo('Careermajors','careerid');
-	}
+ 
 }

@@ -20,7 +20,7 @@
           <a href="{{ URL::to('users/college') }}" class="btn btn-large" type="button">院校信息</a>
  
             </div> 
-         </p>
+        </p>
      
         <div  class='list'>
         	<div id="six">
@@ -30,8 +30,8 @@
          @endforeach
          </ul>
          </div>
-            </div>
-                  </div>
+         </div>
+         </div>
           <div class='row top bottom  marginlr'>
            
         <h3  class="text-left">
@@ -71,7 +71,7 @@
 <td><a href="" target="_blank">{{ $zylb->cengci }}</a></td>	
 <td><a href="" target="_blank">{{ $zylb->kelei }}</a></td>
 <td><a href="" target="_blank">{{ $zylb->xuanbao }}</a></td>	
-<td><a href="#" id="{{ $zylb->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
+<td><a href="#" id="c{{ $zylb->coid }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
 </tr>
 @endforeach
 </tbody>
@@ -127,7 +127,6 @@ $('.open-popup-link').click(function(){
 		dataType:  'html',
 		tryCount:0,//current retry count
 		retryLimit:3,//number of retries on fail
-		timeout: 2000,//time before retry on fail
 		success: function(data) {
 			 $(".modal-body").html(data);// 设置文本内容
 			 

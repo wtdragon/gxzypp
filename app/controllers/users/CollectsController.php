@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,UserProfile,ProfileField,Zylb,Careermajors,Ktest,Kresult,Flzhuanye,Student,Career,Collect;
+use Area,City,College,Specialty,Province,UserProfile,Ctomajor,ProfileField,Zylb,Careermajors,Ktest,Kresult,Flzhuanye,Student,Career,Collect;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -27,7 +27,19 @@ class CollectsController extends \BaseController {
 		  $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
 		  $kclass=new Kclasses("singapore");
           $kuserId=$student->kuser_id;
-		  $collects=Collect::where('userid','=',$loggeduser->id)->paginate(20);;
+		  $collects=Collect::where('userid','=',$loggeduser->id)->paginate(20);
+		  $area=Province::distinct()->lists('pname');
+		  $careerid=Collect::where('userid','=',$loggeduser->id)
+		                     ->where('careerid','!=',0)->lists('careerid');
+		  $coid=Collect::where('userid','=',$loggeduser->id)
+		                     ->where('coid','!=',0)->lists('coid');
+		  $fcareer=Ctomajor::whereIn('career_id', $careerid)->first();
+	      $careers=Ctomajor::whereIn('career_id', $careerid)->paginate(20);
+          
+		  $fcollge=Zylb::whereIn('coid',$coid)->first();
+	      $colleges=Zylb::whereIn('coid',$coid)->paginate(20);
+		  
+		  $collegenames=Zylb::distinct()->whereIn('coid',$coid)->lists('yxmc');
           $kurl=$kclass->getkLsiUrl($kuserId);
          if ($ktest->count())
 	       {
@@ -44,6 +56,12 @@ class CollectsController extends \BaseController {
 		return \View::make('users.collects.index')->with('user',$student)
 		                                 ->with('kurl',$kurl)
 										 ->with('collects',$collects)
+										  ->with('careers',$careers)
+										  ->with('area',$area)
+										   ->with('fcareer',$fcareer)
+										      ->with('collegenames',$collegenames)
+										    ->with('fcollge',$fcollge)
+											 ->with('zylbs',$colleges)
 						                 ->with('kresult',$kresult);
 						                 }
 elseif(array_key_exists('_teacher',$loggeduser->permissions)){
@@ -88,35 +106,35 @@ else{
 	    if($collect->count())
 		 {
 	       	 $kurl='收藏过了';
-			 return \Response::view('ajaxcollect', array('kurl' => $kurl));
+			 	return $kurl;
 			 }
-else {
-	  $loggeduser=\App::make('authenticator')->getLoggedUser();
+          else {
+	            $loggeduser=\App::make('authenticator')->getLoggedUser();
 				$newcollect=new Collect;
 				$newcollect->userid=$loggeduser->id;
 				$newcollect->coid=$coid2;
 				$newcollect->save();
 				$kurl='收藏成功';
-				return \Response::view('ajaxcollect', array('kurl' => $kurl));
+					return $kurl;
 			    
-}
+                }
 		}
 		else {
 			$careerid= Input::get('coid');
-			$collect=Collect::where('careerid','=',$coid)->get();
+			$collect=Collect::where('careerid','=',$careerid)->get();
 			if($collect->count())
-		 {
+		      {
 	       	 $kurl='收藏过了';
-			 return \Response::view('ajaxcollect', array('kurl' => $kurl));
+			 return $kurl;
 			 }
-else {
-	  $loggeduser=\App::make('authenticator')->getLoggedUser();
+               else {
+	            $loggeduser=\App::make('authenticator')->getLoggedUser();
 				$newcollect=new Collect;
 				$newcollect->userid=$loggeduser->id;
 				$newcollect->careerid=$careerid;
 				$newcollect->save();
 				$kurl='收藏成功';
-				return \Response::view('ajaxcollect', array('kurl' => $kurl));
+				return $kurl;
 			    
 }
 		}

@@ -21,6 +21,7 @@
  
             </div> 
          </p>    
+        </div>
        <div  class='list'>
        <div class="control-group">
         
@@ -52,9 +53,9 @@
         
   	 
 	
-		 <div class='row top bottom bottom-border marginlr'>
-		 <h3> {{ $ktest1st->college->name }}</h3>
-		</div>
+		  <div class="col-md-12">
+		 <h3 class="text-left"> {{ $ktest1st->college->name }}</h3>
+	 </div> 
 <table class="table table-striped">
 <thead>
 <tr>
@@ -74,7 +75,7 @@
 <td>{{ $zylb->kelei }}</td>
 <td>{{ $zylb->pici }}</td>
 <td>{{ $zylb->xuanbao }}</td>
-<td><a href="#" id="c{{ $zylb->id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
+<td><a href="#" id="{{ $zylb->career_id }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
 </tr>
 @endforeach
 </tbody>
@@ -83,6 +84,7 @@
            
             	 </div>
                  </div>
+                  </div>
 <div class='col-md-3'>
 		@include('ads')
 	</div>

@@ -20,7 +20,7 @@ class CareerController extends \BaseController {
 	 * @return Response
 	 */
 
-	public function index()
+public function index()
 {         
 	      $loggeduser=\App::make('authenticator')->getLoggedUser();
 		  if (array_key_exists('_student',$loggeduser->permissions))
@@ -84,7 +84,7 @@ else{
 	 *
 	 * @return Response
 	 */
-	public function show($id)
+public function show($id)
 	      
 {
 	 
