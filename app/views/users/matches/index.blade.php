@@ -33,25 +33,10 @@
          </div>
          </div>
           <div class='row top bottom  marginlr'>
-           
+           <div id="careers">     
         <h3  class="text-left">
 		  职业名称：{{ $cname->careername }}
 		   </h3>
-		   <div class="control-group">
-        
-
-          <!-- Select Basic -->
-          <label class="control-label">招生地区：</label>
-         
-           {{ Form::select( 'area',$area,null, array('id' => 'selectpicker')) }}
-
-        </div> 
-        <div id="yxlx">
-		<h4>院校类型： <a href="#" class="clicked">211</a> <a href="#">985</a> <a href="#">全部</a> </h4> 
-        </div>
-        <div id="yxkl">
-<h4>院校科类：<a href="#" class="clicked">本科</a>   <a href="#">专科</a>  <a href="#">全部</a> </h4>
-         </div>
 	      <table class="table table-striped" id="Table1">
 <thead>
 <tr>
@@ -79,7 +64,7 @@
 {{ $zylbs->links() }}  
 		</div>
          
-        
+        </div>
             
             
             

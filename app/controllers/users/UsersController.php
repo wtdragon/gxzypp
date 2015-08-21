@@ -460,8 +460,72 @@ return \View::make('ajaxproject')->with('ktests',$ktests)
             
 		}
 		
+// ajax career return
 		 
+public function ajaxcareer()
+	{   header('Content-Type: text/event-stream');
+        header('Cache-Control: no-cache');
+		header('Access-Control-Allow-Origin: *');
+		 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		 $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+	 
+		 $area=Province::distinct()->lists('pname');     
+        $cname=Input::get('Careername');
+	    $major=Ctomajor::where('career_name_chinese','=',$cname)->lists('major_name_chinese');
+	 
+		$realmajor=Kmajor::whereIn('chinese_name',$major)->lists('real_zymc');
+	 
+	 
+        $usezylbs = Zylb::whereIn('zymingcheng',$realmajor)->paginate(10);
+	 
+	 
+
+
+
+return \View::make('ajaxcareer') 
+		->with('user',$student)
+		->with('area',$area) 
+		  ->with('cname',$cname)
+	 
+		                                        
+		                                             ->with('zylbs',$usezylbs);
+		
+	   
+            
+		}
+		
+// ajax career return
 		 
+public function ajaxschool()
+	{   header('Content-Type: text/event-stream');
+        header('Cache-Control: no-cache');
+		header('Access-Control-Allow-Origin: *');
+		 $loggeduser=\App::make('authenticator')->getLoggedUser();
+		 $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+	 
+	$collegeid=ltrim(Input::get('Schoolid'),"#");
+ 
+	$collegename=Zylb::where('coid','=',$collegeid)->first();
+    $zylbs = \DB::table('zylb')
+    ->join('kmajors', 'zylb.zymingcheng', '=', 'kmajors.real_zymc')
+    ->join('ctomajors', 'kmajors.english_name', '=', 'ctomajors.major_name_english')
+    ->where('zylb.coid', '=', $collegeid)
+    ->whereraw('english_name IS NOT NULL')
+	->groupBy('career_name_chinese')
+      ->distinct()->paginate(10);
+        
+	 
+
+
+
+return \View::make('ajaxschool') 
+			->with('user',$student) 
+	        ->with('collegename',$collegename->yxmc) 
+	        ->with('zylbs',$zylbs);
+		
+	   
+            
+		}		 		 
 // use filter to get the colleges
     public function specialties()
 	{

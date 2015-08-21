@@ -26,6 +26,20 @@ $("#yxkl a").click(function() {
 	getcontent(city,klfilter,lxfilter);
 	
 	  });  
+$("#six a").click(function() {
+	
+	var careername=$(this).text();
+
+	getcontent2(careername);
+	
+	  });  	 
+$("#school a").click(function() {
+	
+	var schoolid=window.location.hash;
+
+	getschool(schoolid);
+	
+	  }); 	   
 $("#selectpicker").on('change', function() {
      var city=$(this).find("option:selected").text();
 	var klfilter=$("#yxkl .clicked").text();
@@ -45,7 +59,7 @@ $("#selectpicker").on('change', function() {
            url: "{{ URL::to('users/ajaxfilter') }}",
           type: 'post',
           dataType: 'html',
-          charset='UTF-8', 
+          charset:'UTF-8', 
         data: sendInfo,
 		tryCount:0,//current retry count
 		retryLimit:3,//number of retries on fail
@@ -65,6 +79,64 @@ $("#selectpicker").on('change', function() {
 		}
 	});
                     }	
+function getcontent2(careername)
+   { 
+   	 var sendInfo = {
+           Careername: careername
+       };
+   	 	$.ajax({
+           url: "{{ URL::to('users/ajaxcareer') }}",
+          type: 'post',
+          dataType: 'html',
+          charset:'UTF-8', 
+        data: sendInfo,
+		tryCount:0,//current retry count
+		retryLimit:3,//number of retries on fail
+		success: function(data) {
+			$("#careers").html(data);// 设置文本内容
+			
+			 
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			 if (textStatus == 'timeout') {//if error is 'timeout'
+				this.tryCount++;
+				if (this.tryCount < this.retryLimit) {
+					$.ajax(this);//try again
+					return;
+				}
+			}//try 3 times to get a response from server
+		}
+	});
+                    }
+function getschool(schoolid)
+   { 
+   	 var sendInfo = {
+           Schoolid:schoolid
+       };
+   	 	$.ajax({
+           url: "{{ URL::to('users/ajaxschool') }}",
+          type: 'post',
+          dataType: 'html',
+          charset:'UTF-8', 
+        data: sendInfo,
+		tryCount:0,//current retry count
+		retryLimit:3,//number of retries on fail
+		success: function(data) {
+			$("#cgschool").html(data);// 设置文本内容
+			
+			 
+		},
+		error: function(xhr, textStatus, errorThrown) {
+			 if (textStatus == 'timeout') {//if error is 'timeout'
+				this.tryCount++;
+				if (this.tryCount < this.retryLimit) {
+					$.ajax(this);//try again
+					return;
+				}
+			}//try 3 times to get a response from server
+		}
+	});
+                    }	                            	                    
 function delRepeat(){
 var str = $('#repeatValue').val();
 var strArr=str.split(" ");//把字符串以空格分割成一个数组

@@ -101,6 +101,16 @@ Route::post( 'ajaxcollect', array(
 Route::post( 'ajaxfilter', array(
     'as' => 'ajaxfilter',
     'uses' => 'App\Controllers\Users\UsersController@ajaxfilter'
+) );
+//ajax: career filter for the page
+Route::post( 'ajaxcareer', array(
+    'as' => 'ajaxcareer',
+    'uses' => 'App\Controllers\Users\UsersController@ajaxcareer'
+) );	
+//ajax: school filter for the page
+Route::post( 'ajaxschool', array(
+    'as' => 'ajaxcareer',
+    'uses' => 'App\Controllers\Users\UsersController@ajaxschool'
 ) );	
 //ajax: salary  for the page
 Route::post( 'ajaxjson', array(

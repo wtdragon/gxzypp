@@ -40,8 +40,8 @@
          </div>
      <div id="projects">    
            @foreach ($ktests as $ktest)
-       <div class="col-md-4">
-        <a href="#">
+       <div class="col-md-4" id="school">
+        <a href="#{{ $ktest->college->coid   }}">
   
            {{ $ktest->college->name   }}
      
@@ -52,8 +52,9 @@
     
         
   	 
-	
+	  <div id="cgschool">
 		  <div class="col-md-12">
+		  	
 		 <h3 class="text-left"> {{ $ktest1st->college->name }}</h3>
 	 </div> 
 <table class="table table-striped">
@@ -81,10 +82,12 @@
 </tbody>
 </table>
 {{ $zylbs->links() }}  
-           
+      
             	 </div>
                  </div>
-                  </div>
+                 </div>
+           </div>
+                   
 <div class='col-md-3'>
 		@include('ads')
 	</div>
