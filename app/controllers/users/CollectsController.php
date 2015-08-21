@@ -39,7 +39,7 @@ class CollectsController extends \BaseController {
 		  $fcollge=Zylb::whereIn('coid',$coid)->first();
 	      $colleges=Zylb::whereIn('coid',$coid)->paginate(20);
 		  
-		  $collegenames=Zylb::distinct()->whereIn('coid',$coid)->lists('yxmc');
+		  $collegenames=Zylb::distinct()->select('yxmc', 'coid')->whereIn('coid',$coid)->get();
           $kurl=$kclass->getkLsiUrl($kuserId);
          if ($ktest->count())
 	       {
