@@ -309,7 +309,7 @@ else{
         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
         $kuserId=$student->kuser_id;
-		 $ktest1st=College::where('coid','=',$collegename)->first();
+		 $ktest1st=Zylb::where('coid','=',$collegename)->first();
 		  
         $zylbs =Zylb::where('coid','=',$collegename)->distinct()->paginate(10);
         
@@ -390,7 +390,7 @@ else{
  
 		$ktest1st->zymc=$zyjs->zymc;
 		$ktest1st->ezymc=$majorname->chinese_name;
-		 
+		   $area=Province::distinct()->lists('pname'); 
     
 	     $configId = 104;  //lsi
          $accountId = 1000001;
@@ -411,9 +411,10 @@ else{
         $colleges =Zylb::search($ktest1st->zymc)->distinct()->paginate(10);
         
 		return \View::make('users.specialties.show')->with('ktests',$ktests)
-		->with('user',$student)
+			->with('user',$student)
 		                                               ->with('ktest1st',$ktest1st)
 													      ->with('career',$careername)
+														  ->with('area',$area)
                                             ->with('colleges',$colleges);
 	} 
 	}

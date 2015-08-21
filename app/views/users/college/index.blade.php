@@ -41,7 +41,7 @@
      <div id="projects">    
            @foreach ($ktests as $ktest)
        <div class="col-md-4">
-        <a href="{{ URL::route('Specfilter',$ktest->co_id) }}">
+        <a href="#">
   
            {{ $ktest->college->name   }}
      

@@ -20,7 +20,7 @@
 		 
 		 <div class='row top bottom   marginlr'>
         <h4>
-		  {{ $ktest1st->name }}
+		  {{ $ktest1st->yxmc }}
 		  <div class='row top bottom  marginlr'>
 		  	<div class='col-md-4'>
 		  	<h5>所属科类:{{ $ktest1st->kelei}}</h5>
@@ -44,7 +44,7 @@
 <tbody>
 @foreach ($zylbs as $zylb)
 <tr>
-<td>{{ $zylb->zymingcheng }}</td>
+<td><a href="{{ URL::route('colfreal',$zylb->zymingcheng) }}" target="_blank">{{ $zylb->zymingcheng }}</a></td>
 <td>{{ $zylb->kelei }}</td>
 <td>{{ $zylb->pici }}</td>
 <td>{{ $zylb->xuezhi }}</td>
