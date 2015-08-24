@@ -29,15 +29,15 @@ $("#yxkl a").click(function() {
 $("#six a").click(function() {
 	
 	var careername=$(this).text();
-
-	getcontent2(careername);
+    var url=window.location.href;
+	getcontent2(url,careername);
 	
 	  });  	 
 $("#school a").click(function() {
 	
 	var schoolid=window.location.hash;
-
-	getschool(schoolid);
+    var url=window.location.href;
+	getschool(url,schoolid);
 	
 	  }); 	   
 $("#selectpicker").on('change', function() {
@@ -79,10 +79,11 @@ $("#selectpicker").on('change', function() {
 		}
 	});
                     }	
-function getcontent2(careername)
+function getcontent2(url,careername)
    { 
    	 var sendInfo = {
-           Careername: careername
+           Careername: careername,
+           Url:url
        };
    	 	$.ajax({
            url: "{{ URL::to('users/ajaxcareer') }}",
@@ -108,10 +109,11 @@ function getcontent2(careername)
 		}
 	});
                     }
-function getschool(schoolid)
+function getschool(url,schoolid)
    { 
    	 var sendInfo = {
-           Schoolid:schoolid
+           Schoolid:schoolid,
+           Url:url
        };
    	 	$.ajax({
            url: "{{ URL::to('users/ajaxschool') }}",

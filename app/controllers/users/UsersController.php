@@ -430,24 +430,103 @@ else{
 	{   header('Content-Type: text/event-stream');
         header('Cache-Control: no-cache');
 		header('Access-Control-Allow-Origin: *');
-		 $loggeduser=\App::make('authenticator')->getLoggedUser();
-		 $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+		$loggeduser=\App::make('authenticator')->getLoggedUser();
+		$student=Student::whereraw("user_id = $loggeduser->id")->first();  
 		$city= Input::get('City');
 		$klfilter= Input::get('Klfilter');
 		$lxfiler= Input::get('Lxfilter');
-	     $areaid=Province::where('pname','=',$city)->pluck('pid');
+	    $areaid=Province::where('pname','=',$city)->pluck('pid');
 	 
         //$area=Province::where('province')->where('pname', 'LIKE BINARY', '%'.$city.'%')->first();
         //
-        $colleges=College::distinct()->where('pid','=',$areaid)->lists('coid');
-$ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)
-		                               ->whereIn('co_id',$colleges)
+        $pcolleges=College::distinct()->where('pid','=',$areaid)
+		                                 ->lists('coid');
+		
+		if($lxfiler=="211")
+		{
+			if($klfilter=="本科")
+			{
+				$kcolleges=Zylb::whereIn('coid',$pcolleges)
+				              ->where('pici','like','%本科%') 
+				              ->lists('coid');		
+				$colleges=College::distinct()->whereIn('coid',$kcolleges)
+		                                 ->where('is211','=',1)
+		                                 ->lists('coid');	
+			}
+			elseif($klfilter=="专科")
+			{
+				$kcolleges=Zylb::whereIn('coid',$pcolleges)
+				              ->where('pici','like','%专科%') 
+				              ->lists('coid');		
+				$colleges=College::distinct()->whereIn('coid',$kcolleges)
+		                                 ->where('is211','=',1)
+		                                 ->lists('coid');	
+			}
+			else 
+			{
+			$colleges=College::distinct()->where('pid','=',$areaid)
+		                                 ->where('is211','=',1)
+		                                 ->lists('coid');
+			}
+		}
+		elseif($lxfiler=="985")
+		{
+			if($klfilter=="本科")
+			{
+				$kcolleges=Zylb::whereIn('coid',$pcolleges)
+				              ->where('pici','like','%本科%') 
+				              ->lists('coid');		
+				$colleges=College::distinct()->whereIn('coid',$kcolleges)
+		                                 ->where('is985','=',1)
+		                                 ->lists('coid');			  	  
+			}
+			elseif($klfilter=="专科")
+			{
+				$kcolleges=Zylb::whereIn('coid',$pcolleges)
+				              ->where('pici','like','%专科%') 
+				              ->lists('coid');	 
+				$colleges=College::distinct()->whereIn('coid',$kcolleges)
+		                                 ->where('is985','=',1)
+		                                 ->lists('coid');			   
+			}
+			else 
+			{
+			 $colleges=College::distinct()->where('pid','=',$areaid)
+		                                 ->where('is985','=',1)
+		                                 ->lists('coid');
+			}
+			
+		}
+		else{
+			if($klfilter=="本科")
+			{
+				$kcolleges=Zylb::whereIn('coid',$pcolleges)
+				              ->where('pici','like','%本科%') 
+				              ->lists('coid');	
+				$colleges=$kcolleges;			  
+			}
+			elseif($klfilter=="专科")
+			{
+				$kcolleges=Zylb::whereIn('coid',$pcolleges)
+				              ->where('pici','like','%专科%') 
+				              ->lists('coid');	
+				$colleges=$kcolleges;
+			}
+			else 
+			{
+			 $colleges=College::distinct()->where('pid','=',$areaid)
+		                                 ->lists('coid');
+			}
+		}
+		
+        $ktests=Ktest::distinct()->select('co_id','id')->where('user_id','=',$loggeduser->id)
+		                                       ->whereIn('co_id',$colleges)
                                                ->groupBy('co_id')->get();
 
-$ktest1st=$ktests->first();
-$usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
-$careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);;
-$zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
+        $ktest1st=$ktests->first();
+        $usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
+        $careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);;
+        $zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
 
 
 
@@ -471,6 +550,7 @@ public function ajaxcareer()
 	 
 		 $area=Province::distinct()->lists('pname');     
         $cname=Input::get('Careername');
+		  $lcurl=Input::get('Url');
 	    $major=Ctomajor::where('career_name_chinese','=',$cname)->lists('major_name_chinese');
 	 
 		$realmajor=Kmajor::whereIn('chinese_name',$major)->lists('real_zymc');
@@ -479,9 +559,18 @@ public function ajaxcareer()
         $usezylbs = Zylb::whereIn('zymingcheng',$realmajor)->paginate(10);
 	 
 	 
-
-
-
+ if(strstr($lcurl,"collect"))
+{
+	return \View::make('ajaxcollectcareer') 
+		->with('user',$student)
+		->with('area',$area) 
+		  ->with('cname',$cname)
+	 
+		                                        
+		                                             ->with('zylbs',$usezylbs);
+		
+}
+else {
 return \View::make('ajaxcareer') 
 		->with('user',$student)
 		->with('area',$area) 
@@ -490,7 +579,7 @@ return \View::make('ajaxcareer')
 		                                        
 		                                             ->with('zylbs',$usezylbs);
 		
-	   
+}
             
 		}
 		
@@ -504,7 +593,7 @@ public function ajaxschool()
 		 $student=Student::whereraw("user_id = $loggeduser->id")->first();  
 	 
 	$collegeid=ltrim(Input::get('Schoolid'),"#");
- 
+    $lcurl=Input::get('Url');
 	$collegename=Zylb::where('coid','=',$collegeid)->first();
     $zylbs = \DB::table('zylb')
     ->join('kmajors', 'zylb.zymingcheng', '=', 'kmajors.real_zymc')
@@ -516,12 +605,27 @@ public function ajaxschool()
         
 	 
 
+if(strstr($lcurl,"ccolleges"))
 
-
-return \View::make('ajaxschool') 
+{
+	return \View::make('ajaxcollectschool') 
+			->with('user',$student) 
+	        ->with('collegename',$collegename->yxmc) 
+	        ->with('zylbs',$zylbs);return \View::make('ajaxschool') 
 			->with('user',$student) 
 	        ->with('collegename',$collegename->yxmc) 
 	        ->with('zylbs',$zylbs);
+}
+else {
+	return \View::make('ajaxschool') 
+			->with('user',$student) 
+	        ->with('collegename',$collegename->yxmc) 
+	        ->with('zylbs',$zylbs);return \View::make('ajaxschool') 
+			->with('user',$student) 
+	        ->with('collegename',$collegename->yxmc) 
+	        ->with('zylbs',$zylbs);
+}
+
 		
 	   
             

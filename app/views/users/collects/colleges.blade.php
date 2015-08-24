@@ -1,59 +1,91 @@
 @extends('master')
-@section('hdsrc')
-<link href={{ URL::asset('images/css/sb-admin-2.css') }} rel="stylesheet">
-<link href={{ URL::asset('images/css/timeline.css') }} rel="stylesheet">
-<script type="text/javascript" src={{ URL::asset('images/metisMenu/dist/metisMenu.js') }}></script>
-<script type="text/javascript" src={{ URL::asset('images/js/sb-admin-2.js') }}></script>
-
-@stop
 @section('header')
 @stop
 @section('content')
 {{ Notification::showAll() }}
 	<div class='col-md-2 text-center  slidbar_bg'>
-		<div class="sidebar" role="navigation">
-                <div class="sidebar-nav navbar-collapse">
-                    <ul class="nav" id="side-menu">
-        <li><a href="{{URL::to('users')}}" class="btn btn-default btn1" type="button">我的测评</a></li>
-        <li><a href="{{URL::to('users/specialties')}}" class="btn btn-default btn1" type="button">专业列表</a></li>
-        <li><a href="{{URL::to('users/matches')}}" class="btn btn-default btn1" type="button">院校列表</a></li>
-	       <li>
-                <a href="{{URL::to('users/collects')}}" class="btn btn-default btn1" type="button">我的收藏</a>
-               <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="{{URL::to('users/collects/colleges')}}" >院校收藏</a>
-                                </li>
-                                <li>
-                                    <a href="{{URL::to('users/collects/specialites')}}">专业收藏</a>
-                                </li>
-                                <li>
-                                   <a课程收藏</a>
-                                </li>
-                                <li>
-                                   <a href="{{URL::to('users/collects/others')}}" >其他收藏</a>
-                                </li>
-                            </ul>
-                            <!-- /.nav-second-level -->
-                        </li>
-      </ul>
+		
+       @include('users.slidbar')
+        
+
 	</div>
-	</div>
-	</div>
-	<div class='col-md-7'>
+	<div class='col-md-8'>
 		<h2>
 			会员中心
 		</h2>
-		<h2>
-			会员名称：
-		</h2>
-		<p>会员信息：</p>
-		
-		 <h3>院校收藏</h3>
-	 
+		<h3>
+			我的收藏
+		</h3>
+		 <p>
+        	<div class="btn-group">
+              <a href="{{ URL::to('users/collects') }}" class="btn btn-large" type="button">职业收藏</a>
+              <a href="{{ URL::to('users/ccolleges') }}" class="btn btn-large  btn-primary" type="button">院校收藏</a>
             </div>
+         </p>
+        
+              
+              
+       <div  class='list'>
+        
+     <div id="projects">    
+           @foreach ($collegenames as $college)
+       <div class="col-md-4" id="school">
+        <a href="#{{ $college->coid   }}">
+  
+           {{ $college->yxmc   }}
+     
+         </a>
+        </div>
+         @endforeach
+         
+    
+        
+  	 
+	  <div id="cgschool">
+		  <div class="col-md-12">
+		  	
+		 <h3 class="text-left"> {{ $fcollge->yxmc }}</h3>
+	 </div> 
+<table class="table table-striped">
+<thead>
+<tr>
+<th>职业名称</th>
+<th>专业名称</th>
+<th>层次</th>
+<th>科类</th>
+<th>选报科目</th> 
+</tr>
+</thead>
+<tbody>
+@foreach ($zylbs as $zylb)
+<tr>
+<td><a href="{{ URL::route('videosearch',$zylb->career_name_chinese) }}" target="_blank">{{ $zylb->career_name_chinese }}</a></td>	
+<td><a href="{{ URL::route('colfreal',$zylb->zymingcheng) }}" target="_blank">{{ $zylb->zymingcheng }}</a></td>	
+<td>{{ $zylb->kelei }}</td>
+<td>{{ $zylb->pici }}</td>
+<td>{{ $zylb->xuanbao }}</td>
+</tr>
+@endforeach
+</tbody>
+</table>
+{{ $zylbs->links() }}  
+      
+            	 </div>
+                 </div>
+                 </div>
+
+              </div>
+  
+             
+              
+           
 <div class='col-md-3'>
 		@include('ads')
 	</div>
 @stop
 @section('bootor')
+	@include('users.script')
+ @include('script')
+
+	
 @stop

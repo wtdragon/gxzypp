@@ -38,8 +38,7 @@ class CollectsController extends \BaseController {
           
 		  $fcollge=Zylb::whereIn('coid',$coid)->first();
 	      $colleges=Zylb::whereIn('coid',$coid)->paginate(20);
-		  
-		  $collegenames=Zylb::distinct()->select('yxmc', 'coid')->whereIn('coid',$coid)->get();
+		
           $kurl=$kclass->getkLsiUrl($kuserId);
          if ($ktest->count())
 	       {
@@ -59,7 +58,6 @@ class CollectsController extends \BaseController {
 										  ->with('careers',$careers)
 										  ->with('area',$area)
 										   ->with('fcareer',$fcareer)
-										      ->with('collegenames',$collegenames)
 										    ->with('fcollge',$fcollge)
 											 ->with('zylbs',$colleges)
 						                 ->with('kresult',$kresult);
@@ -74,7 +72,74 @@ else{
  
 		
 	}
+public function colleges()
+{            $loggeduser=\App::make('authenticator')->getLoggedUser();
+		  if (array_key_exists('_student',$loggeduser->permissions))
+		  { //var_dump($loginstudent);
+	      $student=Student::whereraw("user_id = $loggeduser->id")->first();  
+		  $ktest=Kresult::where('kuser_id','=',$student->kuser_id); 
+		  $kclass=new Kclasses("singapore");
+          $kuserId=$student->kuser_id;
+		  $collects=Collect::where('userid','=',$loggeduser->id)->paginate(20);
+		  $area=Province::distinct()->lists('pname');
+		  $careerid=Collect::where('userid','=',$loggeduser->id)
+		                     ->where('careerid','!=',0)->lists('careerid');
+		  $coid=Collect::where('userid','=',$loggeduser->id)
+		                     ->where('coid','!=',0)->lists('coid');
+		  					 
+		  $ffcoid=Collect::where('userid','=',$loggeduser->id)
+		                     ->where('coid','!=',0)->first();
+		  $fcareer=Ctomajor::whereIn('career_id', $careerid)->first();
+	      $careers=Ctomajor::whereIn('career_id', $careerid)->paginate(20);
+          
+		  $fcollge=Zylb::whereIn('coid',$coid)->first();
+	      $colleges=Zylb::whereIn('coid',$coid)->paginate(20);
+		  $collegenames=Zylb::distinct()->select('yxmc', 'coid')->whereIn('coid',$coid)->get();
+		  
+		 
+ 
+    $zylbs = \DB::table('zylb')
+    ->join('kmajors', 'zylb.zymingcheng', '=', 'kmajors.real_zymc')
+    ->join('ctomajors', 'kmajors.english_name', '=', 'ctomajors.major_name_english')
+    ->where('zylb.coid', '=', $ffcoid->coid)
+    ->whereraw('english_name IS NOT NULL')
+	->groupBy('career_name_chinese')
+      ->distinct()->paginate(10);
+		  
+          $kurl=$kclass->getkLsiUrl($kuserId);
+         if ($ktest->count())
+	       {
+	       	 
+          $kresult=$kclass->getkResultUrl($kuserId);
+		 
+			
+			 }   
+		else {
+			$kresult="你还没做过测试";
+		 
+		}
+       	
+		return \View::make('users.collects.colleges')->with('user',$student)
+		                                 ->with('kurl',$kurl)
+										 ->with('collects',$collects)
+										  ->with('careers',$careers)
+										  ->with('area',$area)
+										   ->with('zylbs',$zylbs)
+										    ->with('collegenames',$collegenames)
+										   ->with('fcareer',$fcareer)
+										    ->with('fcollge',$fcollge) 
+						                 ->with('kresult',$kresult);
+						                 }
+elseif(array_key_exists('_teacher',$loggeduser->permissions)){
+	return Redirect::to('gxadmin');
+}
+else{
+	return "not have permissions ";
+}
 
+ 
+		
+	}
 	/**
 	 * Show the form for creating a new resource.
 	 * GET /users/career/create

@@ -18,12 +18,12 @@
 		</h3>
 		 <p>
         	<div class="btn-group">
-            <button class="btn btn-large btn-primary" type="button">职业收藏</button>
-            <button class="btn btn-large" type="button">院校收藏</button>
+              <a href="{{ URL::to('users/collects') }}" class="btn btn-large btn-primary" type="button">职业收藏</a>
+              <a href="{{ URL::to('users/ccolleges') }}" class="btn btn-large" type="button">院校收藏</a>
             </div>
          </p>
          
-<div  class='list' id="zy3">  
+   <div class='row top bottom  marginlr'>
         	<div id="six">
         		<ul>
         	   @foreach ($careers as $career)
@@ -32,12 +32,16 @@
          </ul>
          </div>
       
-         
-         <div class='row top bottom  marginlr'>
-          <div id="careers">      
+         </div>  
+        <div class='row top bottom  marginlr'>
+          <div id="careers">
+          	<div class='col-md-12 top bottom  marginlr'>
+          	<p>   
         <h3  class="text-left">
 		  职业名称：{{ $fcareer->career_name_chinese }}
 		   </h3>
+		   </p>  
+		   </div>  
 	      <table class="table table-striped" id="Table1">
 <thead>
 <tr>
@@ -66,72 +70,15 @@
  
              
            </div>           
-              
+                
           </div>          
               
               </div>     
               
               
               
-              <div  class='list notshow' id="zy4">
-              
             
-              <div class="control-group">
-        
-
-          <!-- Select Basic -->
-          <label class="control-label">招生地区：</label>
-         
-           {{ Form::select( 'area',$area,null, array('id' => 'selectpicker')) }}
-
-        </div> 
-        <div id="yxlx">
-		<h4>院校类型： <a href="#" class="clicked">211</a> <a href="#">985</a> <a href="#">全部</a> </h4> 
-        </div>
-        <div id="yxkl">
-<h4>院校科类：<a href="#" class="clicked">本科</a>   <a href="#">专科</a>  <a href="#">全部</a> </h4>
-         </div>
-     <div id="projects">    
-           @foreach ($collegenames as $college)
-        <div class="col-md-4" id="school">
-        <a href="#{{ $college->coid  }}">
-  
-           {{ $college->yxmc  }}
-     
-         </a>
-        </div>
-         @endforeach
-         
-    
-        
-  	 
-	<div id="cgschool">
-		  <div class="col-md-12">
-		 <h3 class="text-left"> {{ $fcollge->yxmc }}</h3>
-	 </div> 
-<table class="table table-striped">
-<thead>
-<tr>
-<th>职业名称</th>
-<th>专业名称</th>
-</tr>
-</thead>
-<tbody>
-@foreach ($careers as $career)
-<tr>
-<td><a href="{{ URL::route('videosearch',$career->career_name_chinese) }}" target="_blank">{{ $career->career_name_chinese }}</a></td>	
-<td>{{ $career->major_name_chinese }}</td>	
-</tr>
-@endforeach
-</tbody>
-</table>
-{{ $careers->links() }}  
-            </div>
-            	 </div>
-           
-
-              </div>
-             </div>
+            
              
               
            
