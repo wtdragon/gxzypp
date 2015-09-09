@@ -34,8 +34,7 @@ $("#six a").click(function() {
 	
 	  });  	 
 $("#school a").click(function() {
-	
-	var schoolid=window.location.hash;
+	var schoolid=$(this).attr('href').split('#')[1];
     var url=window.location.href;
 	getschool(url,schoolid);
 	
@@ -90,10 +89,12 @@ function getcontent2(url,careername)
           type: 'post',
           dataType: 'html',
           charset:'UTF-8', 
+          async:false,
         data: sendInfo,
 		tryCount:0,//current retry count
 		retryLimit:3,//number of retries on fail
 		success: function(data) {
+ 
 			$("#careers").html(data);// 设置文本内容
 			
 			 
@@ -121,9 +122,11 @@ function getschool(url,schoolid)
           dataType: 'html',
           charset:'UTF-8', 
         data: sendInfo,
+        async:false,
 		tryCount:0,//current retry count
 		retryLimit:3,//number of retries on fail
 		success: function(data) {
+		 
 			$("#cgschool").html(data);// 设置文本内容
 			
 			 

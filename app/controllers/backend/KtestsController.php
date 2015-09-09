@@ -279,7 +279,7 @@ class KtestsController extends \BaseController {
 		 
 			   $kcareer=\DB::table('careermajors')->distinct()->lists('kresult_id');
 			   
-			   $kresults=Kresult::whereNotIn('kresult_id',$kcareer)->get();
+			   $kresults=Kresult::whereNotIn('id',$kcareer)->get();
 			   foreach($kresults as $kresult)
 			   {    
 			       $encareers=json_decode($kresult->careername);

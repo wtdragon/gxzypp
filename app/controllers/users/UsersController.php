@@ -611,19 +611,13 @@ if(strstr($lcurl,"ccolleges"))
 	return \View::make('ajaxcollectschool') 
 			->with('user',$student) 
 	        ->with('collegename',$collegename->yxmc) 
-	        ->with('zylbs',$zylbs);return \View::make('ajaxschool') 
-			->with('user',$student) 
-	        ->with('collegename',$collegename->yxmc) 
-	        ->with('zylbs',$zylbs);
+	        ->with('zylbs',$zylbs); 
 }
 else {
 	return \View::make('ajaxschool') 
 			->with('user',$student) 
 	        ->with('collegename',$collegename->yxmc) 
-	        ->with('zylbs',$zylbs);return \View::make('ajaxschool') 
-			->with('user',$student) 
-	        ->with('collegename',$collegename->yxmc) 
-	        ->with('zylbs',$zylbs);
+	        ->with('zylbs',$zylbs); 
 }
 
 		
