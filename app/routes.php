@@ -75,6 +75,14 @@ Route::get('careersearch/{id}',[
 		'as'=>'careersearch',
 		'uses'=>'App\Controllers\Users\CareerController@show'
 	]); 
+Route::get('cdestroy/{id}/delete',[
+		'as'=>'cdestroy',
+		'uses'=>'App\Controllers\Users\CollectsController@delete'
+	]); 
+Route::delete('cdestroy/{id}',[
+		'as'=>'cdestroy',
+		'uses'=>'App\Controllers\Users\CollectsController@cdestroy'
+	]); 		
 Route::get('videosearch/{careername}',[
 		'as'=>'videosearch',
 		'uses'=>'App\Controllers\Users\CareerController@video'

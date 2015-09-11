@@ -16,8 +16,9 @@
 		   </h2>
            </div>
            <div class='row top bottom  marginlr'>
-         	<h3>
-		           专业名称：{{ $ktest1st->zymc }}
+         	<h3 id='zymc'>
+		           专业名称 : {{ $ktest1st->zymc }}
+		        
 		    </h3>
          <p>
         	<div class="btn-group">
@@ -40,8 +41,8 @@
 
         </div> 
 		</div>
- 
-<table class="table table-striped">
+     <div id="projects">  
+ <table class="table table-striped" id="Table1">
 <thead>
 <tr>
 <th>院校名称</th>
@@ -63,10 +64,12 @@
 </table>
 {{ $colleges->links() }}  
             </div>
+ </div>
 <div class='col-md-3'>
 		@include('ads')
 	</div>
 @stop
 @section('bootor')
 @include('users.script')
+	@include('script')
 @stop

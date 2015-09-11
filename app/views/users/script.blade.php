@@ -30,7 +30,8 @@ $("#six a").click(function() {
 	
 	var careername=$(this).text();
     var url=window.location.href;
-	getcontent2(url,careername);
+    var cid=$(this).attr("id");    
+	getcontent2(url,careername,cid);
 	
 	  });  	 
 $("#school a").click(function() {
@@ -43,16 +44,21 @@ $("#selectpicker").on('change', function() {
      var city=$(this).find("option:selected").text();
 	var klfilter=$("#yxkl .clicked").text();
 	var lxfilter=$("#yxlx .clicked").text();
+		var zymc=$("#zymc").text().substring(20);
 	 $(this).addClass("clicked");
-	 getcontent($(this).find("option:selected").text(),$("#yxkl .clicked").text(),$("#yxlx .clicked").text());
+	 var url=window.location.href;
+	 getcontent(city,klfilter,lxfilter,url,zymc);
 	
 	  });
- function getcontent(city,klfilter,lxfilter)
+ function getcontent(city,klfilter,lxfilter,url,zymc)
    { 
+   	
    	 var sendInfo = {
            City: city,
            Klfilter: klfilter,
-           Lxfilter: lxfilter
+           Lxfilter: lxfilter,
+           Zymc:zymc,
+           Url:url
        };
    	 	$.ajax({
            url: "{{ URL::to('users/ajaxfilter') }}",
@@ -78,11 +84,12 @@ $("#selectpicker").on('change', function() {
 		}
 	});
                     }	
-function getcontent2(url,careername)
+function getcontent2(url,careername,cid)
    { 
    	 var sendInfo = {
            Careername: careername,
-           Url:url
+           Url:url,
+           Cid:cid
        };
    	 	$.ajax({
            url: "{{ URL::to('users/ajaxcareer') }}",

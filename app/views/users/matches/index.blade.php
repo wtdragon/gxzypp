@@ -51,11 +51,11 @@
 <tbody>
 @foreach ($zylbs as $zylb)
 <tr>
-<td><a href="" target="_blank">{{ $zylb->yxmc }}</a></td>	
-<td><a href="" target="_blank">{{ $zylb->zymingcheng }}</a></td>
-<td><a href="" target="_blank">{{ $zylb->cengci }}</a></td>	
-<td><a href="" target="_blank">{{ $zylb->kelei }}</a></td>
-<td><a href="" target="_blank">{{ $zylb->xuanbao }}</a></td>	
+<td><a href="{{ URL::route('Specfilter',$zylb->yxmc ) }}" target="_blank">{{ $zylb->yxmc }}</a></td>	
+<td><a href="{{ URL::route('colfreal',$zylb->zymingcheng) }}" target="_blank">{{ $zylb->zymingcheng }}</a></td>
+<td>{{ $zylb->cengci }}</td>	
+<td>{{ $zylb->kelei }}</td>
+<td>{{ $zylb->xuanbao }}</td>	
 <td><a href="#" id="c{{ $zylb->coid }}" data-toggle="modal" class="open-popup-link" data-target="#modal1">收藏</a></td>
 </tr>
 @endforeach

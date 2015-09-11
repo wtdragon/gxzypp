@@ -27,7 +27,7 @@
         	<div id="six">
         		<ul>
         	   @foreach ($careers as $career)
-         <li><a href="#" >{{ $career->career_name_chinese }}</a></li>
+         <li><a href="#" id="{{ $career->career_id }}">{{ $career->career_name_chinese }}</a></li>
          @endforeach
          </ul>
          </div>
@@ -37,9 +37,14 @@
           <div id="careers">
           	<div class='col-md-12 top bottom  marginlr'>
           	<p>   
-        <h3  class="text-left">
-		  职业名称：{{ $fcareer->career_name_chinese }}
+        <h3  class='text-left col-md-4'>
+		  职业名称：{{ $fcareer->career_name_chinese }}    
 		   </h3>
+		   <div   class='col-md-4'>
+	   {{ Form::open(array('route' => array('users.collects.destroy', $fcareer->career_id ), 'method' => 'delete', 'data-confirm' => '确定取消？')) }}
+<button type="submit" href="{{ URL::route('users.collects.destroy', $fcareer->career_id) }}" class="btn btn-danger btn-sm">取消收藏</button>
+{{ Form::close() }}
+		   </div> 
 		   </p>  
 		   </div>  
 	      <table class="table table-striped" id="Table1">
@@ -50,16 +55,18 @@
 <th>层次</th>
 <th>科类</th>
 <th>选报科目</th>
+ 
 </tr>
 </thead>
 <tbody>
 @foreach ($zylbs as $zylb)
 <tr>
-<td><a href="" target="_blank">{{ $zylb->yxmc }}</a></td>	
+<td><a href="{{ URL::route('Specfilter',$zylb->yxmc ) }}" target="_blank">{{ $zylb->yxmc }}</a></td>	
 <td><a href="" target="_blank">{{ $zylb->zymingcheng }}</a></td>
-<td><a href="" target="_blank">{{ $zylb->cengci }}</a></td>	
-<td><a href="" target="_blank">{{ $zylb->kelei }}</a></td>
-<td><a href="" target="_blank">{{ $zylb->xuanbao }}</a></td>	
+<td>{{ $zylb->cengci }}</a></td>	
+<td>{{$zylb->kelei }}</a></td>
+<td>{{ $zylb->xuanbao }}</a></td>	
+ 
 </tr>
 @endforeach
 </tbody>

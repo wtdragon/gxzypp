@@ -2,7 +2,7 @@
 
 namespace App\Controllers\Users;
  
-use Area,City,College,Specialty,Province,Kcresult,Ctomajor,Kmajor,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Careermajors,Student;
+use Area,City,College,Specialty,Province,Kcresult,Ctomajor,Kmajor,UserProfile,ProfileField,Zylb,Ktest,Kresult,Flzhuanye,Careermajors,Student,Collect;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -309,9 +309,12 @@ else{
         $yourDomain = "http://localhost:8000/users/ktest"; //change this to your server domain
         $bounceUrl = "https://api.keystosucceed.cn/setCookieAndBounce.php?returnUrl=$yourDomain";
         $kuserId=$student->kuser_id;
-		 $ktest1st=Zylb::where('coid','=',$collegename)->first();
+		//$ktest1st=Zylb::where('coid','=',$collegename)->first();
 		  
-        $zylbs =Zylb::where('coid','=',$collegename)->distinct()->paginate(10);
+        //$zylbs =Zylb::where('coid','=',$collegename)->distinct()->paginate(10);
+        $ktest1st=Zylb::where('yxmc','=',$collegename)->first();
+		  
+        $zylbs =Zylb::where('yxmc','=',$collegename)->distinct()->paginate(10);
         
 		return \View::make('users.matches.show') 
 		                                              ->with('user',$student) 
@@ -435,13 +438,24 @@ else{
 		$city= Input::get('City');
 		$klfilter= Input::get('Klfilter');
 		$lxfiler= Input::get('Lxfilter');
+		$lcurl=Input::get('Url');
+		$zymc=Input::get('Zymc');
 	    $areaid=Province::where('pname','=',$city)->pluck('pid');
 	 
         //$area=Province::where('province')->where('pname', 'LIKE BINARY', '%'.$city.'%')->first();
         //
         $pcolleges=College::distinct()->where('pid','=',$areaid)
 		                                 ->lists('coid');
-		
+		if(strstr($lcurl,"colfilter"))
+		{
+			  
+			$colleges=Zylb::distinct()->search($zymc)
+			->where('provinceid','=',$areaid)->distinct()
+			->paginate(10);
+			return \View::make('ajax_spec_show')->with('colleges',$colleges)
+	                                              ;
+		}
+		else{
 		if($lxfiler=="211")
 		{
 			if($klfilter=="本科")
@@ -535,7 +549,7 @@ return \View::make('ajaxproject')->with('ktests',$ktests)
 		                                             ->with('ktest1st',$ktest1st)
 		                                             ->with('zylbs',$zylbs);
 		
-	   
+		}
             
 		}
 		
@@ -547,9 +561,14 @@ public function ajaxcareer()
 		header('Access-Control-Allow-Origin: *');
 		 $loggeduser=\App::make('authenticator')->getLoggedUser();
 		 $student=Student::whereraw("user_id = $loggeduser->id")->first();  
-	 
+	  
 		 $area=Province::distinct()->lists('pname');     
         $cname=Input::get('Careername');
+			 $cid=Input::get('Cid');
+		$collect=Collect::where('careerid',$cid)->first();
+		
+	
+		 $str = preg_replace('/[^\d]/','',$cid);
 		  $lcurl=Input::get('Url');
 	    $major=Ctomajor::where('career_name_chinese','=',$cname)->lists('major_name_chinese');
 	 
@@ -565,6 +584,7 @@ public function ajaxcareer()
 		->with('user',$student)
 		->with('area',$area) 
 		  ->with('cname',$cname)
+		    ->with('collect',$collect)
 	 
 		                                        
 		                                             ->with('zylbs',$usezylbs);
@@ -610,13 +630,13 @@ if(strstr($lcurl,"ccolleges"))
 {
 	return \View::make('ajaxcollectschool') 
 			->with('user',$student) 
-	        ->with('collegename',$collegename->yxmc) 
+	        ->with('collegename',$collegename) 
 	        ->with('zylbs',$zylbs); 
 }
 else {
 	return \View::make('ajaxschool') 
 			->with('user',$student) 
-	        ->with('collegename',$collegename->yxmc) 
+	        ->with('collegename',$collegename) 
 	        ->with('zylbs',$zylbs); 
 }
 

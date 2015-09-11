@@ -9,8 +9,7 @@ class Zylb extends \Eloquent {
     }
 	protected $searchable = [
         'columns' => [
-            'zymingcheng' => 20,
-            'coid'       =>10,
+            'zymingcheng' => 20
         ],
     ];
 	

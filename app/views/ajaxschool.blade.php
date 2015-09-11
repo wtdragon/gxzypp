@@ -1,5 +1,9 @@
  <div class="col-md-12">
-		 <h3 class="text-left"> {{ $collegename }}</h3>
+  <h3 class="text-left"> {{ $collegename->yxmc }}</h3>
+		 
+	 		
+		
+ 
 	 </div> 
 <table class="table table-striped">
 <thead>

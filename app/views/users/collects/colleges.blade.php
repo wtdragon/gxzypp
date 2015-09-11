@@ -44,7 +44,12 @@
 	  <div id="cgschool">
 		  <div class="col-md-12">
 		  	
-		 <h3 class="text-left"> {{ $fcollge->yxmc }}</h3>
+		 <h3 class="text-left col-md-4"> {{ $fcollge->yxmc }}</h3>
+		  <div   class='col-md-4'>
+	   {{ Form::open(['method' => 'delete','action'=>['cdestroy',$fcollge->coid]]) }}
+<button type="submit" class="btn btn-danger btn-sm">取消收藏</button>
+{{ Form::close() }}
+		   </div> 
 	 </div> 
 <table class="table table-striped">
 <thead>

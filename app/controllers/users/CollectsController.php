@@ -34,7 +34,7 @@ class CollectsController extends \BaseController {
 		  $coid=Collect::where('userid','=',$loggeduser->id)
 		                     ->where('coid','!=',0)->lists('coid');
 		  $fcareer=Ctomajor::whereIn('career_id', $careerid)->first();
-	      $careers=Ctomajor::whereIn('career_id', $careerid)->paginate(20);
+	      $careers=Ctomajor::whereIn('career_id', $careerid)->distinct()->get();
           
 		  $fcollge=Zylb::whereIn('coid',$coid)->first();
 	      $colleges=Zylb::whereIn('coid',$coid)->paginate(20);
@@ -272,6 +272,25 @@ else{
 	public function destroy($id)
 	{
 		//
+				$collect = Collect::where('careerid',$id);
+$collect->delete();
+Notification::success('取消成功！');
+return Redirect::route('users.collects.index');
+	}
+	/**
+	 * Remove the specified resource from storage.
+	 * DELETE /users/career/{id}
+	 *
+	 * @param  int  $id
+	 * @return Response
+	 */
+public function cdestroy($id)
+	{
+		//
+				$collect = Collect::where('coid',$id);
+$collect->delete();
+Notification::success('取消成功！');
+return Redirect::to('users/ccolleges');
 	}
 
 }
