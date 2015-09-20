@@ -30,14 +30,7 @@ public function index()
 		  $kclass=new Kclasses("singapore");
           $kuserId=$student->kuser_id;
 		  
-		  //$usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
-		 // $collects=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);
-         
-		   //$usercareers=Kcresult::where('userid','=',$loggeduser->id)->get();
-		 //  $usercareers=Careermajors::distinct()->select('careername','id')->where('userid','=',$loggeduser->id)
-                                      // ->groupBy('careername')->get(); 
-		 //$collects=Ctomajor::distinct()->select('career_name_chinese,major_name_chinese,id')
-		 //->whereraw('career_name_chinese = "$usercareers->careername"')
+		 	 //->whereraw('career_name_chinese = "$usercareers->careername"')
 		 //->orderBy($usercareers->id)
 		 //->paginate(20);
 		  $collects=\DB::table(\DB::raw('ctomajors ,careermajors'))

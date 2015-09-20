@@ -7,6 +7,14 @@ $(".btn-group > .btn").click(function(){
        $("#zy3").toggleClass("notshow");
          $("#zy4").toggleClass("notshow");
 });
+var seen = {};
+$('a').each(function() {
+    var txt = $(this).text();
+    if (seen[txt])
+        $(this).remove();
+    else
+        seen[txt] = true;
+});
 $(document).ready(function(){
  
     function smk_jump_to_it( _selector, _speed ){

@@ -188,7 +188,7 @@ else{
 		$ktest1st=Ktest::whereraw("user_id = $loggeduser->id")->first();
 		$usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
        $taketf=Kcresult::where('userid','=',$loggeduser->id)->take(25)->lists('careername');
-		$careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);;
+		$careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);
                                                 
 		//var_dump($cama);
 		//$ca=array_unique($cama->careername);
