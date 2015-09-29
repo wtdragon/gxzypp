@@ -186,8 +186,8 @@ else{
 	   // $areaid=College::distinct()->select('provinceID')->whereIN('coid','=',$ktests->co_id->toArray())->get();
 	    $student=Student::whereraw("user_id = $loggeduser->id")->first();  
 		$ktest1st=Ktest::whereraw("user_id = $loggeduser->id")->first();
-		$usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
-       $taketf=Kcresult::where('userid','=',$loggeduser->id)->take(25)->lists('careername');
+		$usercareers=Careermajors::where('userid','=',$loggeduser->id)->lists('careername');
+       $taketf=Careermajors::where('userid','=',$loggeduser->id)->take(25)->lists('careername');
 		$careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);
                                                 
 		//var_dump($cama);
@@ -208,7 +208,7 @@ else{
 else{
 		
 		
-		$cname=Kcresult::where('userid','=',$loggeduser->id)->first();
+		$cname=Careermajors::where('userid','=',$loggeduser->id)->first();
 	    $major=Ctomajor::where('career_name_chinese','=',$cname->careername)->lists('major_name_chinese');
 	 
 		$realmajor=Kmajor::whereIn('chinese_name',$major)->lists('real_zymc');

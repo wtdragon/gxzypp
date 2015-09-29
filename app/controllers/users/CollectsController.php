@@ -97,7 +97,8 @@ public function colleges()
 		  $collegenames=Zylb::distinct()->select('yxmc', 'coid')->whereIn('coid',$coid)->get();
 		  
 		 
- 
+    if($ffcoid)
+	{
     $zylbs = \DB::table('zylb')
     ->join('kmajors', 'zylb.zymingcheng', '=', 'kmajors.real_zymc')
     ->join('ctomajors', 'kmajors.english_name', '=', 'ctomajors.major_name_english')
@@ -105,7 +106,8 @@ public function colleges()
     ->whereraw('english_name IS NOT NULL')
 	->groupBy('career_name_chinese')
       ->distinct()->paginate(10);
-		  
+      }  
+else $zylbs=0;
           $kurl=$kclass->getkLsiUrl($kuserId);
          if ($ktest->count())
 	       {

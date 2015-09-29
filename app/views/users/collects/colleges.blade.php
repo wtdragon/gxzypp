@@ -23,7 +23,7 @@
             </div>
          </p>
         
-              
+        @if (count($collegenames))          
               
        <div  class='list'>
         
@@ -78,7 +78,11 @@
             	 </div>
                  </div>
                  </div>
-
+   @else 
+                 <h3  class='text-left col-md-4'>
+		 您还没有院校收藏   
+		   </h3>
+		   @endif
               </div>
   
              

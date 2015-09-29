@@ -22,7 +22,7 @@
               <a href="{{ URL::to('users/ccolleges') }}" class="btn btn-large" type="button">院校收藏</a>
             </div>
          </p>
-         
+   @if (count($careers))      
    <div class='row top bottom  marginlr'>
         	<div id="six">
         		<ul>
@@ -32,7 +32,7 @@
          </ul>
          </div>
       
-         </div>  
+   </div>  
         <div class='row top bottom  marginlr'>
           <div id="careers">
           	<div class='col-md-12 top bottom  marginlr'>
@@ -79,10 +79,14 @@
            </div>           
                 
           </div>          
-              
+               @else 
+                 <h3  class='text-left col-md-4'>
+		 您还没有职业收藏   
+		   </h3>
+		   @endif
               </div>     
               
-              
+           
               
             
             

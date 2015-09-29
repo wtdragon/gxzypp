@@ -1,7 +1,7 @@
 <?php
 namespace App\Controllers\Backend;
  
-use Area,City,College,Mschool,Province,UserProfile,Zylb,Specialty,ProfileField,Ktest,Kresult,Kmajor,Kcareer,Teacher,Careermajors,Student;
+use Area,City,College,Mschool,Province,UserProfile,Zylb,Specialty,Ctomajor,ProfileField,Ktest,Kresult,Kmajor,Kcareer,Teacher,Careermajors,Student;
 use Input, Notification, Redirect, Sentry, Str;
 
 use App\Services\Validators\PageValidator;
@@ -249,6 +249,7 @@ class KtestsController extends \BaseController {
 			             }
 			           }
 			         }
+				    $affectedRows = Ktest::where('co_id', '=', '0')->delete();
 
  }
 
@@ -282,32 +283,29 @@ class KtestsController extends \BaseController {
 			   $kresults=Kresult::whereNotIn('id',$kcareer)->get();
 			   foreach($kresults as $kresult)
 			   {    
-			       $encareers=json_decode($kresult->careername);
+			       $encareers=json_decode($kresult->careerclusters);
 				   foreach($encareers as $encareer)
 				   {
-				   $careers=array_keys(get_object_vars($encareer));
+				   //$careers=array_keys(get_object_vars($encareer));
 				    //  var_dump($career);
 				   //$majors=$encareer->Majors;
+				   
+				 $careers=array_keys(get_object_vars($encareer->Careers));
+				 //var_dump(array_keys(get_object_vars($encareer->Careers)));
+		// $careers=$encareer->Career;
 				   foreach($careers as $career)
 				   {
-				    foreach($encareer as $majors)
-					{
-						$finalmajorss=$majors->Majors;
-						foreach($finalmajorss as $finalmajors )
-						{
-						    
-						   $careername=Kcareer::search($career)->first();
-						   $majorname=Kmajor::search($finalmajors)->first();
-						   
-						  $careermajor=new Careermajors;
-		                   $careermajor->careername=$careername->chinese_name;
-		                   $careermajor->majorname=$majorname->real_zymc;
+				   	         
+						   $careermajor=new Careermajors;
+						   $careername=Ctomajor::where('career_name_english','=',$career)->first();
+		                   $careermajor->careername=$careername->career_name_chinese;
+		                
 		                   $careermajor->userid=$kresult->user_id;
 		                   $careermajor->kresult_id=$kresult->id;
 						   $careermajor->save();
 						   
-						}
-					}
+						
+					 
 				   }
 				   }
 			   }
