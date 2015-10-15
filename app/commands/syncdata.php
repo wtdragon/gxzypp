@@ -144,43 +144,42 @@ class syncdata extends Command {
 							 }
                             
 							  $ktests->save();
-		                      $affectedRows = Ktest::where('zymc', '=', '')->delete();
+		                     
 			             }
 			           }
 			         }
+				    $affectedRows = Ktest::where('zymc', '=', '')->delete();
+					$affectedRows2 = Ktest::where('co_id', '=', '0')->delete();
 
  }
-		$kcareer=\DB::table('careermajors')->distinct()->lists('kresult_id');
+		  $kcareer=\DB::table('careermajors')->distinct()->lists('kresult_id');
 			   
 			   $kresults=Kresult::whereNotIn('id',$kcareer)->get();
 			   foreach($kresults as $kresult)
 			   {    
-			       $encareers=json_decode($kresult->careername);
+			       $encareers=json_decode($kresult->careerclusters);
 				   foreach($encareers as $encareer)
 				   {
-				   $careers=array_keys(get_object_vars($encareer));
+				   //$careers=array_keys(get_object_vars($encareer));
 				    //  var_dump($career);
 				   //$majors=$encareer->Majors;
+				   
+				 $careers=array_keys(get_object_vars($encareer->Careers));
+				 //var_dump(array_keys(get_object_vars($encareer->Careers)));
+		// $careers=$encareer->Career;
 				   foreach($careers as $career)
 				   {
-				    foreach($encareer as $majors)
-					{
-						$finalmajorss=$majors->Majors;
-						foreach($finalmajorss as $finalmajors )
-						{
-						    
-						   $careername=\Kcareer::search($career)->first();
-						   $majorname=\Kmajor::search($finalmajors)->first();
-						   
-						  $careermajor=new \Careermajors;
-		                   $careermajor->careername=$careername->chinese_name;
-		                   $careermajor->majorname=$majorname->real_zymc;
+				   	         
+						   $careermajor=new Careermajors;
+						   $careername=Ctomajor::where('career_name_english','=',$career)->first();
+		                   $careermajor->careername=$careername->career_name_chinese;
+		                
 		                   $careermajor->userid=$kresult->user_id;
 		                   $careermajor->kresult_id=$kresult->id;
 						   $careermajor->save();
 						   
-						}
-					}
+						
+					 
 				   }
 				   }
 			   }

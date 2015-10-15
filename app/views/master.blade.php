@@ -77,7 +77,6 @@
 		<div class="center">
 			<p> <strong>北京九子国际文化传播有限公司</strong></p>
 			<p class='center'>版权所有</p>
-			<p>友情链接 | 加入收藏 | 联系我们</p>
 			
 		</div>
 	</div>

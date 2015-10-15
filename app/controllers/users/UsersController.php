@@ -253,7 +253,7 @@ else{
 		//var_dump($cama);
 		//$ca=array_unique($cama->careername);
 	    $kclass=new Kclasses("singapore");
-		$area=Province::whereIn('pid',$areaid)->lists('pname');
+		$area= array('' => '选择所在地') + Province::whereIn('pid',$areaid)->lists('pname');
           $kuserId=$student->kuser_id;
           //$kurl = $bounceUrl . urlencode('?accountId='.$accountId.'&userId='.$kuserId.'&configId='.$configId);
 		 $kurl=$kclass->getkLsiUrl($kuserId);
@@ -539,8 +539,17 @@ else{
 
         $ktest1st=$ktests->first();
         $usercareers=Kcresult::where('userid','=',$loggeduser->id)->lists('careername');
-        $careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);;
-        $zylbs =Zylb::search($ktest1st->co_id)->distinct()->paginate(10);
+        $careername=Ctomajor::whereIn('career_name_chinese', $usercareers)->paginate(20);
+		
+		  $zylbs = \DB::table('zylb')
+    ->join('kmajors', 'zylb.zymingcheng', '=', 'kmajors.real_zymc')
+    ->join('ctomajors', 'kmajors.english_name', '=', 'ctomajors.major_name_english')
+    ->where('zylb.coid', '=', $ktest1st->co_id)
+    ->whereraw('english_name IS NOT NULL')
+	->groupBy('career_name_chinese')
+      ->distinct()->paginate(10);
+		
+
 
 
 
